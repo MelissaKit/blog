@@ -17,7 +17,7 @@ class Main_Model extends Model
 
     public static function addNewReview($row)
     {
-        $fieldsArray = array('name', 'country', 'text', 'publicationDate', 'posterPath');
+        $fieldsArray = array('name', 'text', 'publicationDate', 'posterPath');
         Core::GetDB()->addRecordFromForm('Posts', $row, $fieldsArray);
     }
 
@@ -28,7 +28,7 @@ class Main_Model extends Model
 
     public static function editReview($reviewId, $row)
     {
-        Core::GetDB()->update('Posts', array('Id' => $reviewId),  $row , array('name',  'country', 'text', 'posterPath'));
+        Core::GetDB()->update('Posts', array('Id' => $reviewId),  $row , array('name',  'text', 'posterPath'));
     }
 
     public static  function getReviewById($reviewId)
@@ -38,12 +38,10 @@ class Main_Model extends Model
 
     public static function FindElem($param)
     {
-        $reviewsFields = array('Name','Country','Text');
+        $reviewsFields = array('Name','Text');
         $newsFields = array('Title','Content');
-        $galleryFields = array('Name');
         $result['reviews'] = Core::GetDB()->getRowsLike('Posts', $param, $reviewsFields);
         $result['news'] = Core::GetDB()->getRowsLike('FilmNews', $param, $newsFields);
-        $result['gallery'] = Core::GetDB()->getRowsLike('Alboms', $param, $galleryFields);
         return $result;
     }
 }

@@ -10,7 +10,7 @@ class Users_Controller extends Controller
     function ProfileAction()
     {
         $user = Users_Model::getUserByLogin($_SESSION['login'])[0];
-        return $this->view->generate('Профіль', 'templates/modules/users/profile.tpl', $user);
+        return $this->view->generate('Профіль', 'templates/modules/users/profile.phtml', $user);
     }
 
 
@@ -21,7 +21,7 @@ class Users_Controller extends Controller
         }
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
-                return $this->view->generate('Реєстрація', 'templates/modules/users/registration.tpl');
+                return $this->view->generate('Реєстрація', 'templates/modules/users/registration.phtml');
                 break;
             case 'POST':
                 if (Users_Model::checkLogin($_POST['login']) && Users_Model::checkMail($_POST['mail'])) {
@@ -38,13 +38,13 @@ class Users_Controller extends Controller
                             $_SESSION['mailConfirmation'] = false;
                             header('Location: /Users/Profile/');
                         } else {
-                            return $this->view->generate('Реєстрація', 'templates/modules/users/registration.tpl', array('Error' => 'Пароль замаленький (<6)'));
+                            return $this->view->generate('Реєстрація', 'templates/modules/users/registration.phtml', array('Error' => 'Пароль замаленький (<6)'));
                         }
                     } else {
-                        return $this->view->generate('Реєстрація', 'templates/modules/users/registration.tpl', array('Error' => 'Введено недостатньо даних'));
+                        return $this->view->generate('Реєстрація', 'templates/modules/users/registration.phtml', array('Error' => 'Введено недостатньо даних'));
                     }
                 } else {
-                    return $this->view->generate('Реєстрація', 'templates/modules/users/registration.tpl', array('Error' => 'Користувач з таким логіном або поштою уже існує'));
+                    return $this->view->generate('Реєстрація', 'templates/modules/users/registration.phtml', array('Error' => 'Користувач з таким логіном або поштою уже існує'));
                 }
                 break;
         }
@@ -57,7 +57,7 @@ class Users_Controller extends Controller
         }
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
-                return $this->view->generate('Вхід', 'templates/modules/users/login.tpl');
+                return $this->view->generate('Вхід', 'templates/modules/users/login.phtml');
                 break;
             case 'POST':
                 if (!empty(($_POST['login'])) && !empty(($_POST['password']))) {
@@ -67,12 +67,12 @@ class Users_Controller extends Controller
                         $_SESSION['authorized'] = true;
                         $_SESSION['login'] = 'admin';
                         $_SESSION['mailConfirmation'] = (bool)$user['Status'];
-                        return $this->view->generate('Профіль', 'templates/modules/users/profile.tpl', $user);
+                        return $this->view->generate('Профіль', 'templates/modules/users/profile.phtml', $user);
                     } else {
-                        return $this->view->generate('Вхід', 'templates/modules/users/login.tpl', array('Error' => 'Невірно введений логін або пароль'));
+                        return $this->view->generate('Вхід', 'templates/modules/users/login.phtml', array('Error' => 'Невірно введений логін або пароль'));
                     }
                 } else {
-                    return $this->view->generate('Вхід', 'templates/modules/users/login.tpl', array('Error' => 'Недостатньо данних'));
+                    return $this->view->generate('Вхід', 'templates/modules/users/login.phtml', array('Error' => 'Недостатньо данних'));
                 }
                 break;
         }
@@ -102,7 +102,7 @@ class Users_Controller extends Controller
         $user = Users_Model::getUserByLogin($_SESSION['login'])[0];
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
-                return $this->view->generate('Профіль', 'templates/modules/users/edit.tpl', $user);
+                return $this->view->generate('Профіль', 'templates/modules/users/edit.phtml', $user);
                 break;
             case 'POST':
                 if (!empty($_POST['login']) && !empty($_POST['mail'])) {
@@ -136,11 +136,11 @@ class Users_Controller extends Controller
                         header('Location: /Users/Profile/');
                     } else {
                         $user['Error'] = 'Користувач з таки логіном або поштою уже існує';
-                        return $this->view->generate('Профіль', 'templates/modules/users/edit.tpl', $user);
+                        return $this->view->generate('Профіль', 'templates/modules/users/edit.phtml', $user);
                     }
                 } else {
                     $user['Error'] = 'Недостатньо данних';
-                    return $this->view->generate('Профіль', 'templates/modules/users/edit.tpl', $user);
+                    return $this->view->generate('Профіль', 'templates/modules/users/edit.phtml', $user);
                 }
                 break;
         }
@@ -155,11 +155,11 @@ class Users_Controller extends Controller
                 header('Location: /Users/Profile/');
             } else {
                 $user['Error'] = 'Новий пароль замаленький';
-                return $this->view->generate('Профіль', 'templates/modules/users/edit.tpl', $user);
+                return $this->view->generate('Профіль', 'templates/modules/users/edit.phtml', $user);
             }
         } else {
             $user['Error'] = 'Некоректно введені дані';
-            return $this->view->generate('Профіль', 'templates/modules/users/edit.tpl', $user);
+            return $this->view->generate('Профіль', 'templates/modules/users/edit.phtml', $user);
         }
     }
 
@@ -177,7 +177,7 @@ class Users_Controller extends Controller
     {
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
-                return $this->view->generate('Зміна паролю', 'templates/modules/users/recoverPass.tpl');
+                return $this->view->generate('Зміна паролю', 'templates/modules/users/recoverPass.phtml');
                 break;
             case 'POST':
                 if (!empty(($_POST['mail']))) {
@@ -188,14 +188,14 @@ class Users_Controller extends Controller
                         Users_Model::sendMail($_POST['mail'],
                             'Ви подали заявку на змыну пароля на сайті BEST FILM EVER',
                             "Для пыдтвердження перейдіть за посиланням: http://{$_SERVER['HTTP_HOST']}/users/ActivateNewPass/{$newToken }.");
-                        return $this->view->generate('Успіх', 'templates/other/message.tpl', array('Error' => 'Лист надісланоі тд'));
+                        return $this->view->generate('Успіх', 'templates/other/message.phtml', array('Error' => 'Лист надісланоі тд'));
 
                     } else {
-                        return $this->view->generate('Зміна паролю', 'templates/modules/users/recoverPass.tpl', array('Error' => 'Невірний e-mail'));
+                        return $this->view->generate('Зміна паролю', 'templates/modules/users/recoverPass.phtml', array('Error' => 'Невірний e-mail'));
                     }
 
                 } else {
-                    return $this->view->generate('Зміна паролю', 'templates/modules/users/recoverPass.tpl', array('Error' => 'Недостатньо данних'));
+                    return $this->view->generate('Зміна паролю', 'templates/modules/users/recoverPass.phtml', array('Error' => 'Недостатньо данних'));
                 }
                 break;
         }
@@ -209,7 +209,7 @@ class Users_Controller extends Controller
                 $userId = Users_Model::getUserIdByToken($token);
                 if ($userId) {
                     $_SESSION['login'] = Users_Model::getUserById($userId)[0]['Login'];
-                    return $this->view->generate('Зміна паролю', 'templates/modules/users/newPass.tpl');
+                    return $this->view->generate('Зміна паролю', 'templates/modules/users/newPass.phtml');
                 } else return Core::Error404();
                 break;
             case 'POST':
@@ -220,10 +220,10 @@ class Users_Controller extends Controller
                         $_SESSION['mailConfirmation'] = (bool)Users_Model::getUserByLogin($_SESSION['login'])[0]['Status'];
                         header('Location: /Users/Profile/');
                     } else {
-                        return $this->view->generate('Зміна паролю', 'templates/modules/users/newPass.tpl', array('Error' => 'Пароль замаленький'));
+                        return $this->view->generate('Зміна паролю', 'templates/modules/users/newPass.phtml', array('Error' => 'Пароль замаленький'));
                     }
                 } else {
-                    return $this->view->generate('Зміна паролю', 'templates/modules/users/newPass.tpl', array('Error' => 'Паролі не співпадають'));
+                    return $this->view->generate('Зміна паролю', 'templates/modules/users/newPass.phtml', array('Error' => 'Паролі не співпадають'));
                 }
                 break;
         }

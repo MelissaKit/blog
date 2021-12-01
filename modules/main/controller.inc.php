@@ -14,7 +14,7 @@ class Main_Controller extends Controller
         $reviews['Content'] = Main_Model::getReviewsPage($limit, $limit * $page);
         $reviews['PagesCount'] = $pagesCnt;
         $reviews['CurrentPage'] = $page;
-        return $this->view->generate('Головна сторінка', 'templates/modules/main/content.tpl', $reviews);
+        return $this->view->generate('Головна сторінка', 'templates/modules/main/content.phtml', $reviews);
     }
 
     public function ShowAction()
@@ -23,7 +23,7 @@ class Main_Controller extends Controller
             $review = Main_Model::getReviewById($_GET['Id']);
             if ($review != null) {
                 $review = $review[0];
-                return $this->view->generate($review['Name'], 'templates/modules/main/review.tpl', $review);
+                return $this->view->generate($review['Name'], 'templates/modules/main/review.phtml', $review);
             }
         }
         return Core::Error404();
@@ -33,7 +33,7 @@ class Main_Controller extends Controller
     {
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
-                return $this->view->generate('Огляд', 'templates/modules/main/addReviewItem.tpl');
+                return $this->view->generate('Огляд', 'templates/modules/main/addReviewItem.phtml');
                 break;
             case 'POST':
                 if ($_FILES && $_FILES['poster']['error'] == UPLOAD_ERR_OK) {
@@ -57,7 +57,7 @@ class Main_Controller extends Controller
         $review = $review[0];
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
-                return $this->view->generate('Огляд', 'templates/modules/main/editReviewItem.tpl', $review);
+                return $this->view->generate('Огляд', 'templates/modules/main/editReviewItem.phtml', $review);
                 break;
             case 'POST':
                 if ($_FILES && $_FILES['poster']['error'] == UPLOAD_ERR_OK) {
@@ -99,7 +99,7 @@ class Main_Controller extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['searchParam'] != '') {
             $result = Main_Model::FindElem($_POST['searchParam']);
-            return $this->view->generate('Пошук', 'templates/modules/main/searchRes.tpl', $result);
+            return $this->view->generate('Пошук', 'templates/modules/main/searchRes.phtml', $result);
         } else {
             Core::Error404();
         }

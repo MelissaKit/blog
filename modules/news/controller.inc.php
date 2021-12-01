@@ -14,14 +14,14 @@ class News_Controller extends Controller
         $news['Content'] = News_Model::getNewsPage($limit, $limit * $page);
         $news['PagesCount'] = $pagesCnt;
         $news['CurrentPage'] = $page;
-        return $this->view->generate('Новини', 'templates/modules/news/newsList.tpl', $news);
+        return $this->view->generate('Новини', 'templates/modules/news/newsList.phtml', $news);
     }
 
     public function AddAction()
     {
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
-                return $this->view->generate('Новини', 'templates/modules/news/addNewsItem.tpl');
+                return $this->view->generate('Новини', 'templates/modules/news/addNewsItem.phtml');
                 break;
             case 'POST':
                 if ($_FILES && $_FILES['poster']['error'] == UPLOAD_ERR_OK) {
@@ -45,7 +45,7 @@ class News_Controller extends Controller
         $newsItem = $newsItem[0];
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
-                return $this->view->generate('Новини', 'templates/modules/news/editNewItem.tpl', $newsItem);
+                return $this->view->generate('Новини', 'templates/modules/news/editNewItem.phtml', $newsItem);
                 break;
             case 'POST':
                 if ($_FILES && $_FILES['poster']['error'] == UPLOAD_ERR_OK) {

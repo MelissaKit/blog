@@ -13,7 +13,7 @@ class Core
     public static function Init()
     {
         session_start();
-        self::$IndexTpl = new Template('templates/index.tpl');
+        self::$IndexTpl = new Template('templates/index.phtml');
         self::$IndexTpl->setParam('Title', 'Головна сторінка');
         self::$IndexTpl->setParam('Content', '');
         self::$DB = new DB(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_DBNAME);
@@ -68,14 +68,14 @@ class Core
 
     public static function Error404()
     {
-        $contentTpl = new Template('templates/other/404.tpl');
+        $contentTpl = new Template('templates/other/404.phtml');
         return array('Title'=> '404',
             'Content'=>$contentTpl->fetch());
     }
 
     public static function Warning($var)
     {
-        $contentTpl = new Template('templates/other/warning.tpl');
+        $contentTpl = new Template('templates/other/warning.phtml');
         switch ($var) {
             case 'Authorize':
                 $contentTpl->setParam('Params', array('Message' => 'Будь - ласка авторизуйтесь, або здійчніть реєстрацію якщо ще не маєте власного аккаунту'));
