@@ -1,0 +1,43 @@
+<div class="container prof-block">
+    <div class="jumbotron review-container">
+        <div class="row">
+            <div class="col-md-4 col-xs-12 col-sm-6 col-lg-4">
+                <div class="prof-img-container">
+                    <img
+                    <?php if($Params['PosterPath']=='')
+                        echo "src='/files/standarts/reviewPoster.jpg'";
+                    else
+                        echo "src='".$Params['PosterPath']."'";?>
+                    alt="photo" class="img">
+                </div>
+                <div>
+                    <?php
+                    if(isset($Params['PublicationDate']) && $Params['PublicationDate']!='0000-00-00' )
+                    echo"
+                    <p><span class='fa fa-calendar-plus-o'></span>".$Params['PublicationDate']."</p>
+                    ";?>
+                </div>
+            </div>
+            <div class="col-md-8 col-xs-12 col-sm-6 col-lg-8">
+                <form class="form" method="post" action="/Main/Edit/?Id=<?php echo $Params['Id'];?>" enctype="multipart/form-data">
+                    <?php echo "<p><span class='fa fa-film  fa-review'> Назва</span><input type='text' name='name' id='name' pattern='.{0,50}'  title='2-50 символів'
+                                                                               class='form-control' value='".$Params['Name']."'/></p>
+                    <p><span class='fa fa-globe fa-review'> Країна</span><input type='text' name='country' id='country' pattern='.{0,50}'  title='2-40 символів'
+                                                                                class='form-control' value='".$Params['Country']."'/></p>
+                    <p><span class='fa fa fa-sticky-note-o fa-review'> Текст</span><textarea name='text' id='text'
+                                                                                             class='form-control textarea-item' value=''>".$Params['Text']."</textarea>
+                    </p>";?>
+                    <p><span class='fa fa fa-file fa-review'> Постер</span>
+                        <input type='file' name='poster' id='imageUpload' class='hide img-input form-control-file'/>
+                        <label for='imageUpload' class='btn btn-large custom-file-label '>Змінити</label>
+                        <img src='' id='imagePreview' class='hid-img' alt='Preview Image'/>
+                        <input type='button' name='canAvatar' id='canAvatar' class='hide'/>
+                        <label for='canAvatar' class='btn btn-large custom-file-label hid-img btn-auto' id='canAvatarLabel'>Скинути</label>
+                        <label for='info' class='btn custom-file-label'>Видалити постер<input type='checkbox' id='info'  name='deleteAva' class='badgebox'><span class='badge'>&check;</span></label>
+                    </p>
+                    <div><input type='submit' value="Редагувати" class="btn btn-block but-create but-reg"/></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
