@@ -4,7 +4,7 @@ class Users_Controller extends Controller
 {
     public function IndexAction()
     {
-        header('Location: /Main/Index/');
+        header('Location: /Posts/Index/');
     }
 
     function ProfileAction()
@@ -17,7 +17,7 @@ class Users_Controller extends Controller
     public function RegisterAction()
     {
         if (isset($_SESSION['authorized']) && $_SESSION['authorized']) {
-            header('Location: /Main/Index/');
+            header('Location: /Posts/Index/');
         }
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
@@ -53,7 +53,7 @@ class Users_Controller extends Controller
     public function LoginAction()
     {
         if (isset($_SESSION['authorized']) && $_SESSION['authorized'] == false) {
-            header('Location: /Main/Index/');
+            header('Location: /Posts/Index/');
         }
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
