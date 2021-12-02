@@ -1,0 +1,19 @@
+<div class="content-row followings-block">
+    <?php foreach ($Params['Subscriptions'] as $subsItem) : ?>
+        <div class="following-item">
+            <div class="following-image">
+                <a href='/Posts/User/<?= $subsItem['login'] ?>'><img width="100" height="100" src='<?= $subsItem['avatarPath'] ?>' /></a>
+            </div>
+            <div class="following-name">
+                <div class="following-name-short">
+                    <?= $subsItem['login'] ?>
+                </div>
+                <div class="following-name-full">
+                    <span><?= $subsItem['firstName'] ?></span>
+                    <span><?= $subsItem['secondName'] ?></span>
+                </div>
+                <a href='/Subscriptions/Delete/?Id=<?= $subsItem['Id'] ?>'>Unfollow</a>
+            </div>
+        </div>
+    <?php endforeach ?>
+</div>

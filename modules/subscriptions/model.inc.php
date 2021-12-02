@@ -3,7 +3,13 @@ class Subscriptions_Model extends Model
 {
     public static function getSubscriptionsPage($limit, $offset, $currentUserId)
     {
+        $result = Core::GetDB()->getRowsWhere('Follow', array('userId' => $currentUserId), $limit, $offset);
+        return $result;
+    }
 
+    public static function getSubscriptionsCount($userId)
+    {
+        return Core::GetDB()->getRowsCount('Follow', array('userId' => $userId));
     }
 
     public static function getSubscriptionById($subId){
@@ -17,5 +23,6 @@ class Subscriptions_Model extends Model
 
     public static function deleteSubscription($subId)
     {
+        Core::GetDB()->delete('Follow', array('Id'=>$subId));
     }
 }

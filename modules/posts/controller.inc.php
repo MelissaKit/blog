@@ -100,20 +100,19 @@ class Posts_Controller extends Controller
     public function UserAction($param)
     {
         $currentUser =  Users_Model::getUserByLogin($_SESSION['login'])[0];
-        $currentUserId = $currentUser['Id'];
-        $getUser = $currentUserId;
+        $getUser = $currentUser;
 
         if ($param && $param[0]) {
             $checkUser = Users_Model::getUserByLogin($param[0]);
 
             if ($checkUser) {
-                $getUser = $checkUser[0]['Id'];
+                $getUser = $checkUser[0];
             } else {
                 return Core::Error404();
             }
         }
 
-        $postsCnt = Posts_Model::getReviewsCount($getUser);
+        $postsCnt = Posts_Model::getReviewsCount($getUser['Id']);
         $limit = 4;
         $pagesCnt = (int)ceil($postsCnt / $limit);
         if (isset($_GET['page']) && ((int)$_GET['page']) <= $pagesCnt)
@@ -121,10 +120,11 @@ class Posts_Controller extends Controller
         else
             $page = 0;
 
-        $posts['Content'] = Posts_Model::getReviewsPage($limit, $limit * $page, $currentUserId, $getUser);
+        $posts['Content'] = Posts_Model::getReviewsPage($limit, $limit * $page, $currentUser['Id'], $getUser['Id']);
         $posts['PagesCount'] = $pagesCnt;
         $posts['CurrentPage'] = $page;
-        return $this->view->generate('Головна сторінка', 'templates/modules/posts/userPosts.phtml', $posts);
+
+        return $this->view->generate($getUser['Login'], 'templates/modules/posts/userPosts.phtml', $posts);
     }
 
     public function SearchAction()

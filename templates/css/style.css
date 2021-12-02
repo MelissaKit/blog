@@ -849,5 +849,20 @@ div>p.very-big{
     font-size: 7vw;
 }
 
+/* follow */
+
+.following-item {
+    display: flex;
+    margin: 0 0 15px;
+}
+
+.following-item .following-image {
+    padding-right: 25px;
+}
+
+.following-item .following-name-short {
+    font-size: 22px;
+}
+
 
 

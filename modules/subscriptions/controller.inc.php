@@ -4,22 +4,28 @@ class Subscriptions_Controller extends Controller
 {
     public function IndexAction()
     {
-        $reviewsCnt = Posts_Model::getReviewsCount();
-        $limit = 4;
-        $pagesCnt = (int)ceil($reviewsCnt / $limit);
+        $userId = Users_Model::getUserByLogin($_SESSION['login'])[0]['Id'];
+        $subscCnt = Subscriptions_Model::getSubscriptionsCount($userId);
+        $limit = 24;
+        $pagesCnt = (int)ceil($subscCnt / $limit);
         if (isset($_GET['page']) && ((int)$_GET['page']) <= $pagesCnt)
             $page = $_GET['page'] - 1;
         else
             $page = 0;
-        $userId = Users_Model::getUserByLogin($_SESSION['login'])[0]['Id'];
-        $reviews['Content'] = Posts_Model::getReviewsPage($limit, $limit * $page, $userId);
-        $reviews['PagesCount'] = $pagesCnt;
-        $reviews['CurrentPage'] = $page;
-        return $this->view->generate('Головна сторінка', 'templates/modules/posts/postsMain.phtml', $reviews);
+
+        $followsData = Subscriptions_Model::getSubscriptionsPage($limit, $limit * $page, $userId);
+        foreach ($followsData as $key => $item) {
+            $follows['Subscriptions'][$key] = Users_Model::getUserInfoById($item['followId'])[0];
+            $follows['Subscriptions'][$key]['Id'] = $item['Id'];
+        }
+        $follows['PagesCount'] = $pagesCnt;
+        $follows['CurrentPage'] = $page;
+
+        return $this->view->generate('Підписки', 'templates/modules/subscriptions/followList.phtml', $follows);
     }
 
 
-    public function AddAction()
+    public function AddAction() //to do
     {
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
@@ -38,18 +44,14 @@ class Subscriptions_Controller extends Controller
 
     public function DeleteAction()
     {
-        if (isset($_GET['user'])) {
-            $user = Users_Model::getUserByLogin($_GET['user']);
-            if (!$user) {
+        if (isset($_GET['Id'])) {
+            $subsc = Subscriptions_Model::getSubscriptionById($_GET['Id']);
+            $userId = Users_Model::getUserByLogin($_SESSION['login'])[0]['Id'];
+            if (!$subsc || $subsc[0]['userId'] != $userId)
                 return Core::Error404();
-            }
-            $subsc = Subscriptions_Model::getSubscriptionById($user[0]['Id']);
-            if (!$subsc)
-                return Core::Error404();
-            Subscriptions_Model::deleteSubscription($subsc);
+            Subscriptions_Model::deleteSubscription($_GET['Id']);
             header('Location: /Subscriptions/Index/');
-        }
+        } 
         else return Core::Error404();
     }
 }
-?>

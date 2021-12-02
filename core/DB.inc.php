@@ -89,17 +89,17 @@ class DB
         return $state->fetch()[$row];
     }
 
-    public function getRowsWhere($table, $conditions='', $limit=0, $offset=0)
+    public function getRowsWhere($table, $conditions='', $limit=0, $offset=0, $rows='*')
     {
         $limitStr='LIMIT '.$limit.' OFFSET '.$offset.'';
         if($limit===0)
             $limitStr="";
         if($conditions!='') {
             $conditionsStr = $this->getSQLWhere($conditions);
-            $sql = "SELECT * FROM {$this->dbName}.{$table} WHERE {$conditionsStr} ORDER BY Id DESC {$limitStr}";
+            $sql = "SELECT {$rows} FROM {$this->dbName}.{$table} WHERE {$conditionsStr} ORDER BY Id DESC {$limitStr}";
         }
         else{
-            $sql = "SELECT * FROM {$this->dbName}.{$table}  ORDER BY Id DESC  {$limitStr}";
+            $sql = "SELECT {$rows} FROM {$this->dbName}.{$table}  ORDER BY Id DESC  {$limitStr}";
         }
         $state = $this->pdo->query($sql);
         return $state->fetchAll(PDO::FETCH_ASSOC);

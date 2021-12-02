@@ -32,6 +32,10 @@ class Users_Model extends Model
         return Core::GetDB()->getRowsWhere('User',  array('login' => $login));
     }
 
+    public static function getUserInfoById ($id) {
+        return Core::GetDB()->getRowsWhere('User',  array('Id' => $id), 0, 0, 'login, firstName, secondName, avatarPath');
+    }
+
     public static function getUserById($id)
     {
         return Core::GetDB()->getRowsWhere('User',  array('Id' => $id));
