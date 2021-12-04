@@ -31,6 +31,12 @@ class Posts_Controller extends Controller
             $post = Posts_Model::getReviewById($_GET['Id']);
             if ($post != null) {
                 $post = $post[0];
+                $post['Comments'] = Comments_Model::getPostComments(10, 0, $post['Id']);
+                usort($post['Comments'], function ($item1, $item2) {
+                    return strtotime($item2['commentDate']) - strtotime($item1['commentDate']);
+                });
+
+                var_dump($post['Comments']);
                 return $this->view->generate($post['Name'], 'templates/modules/posts/postItem.phtml', $post);
             }
         }
