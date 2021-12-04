@@ -1,11 +1,7 @@
 <?php
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
+//Load Composer's autoloader
 require 'config/database.inc.php';
-require 'vendor/phpmailer/phpmailer/src/Exception.php';
-require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require 'vendor/autoload.php';
 
 error_reporting(E_ALL);
 
