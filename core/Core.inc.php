@@ -16,10 +16,6 @@ class Core
         self::$IndexTpl = new Template('templates/index.phtml');
         self::$IndexTpl->setParam('Title', 'Головна сторінка');
         self::$IndexTpl->setParam('Content', '');
-        error_log(1);
-        error_log(DATABASE_DBNAME);
-        error_log(2);
-        error_log(MAILING_EMAIL);
         self::$DB = new DB(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_DBNAME);
     }
 
