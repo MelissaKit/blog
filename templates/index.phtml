@@ -24,7 +24,7 @@
                         <span class="hamburger last-burger"></span>
                         <ul class="nav navbar-nav menu-nav">
                             <li><a href="/Posts/Index">Головна</a></li>
-                            <li><a href="/Posts/User">Мої пости</a></li>
+                            <li><a href="/Posts/User/<?php echo ($_SESSION['login']); ?>">Мої пости</a></li>
                             <li><a href="/Subscriptions/Index">Підписки</a></li>
                             <li><a href="/News/Index">Новини</a></li>
                         </ul>
@@ -94,9 +94,9 @@
         </section>
     </footer>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="/templates/js/photo-zoom.js"></script>
     <script src="/templates/js/file-input-uplode.js"></script>
     <script src="/templates/js/searchSelect.js"></script>
+    <script src="/templates/js/subscription/follow.js"></script>
 </body>
 
 </html>

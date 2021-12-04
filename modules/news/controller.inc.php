@@ -72,14 +72,14 @@ class News_Controller extends Controller
     {
         if (!isset($_GET['Id']))
             Core::Error404();
-        $review = News_Model::getNewsItemById($_GET['Id']);
-        if ($review == null)
+        $post = News_Model::getNewsItemById($_GET['Id']);
+        if ($post == null)
             return Core::Error404();
 
-        $review = $review[0];
+        $post = $post[0];
         News_Model::deleteNewsItem($_GET['Id']);
-        if ($review['PosterPath'] != '')
-            unlink(substr($review['PosterPath'], 1));
+        if ($post['PosterPath'] != '')
+            unlink(substr($post['PosterPath'], 1));
         header('Location: /News/Index/');
     }
 }

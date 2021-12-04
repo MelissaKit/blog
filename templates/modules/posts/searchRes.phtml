@@ -1,21 +1,21 @@
 <select id="search">
-    <option value="reviews" selected>Огляди</option>
+    <option value="posts" selected>Пости</option>
     <option value="news">Новини</option>
 </select>
 
 
 <div id="search-result">
-<div id="reviews">
-<div class="row content-row review-block">
+<div id="posts">
+<div class="row content-row post-block">
     <?php
-    foreach($Params['reviews'] as $key)
+    foreach($Params['posts'] as $key)
     {
     $path = $key['PosterPath'];
     if($path=='')
         $path = '/files/standarts/reviewPoster.jpg';
     echo "<div class='col-sm-3'>";
     echo"<div class='img-container'><img class='film-poster' src='".$path."'></div>
-    <div class='text-container'><a class='film-link' href='/Posts/Show/?Id=".$key['Id']."'>".$key['Name']."</a></div>
+    <div class='text-container'><a class='poster-link' href='/Posts/Show/?Id=".$key['Id']."'>".$key['Name']."</a></div>
 </div>";
 }
 echo "</div></div>
@@ -28,7 +28,7 @@ echo "</div></div>
         $path = '/files/standarts/newsPoster.png';
     echo "<div class='col-sm-6'>
     <div class='img-container news-image'><img class='film-poster' src='".$path."'></div>
-    <div class='news-container text-container'><a class='film-link news-title'>".$key['Title']."</a>
+    <div class='news-container text-container'><a class='poster-link news-title'>".$key['Title']."</a>
         <div class='news-content'><span>".$key['Content']."</span></div></div>
 </div>";
 }

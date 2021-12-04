@@ -383,8 +383,7 @@ span.hamburger, input.hamburger-input{
     margin: 0 auto;
     color: #222;
     width: 75%;
-    padding-top: 10px;
-    text-align: center;
+    padding: 0 0 0 20px;
     overflow: hidden;
 }
 
@@ -425,12 +424,12 @@ span.hamburger, input.hamburger-input{
     height: 100%;
 }
 
-.film-link {
+.poster-link {
     color: #222;
     font-size: 20px;
 }
 
-.film-link:hover {
+.poster-link:hover {
     color: white;
     font-size: 20px;
     text-decoration: none;
@@ -441,7 +440,6 @@ span.hamburger, input.hamburger-input{
     height: 280px;
     display: flex;
     justify-content: center;
-    background-color: #222222;
     padding: 15px;
     margin-top: 15px;
 }
@@ -559,36 +557,36 @@ div.centered-form {
     left: 0;
 }
 
-.review-block{
+.posts-block {
     position: relative;
     margin: 0%;
 }
-.review-container{
+.post-container{
     background-color: #222222;
     color: white;
 }
 
-.review-container hr{
+.post-container hr{
     border-top: #222222;
 }
-.review-container .prof-container{
+.post-container .prof-container{
     border-bottom: 1px solid white;
 }
 .fa-review{
     margin-right: 15px;
 }
 
-.review-container .review-text p{
+.post-container .post-text p{
     text-align: justify;
     text-indent: 25px;
 }
 
-.review-container p{
+.post-container p{
     font-size: 20px;
     font-weight: inherit;
 }
 
-.review-adding{
+.post-adding{
     width: 90%;
     margin: 0 5%;
 }
@@ -603,7 +601,7 @@ div.centered-form {
     margin: 0 auto;
 }
 
-.container .btn-add-review{
+.container .btn-add-post{
     font-size: 20px;
     margin: 10px 0 0 -15px;
 }
@@ -864,5 +862,33 @@ div>p.very-big{
     font-size: 22px;
 }
 
+/* user */
+@media screen and (min-width: 768px) {
+    .container .user-row.sticky {
+        width: 20%;
+        position: sticky;
+        top: 0;
+        margin-right: 5%;
+    }
 
+    .container .posts-block {
+        width: 75%;
+    }
+  }
+
+.user-row.sticky {
+    position: static;
+}
+
+.posts-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.pagination-div,
+.posts-block,
+.user-row.sticky {
+    width: 100%;
+}
 

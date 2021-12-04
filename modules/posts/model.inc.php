@@ -31,27 +31,27 @@ class Posts_Model extends Model
         Core::GetDB()->addRecordFromForm('Posts', $row, $fieldsArray);
     }
 
-    public static function deleteReview($reviewId)
+    public static function deleteReview($postId)
     {
-        Core::GetDB()->delete('Posts', array('Id' => $reviewId));
+        Core::GetDB()->delete('Posts', array('Id' => $postId));
     }
 
-    public static function editReview($reviewId, $row)
+    public static function editReview($postId, $row)
     {
-        Core::GetDB()->update('Posts', array('Id' => $reviewId),  $row, array('name',  'text', 'posterPath'));
+        Core::GetDB()->update('Posts', array('Id' => $postId),  $row, array('name',  'text', 'posterPath'));
     }
 
-    public static  function getReviewById($reviewId)
+    public static  function getReviewById($postId)
     {
-        return Core::GetDB()->getRowsWhere('Posts', array('Id' => $reviewId));
+        return Core::GetDB()->getRowsWhere('Posts', array('Id' => $postId));
     }
 
     public static function FindElem($param)
     {
-        $reviewsFields = array('Name', 'Text');
+        $postFields = array('Name', 'Text');
         $newsFields = array('Title', 'Content');
-        $result['reviews'] = Core::GetDB()->getRowsLike('Posts', $param, $reviewsFields);
-        $result['news'] = Core::GetDB()->getRowsLike('FilmNews', $param, $newsFields);
+        $result['posts'] = Core::GetDB()->getRowsLike('Posts', $param, $postFields);
+        $result['news'] = Core::GetDB()->getRowsLike('News', $param, $newsFields);
         return $result;
     }
 }

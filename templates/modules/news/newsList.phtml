@@ -1,5 +1,5 @@
 <?php if($_SESSION['login']=='admin')
-echo"<a class='btn btn-raised btn-danger btn-prof-set btn-add-review' href='/News/Add/'>
+echo"<a class='btn btn-raised btn-danger btn-prof-set btn-add-post' href='/News/Add/'>
     <span class='glyphicon glyphicon-plus' aria-hidden='true'>Додати</span>
 </a>"; ?>
 <div class="row content-row">
@@ -22,7 +22,7 @@ echo"<a class='btn btn-raised btn-danger btn-prof-set btn-add-review' href='/New
     </div>";
     echo "
     <div class='img-container news-image'><img class='film-poster' src='".$path."'></div>
-    <div class='news-container text-container'><a class='film-link news-title'>".$key['Title']."</a>
+    <div class='news-container text-container'><a class='poster-link news-title'>".$key['Title']."</a>
         <div class='news-content'><span>".$key['Content']."</span></div></div>
 </div>";
 }

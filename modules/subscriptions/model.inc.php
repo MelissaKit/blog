@@ -16,9 +16,14 @@ class Subscriptions_Model extends Model
         return Core::GetDB()->getRowsWhere('Follow', array('Id' => $subId));
     }
 
+    public static function getSubscriptionByParams($userId, $followId){
+        return Core::GetDB()->getRowsWhere('Follow', array('userId' => $userId, 'followId' => $followId));
+    }
+
     public static function addNewSubscription($row)
     {
-
+        $fieldsArray = array('userId', 'followId', 'followDate');
+        Core::GetDB()->addRecordFromForm('Follow', $row, $fieldsArray);
     }
 
     public static function deleteSubscription($subId)

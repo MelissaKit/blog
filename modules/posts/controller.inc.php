@@ -12,7 +12,14 @@ class Posts_Controller extends Controller
         else
             $page = 0;
         $userId = Users_Model::getUserByLogin($_SESSION['login'])[0]['Id'];
-        $posts['Content'] = Posts_Model::getReviewsPage($limit, $limit * $page, $userId);
+        $postsContent = Posts_Model::getReviewsPage($limit, $limit * $page, $userId);
+        foreach ($postsContent as $key => $item) {
+            $posts['Content'][$key] =  $item;
+            $author = Users_Model::getUserInfoById($item['userId'])[0];
+            $posts['Content'][$key]['Author'] = $author['login'];
+            $posts['Content'][$key]['AuthorImage'] = $author['avatarPath'];
+        }
+
         $posts['PagesCount'] = $pagesCnt;
         $posts['CurrentPage'] = $page;
         return $this->view->generate('Головна сторінка', 'templates/modules/posts/postsMain.phtml', $posts);
@@ -93,8 +100,7 @@ class Posts_Controller extends Controller
             if ($post['PosterPath'] != '')
                 unlink(substr($post['PosterPath'], 1));
             header('Location: /Posts/Index/');
-        }
-        else return Core::Error404();
+        } else return Core::Error404();
     }
 
     public function UserAction($param)
@@ -121,6 +127,13 @@ class Posts_Controller extends Controller
             $page = 0;
 
         $posts['Content'] = Posts_Model::getReviewsPage($limit, $limit * $page, $currentUser['Id'], $getUser['Id']);
+        $posts['Author'] = $getUser;
+
+        if ($getUser['Login'] != $currentUser['Login']) {
+            $postsSubscr = Subscriptions_Model::getSubscriptionByParams($currentUser['Id'], $getUser['Id']);
+            $posts['Subscription'] =  count($postsSubscr) ? $postsSubscr[0] : null;
+        }
+
         $posts['PagesCount'] = $pagesCnt;
         $posts['CurrentPage'] = $page;
 
@@ -137,5 +150,3 @@ class Posts_Controller extends Controller
         }
     }
 }
-
-?>
