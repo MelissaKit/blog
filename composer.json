@@ -1,5 +1,12 @@
 {
-  "require": {
-    "php": "^7.1.0"
-  }
+    "name": "marina/blog",
+    "require": {
+        "php": "7.0.26"
+    },
+    "authors": [
+        {
+            "name": "MelissaKit",
+            "email": "voz.15.1998@gmail.com"
+        }
+    ]
 }
