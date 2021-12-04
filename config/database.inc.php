@@ -6,11 +6,10 @@
       define('DATABASE_PASS','');
     } else {
       $parsed = parse_url($url);
-      error_log($parsed);
       error_log($parsed["host"]);
       error_log($parsed["user"]);
       error_log($parsed["pass"]);
-      define('DATABASE_HOST', $url["host"]);
+      define('DATABASE_HOST', $parsed["host"]);
       define('DATABASE_USER', $parsed["user"]);
       define('DATABASE_PASS', $parsed["pass"]);
     }
