@@ -5,11 +5,10 @@
       define('DATABASE_USER', 'root');
       define('DATABASE_PASS','');
     } else {
-      error_log('tut?');
-      error_log($url);
-      define('DATABASE_HOST', $url["host"]);
-      define('DATABASE_USER', $url["user"]);
-      define('DATABASE_PASS', $url["pass"]);
+      $parsed = parse_url($url);
+      define('DATABASE_HOST', $parsed["host"]);
+      define('DATABASE_USER', $parsed["user"]);
+      define('DATABASE_PASS', $parsed["pass"]);
     }
     define('DATABASE_DBNAME','CourseWork');
     define('MAILING_EMAIL', 'bestfilmever3@gmail.com');
