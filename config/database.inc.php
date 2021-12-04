@@ -5,8 +5,8 @@
       define('DATABASE_USER', 'root');
       define('DATABASE_PASS','');
     } else {
-      fwrite(STDOUT, 'tut?');
-      fwrite(STDOUT, $url);
+      error_log('tut?');
+      error_log($url);
       define('DATABASE_HOST', $url["host"]);
       define('DATABASE_USER', $url["user"]);
       define('DATABASE_PASS', $url["pass"]);
