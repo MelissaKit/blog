@@ -1,7 +1,10 @@
 {
     "name": "marina/blog",
+    "description": "",
+    "license": "UNLICENSED",
     "require": {
-        "php": "7.0.26"
+        "php": "^8.0.0",
+        "phpmailer/phpmailer": "^6.5"
     },
     "authors": [
         {
