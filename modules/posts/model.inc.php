@@ -49,9 +49,7 @@ class Posts_Model extends Model
     public static function FindElem($param)
     {
         $postFields = array('Name', 'Text');
-        $newsFields = array('Title', 'Content');
         $result['posts'] = Core::GetDB()->getRowsLike('Posts', $param, $postFields);
-        $result['news'] = Core::GetDB()->getRowsLike('News', $param, $newsFields);
         return $result;
     }
 }

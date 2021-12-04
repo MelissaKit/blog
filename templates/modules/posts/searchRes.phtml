@@ -1,6 +1,5 @@
 <select id="search">
     <option value="posts" selected>Пости</option>
-    <option value="news">Новини</option>
 </select>
 
 
@@ -18,18 +17,4 @@
     <div class='text-container'><a class='poster-link' href='/Posts/Show/?Id=".$key['Id']."'>".$key['Name']."</a></div>
 </div>";
 }
-echo "</div></div>
-<div id='news' class='search-hidden'>
-<div class='row content-row'>";
-    foreach($Params['news'] as $key)
-    {
-    $path = $key['PosterPath'];
-    if($path=='')
-        $path = '/files/standarts/newsPoster.png';
-    echo "<div class='col-sm-6'>
-    <div class='img-container news-image'><img class='film-poster' src='".$path."'></div>
-    <div class='news-container text-container'><a class='poster-link news-title'>".$key['Title']."</a>
-        <div class='news-content'><span>".$key['Content']."</span></div></div>
-</div>";
-}
-    echo "</div></div></div>";
+echo "</div></div></div>";

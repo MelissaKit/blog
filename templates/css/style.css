@@ -387,37 +387,6 @@ span.hamburger, input.hamburger-input{
     overflow: hidden;
 }
 
-.news-container {
-    height: 250px;
-    overflow: hidden;
-    overflow-y: scroll;
-    padding: 0 0 10px 15px;
-}
-
-.news-container::-webkit-scrollbar {
-    width: 10px;
-}
-
-
-.news-container::-webkit-scrollbar-thumb {
-    background:  #e75200;
-    border-radius: 4px;
-}
-
-.news-content {
-    font-size: 14px;
-    line-height: 14px;
-    text-align: left;
-    padding: 10px 0;
-}
-
-.news-content > span {
-    display: inline-block;
-    text-align: justify;
-    text-indent: 25px;
-    padding-right: 5px;
-}
-
 .film-poster {
     width: 100%;
     object-fit: cover;
@@ -442,10 +411,6 @@ span.hamburger, input.hamburger-input{
     justify-content: center;
     padding: 15px;
     margin-top: 15px;
-}
-
-.news-image {
-    width: 60%;
 }
 
 div.centered-form {
@@ -517,12 +482,13 @@ div.centered-form {
 }
 
 .prof-img-container {
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
 }
 
 .prof-img-container > img {
-    width: 100%;
+    max-width: 100%;
+    max-height: 350px;
 }
 
 .sendEdit {
@@ -562,8 +528,7 @@ div.centered-form {
     margin: 0%;
 }
 .post-container{
-    background-color: #222222;
-    color: white;
+    color: #222222;
 }
 
 .post-container hr{
