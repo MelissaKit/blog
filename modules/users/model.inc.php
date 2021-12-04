@@ -7,8 +7,6 @@ class Users_Model extends Model
 {
     public static function sendMail($email, $theme, $text)
     {
-      error_log('SENDING EMAIL');
-      try {
         $mail = new PHPMailer(true);
         $mail->isSMTP();
         $mail->CharSet = 'UTF-8';
@@ -25,11 +23,6 @@ class Users_Model extends Model
         $mail->Subject = $theme;
         $mail->Body = $text;
         $mail->send();
-      } catch (Exception $e) {
-        error_log('ERROR SENDING');
-        error_log($e);
-      }
-      error_log('SENT');
     }
 
     public static function getUserIdByToken($token)
