@@ -2,6 +2,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+require 'config/database.inc.php';
 require 'vendor/phpmailer/phpmailer/src/Exception.php';
 require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
 
@@ -9,8 +10,10 @@ error_reporting(E_ALL);
 
 spl_autoload_extensions('.inc.php');
 
+
 spl_autoload_register(function($className)
 {
+  error_log($className); 
    $path = 'core/'.$className.'.inc.php';
    if(is_file($path))
        include($path);
