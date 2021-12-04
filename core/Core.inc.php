@@ -35,10 +35,10 @@ class Core
             $methodName = 'LoginAction';
             $pathParts = array();
         }
-      /*  if ((isset($_SESSION['authorized'])==false || $_SESSION['authorized']==false) && !($methodName=='LoginAction' || $methodName=='RegisterAction')) {
+        if ((isset($_SESSION['authorized'])==false || $_SESSION['authorized']==false) && !($methodName=='LoginAction' || $methodName=='RegisterAction')) {
             self::$IndexTpl->setParams(Core::Warning('Authorize'));
             return;
-        }*/
+        }
 
        /* if ((isset($_SESSION['mailConfirmation'])==false || $_SESSION['mailConfirmation'] != true) && !($methodName=='ActivateAction' || $methodName=='LoginAction' || $methodName=='RegisterAction' || $methodName=='ProfileAction'|| $methodName=='LogoutAction')) {
             self::$IndexTpl->setParams(Core::Warning('Mail'));

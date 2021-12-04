@@ -61,11 +61,10 @@ class Users_Controller extends Controller
                 break;
             case 'POST':
                 if (!empty(($_POST['login'])) && !empty(($_POST['password']))) {
-                    if(true){
-                   /* if (Users_Model::checkUserExists($_POST['login'], $_POST['password'])) {*/
-                        $user = Users_Model::getUserByLogin('admin')[0];
+                    if (Users_Model::checkUserExists($_POST['login'], $_POST['password'])) {
+                        $user = Users_Model::getUserByLogin($_POST['login'])[0];
                         $_SESSION['authorized'] = true;
-                        $_SESSION['login'] = 'admin';
+                        $_SESSION['login'] = $_POST['login'];
                         $_SESSION['mailConfirmation'] = (bool)$user['Status'];
                         return $this->view->generate('Профіль', 'templates/modules/users/profile.phtml', $user);
                     } else {
