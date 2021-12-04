@@ -1,6 +1,9 @@
 <?php
-include('config/database.inc.php');
-include('files/PHPMailer/PHPMailerAutoload.php');
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/phpmailer/phpmailer/src/Exception.php';
+require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
 error_reporting(E_ALL);
 
 spl_autoload_extensions('.inc.php');
