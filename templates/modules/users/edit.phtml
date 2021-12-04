@@ -52,6 +52,8 @@
                     echo "<li><p><span class='glyphicon glyphicon-calendar prof-icon'></span>Дата народження</p>
                         <input type='date' name='birthDate' id='birthDate' class='form-control'
                                value='".$Params['BirthDate']."'/></li>";
+                    echo "<li><p><span class='glyphicon glyphicon-book prof-icon'></span>Про себе</p>
+                            <textarea name='shortDescription' id='shortDescription' class='form-control'>".$Params['ShortDescription']."</textarea></li>";
                     echo "<li><p><span class='glyphicon glyphicon-picture prof-icon'></span>Аватар</p>
                         <input type='file' name='avatar' id='imageUpload' class='hide img-input form-control-file'/>
                         <label for='imageUpload' class='btn btn-large custom-file-label '>Змінити фото профіля</label>

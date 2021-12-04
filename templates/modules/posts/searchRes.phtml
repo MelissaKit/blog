@@ -1,20 +1,53 @@
-<select id="search">
-    <option value="posts" selected>Пости</option>
-</select>
+<div class="tabs">
+    <ul class="tabs__caption">
+        <li class="active">Пости</li>
+        <li>Користувачі</li>
+    </ul>
 
 
-<div id="search-result">
-<div id="posts">
-<div class="row content-row post-block">
-    <?php
-    foreach($Params['posts'] as $key)
-    {
-    $path = $key['PosterPath'];
-    if($path=='')
-        $path = '/files/standarts/reviewPoster.jpg';
-    echo "<div class='col-sm-3'>";
-    echo"<div class='img-container'><img class='film-poster' src='".$path."'></div>
-    <div class='text-container'><a class='poster-link' href='/Posts/Show/?Id=".$key['Id']."'>".$key['Name']."</a></div>
-</div>";
-}
-echo "</div></div></div>";
+    <div class="row content-row post-block tabs__content active">
+        <?php foreach ($Params['posts'] as $key) :
+            $path = $key['PosterPath'];
+            if ($path == '')
+                $path = '/files/standarts/reviewPoster.jpg'; ?>
+            <div class="user-search">
+                <div class='img-container'>
+                    <img width='150' height='150' class='post-poster' src='<?= $path; ?>'>
+                    <span> <?= $key['PublicationDate']; ?></span>
+                </div>
+                <div class='text-container'>
+                    <div>
+                        <img width="30" height="30" class='user-logo' src='<?= $key['Author']['AuthorImage']; ?>'>   
+                        <a class='author-link' href='/Posts/User/<?= $key['Author']['Login']; ?>'><?= $key['Author']['Login']; ?></a>
+                    </div>
+                    <a class='poster-link' href='/Posts/Show/?Id=<?= $key['Id']; ?>'>
+                        <?= $key['Name']; ?>
+                    </a>
+                    <?= $key['Text']; ?>
+                </div>
+            </div>
+        <?php endforeach ?> 
+    </div>
+
+    <div class="row content-row users-block tabs__content">
+        <?php foreach ($Params['users'] as $key) :
+            $path = $key['AvatarPath'];
+            if ($path == '')
+                $path = '/files/standarts/ava.png'; ?>
+            <div class="user-search">
+                <div class='img-container'><img width="100" height="100" class='user-poster' src='<?= $path; ?>'></div>
+                <div class='text-container'>
+                    <a class='user-link' href='/Posts/User/?Id=<?= $key['Login']; ?>'>
+                        <?= $key['Login']; ?>
+                    </a>
+                    <div>
+                        <?= $key['FirstName']; ?>
+                        <?= $key['SecondName']; ?>
+                    </div>
+
+                    <div class="poster-desc"><?= $key['ShortDescription']; ?></div>
+                </div>
+            </div>
+        <?php endforeach ?>
+    </div>
+</div>

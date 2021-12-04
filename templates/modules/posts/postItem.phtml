@@ -26,10 +26,14 @@
 
 
         <div class="comments-row">
-            <?php foreach ($Params['Comments'] as $comment) : // to do: add replies ?> 
+            <?php foreach ($Params['Comments'] as $comment) : ?>
                 <div class="comment-item">
                     <div class="comment-user">
-                        <span><?= $comment['commentDate'] ?></span>
+                        <a href='/Posts/User/<?= $comment['Author']['Login'] ?>'>
+                            <img width="25" height="25" src='<?= $comment['Author']['AvatarPath'] ?>' />
+                            <span><?= $comment['Author']['Login'] ?></span>
+                            <span><?= $comment['commentDate'] ?></span>
+                        </a>
                     </div>
                     <div class="comment-content">
                         <span><?= $comment['commentText'] ?></span>

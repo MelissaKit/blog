@@ -33,7 +33,7 @@ class Users_Model extends Model
     }
 
     public static function getUserInfoById ($id) {
-        return Core::GetDB()->getRowsWhere('User',  array('Id' => $id), 0, 0, 'login, firstName, secondName, avatarPath');
+        return Core::GetDB()->getRowsWhere('User',  array('Id' => $id), 0, 0, 'login, firstName, secondName, avatarPath ,shortDescription');
     }
 
     public static function getUserById($id)
@@ -54,12 +54,12 @@ class Users_Model extends Model
 
     public static function editUser($userId, $fields)
     {
-        Core::GetDB()->update('User', array('Id' => $userId),  $fields , array('login','mail', 'firstName', 'secondName','country', 'city', 'birthDate', 'avatarPath','token'));
+        Core::GetDB()->update('User', array('Id' => $userId),  $fields , array('login','mail', 'firstName', 'secondName','shortDescription','country', 'city', 'birthDate', 'avatarPath','token'));
     }
 
     public static function registerUser($row)
     {
-        $fieldsArray = array('login', 'password', 'firstName', 'secondName', 'mail', 'country', 'city', 'birthDate', 'registrationDate', 'token', 'avatarPath');
+        $fieldsArray = array('login', 'password', 'firstName', 'secondName', 'shortDescription', 'mail', 'country', 'city', 'birthDate', 'registrationDate', 'token', 'avatarPath');
         $row['token'] = md5(uniqid());
         $row['password'] = password_hash($row['password'], PASSWORD_BCRYPT);
         $row['registrationDate'] = date("y:m:d");

@@ -36,7 +36,10 @@ class Posts_Controller extends Controller
                     return strtotime($item2['commentDate']) - strtotime($item1['commentDate']);
                 });
 
-                var_dump($post['Comments']);
+                foreach ($post['Comments'] as $key => $comment) {
+                    $post['Comments'][$key]['Author'] = Users_Model::getUserById($comment['userId'])[0];
+                }
+
                 return $this->view->generate($post['Name'], 'templates/modules/posts/postItem.phtml', $post);
             }
         }
@@ -150,6 +153,11 @@ class Posts_Controller extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['searchParam'] != '') {
             $result = Posts_Model::FindElem($_POST['searchParam']);
+            if ($result['posts']) {
+                foreach ($result['posts'] as $key => $post) {
+                    $result['posts'][$key]['Author'] = Users_Model::getUserById($result['posts'][$key]['userId'])[0];
+                }
+            }
             return $this->view->generate('Пошук', 'templates/modules/posts/searchRes.phtml', $result);
         } else {
             Core::Error404();
