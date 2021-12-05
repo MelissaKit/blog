@@ -23,7 +23,7 @@
                     <a class='poster-link' href='/Posts/Show/?Id=<?= $key['Id']; ?>'>
                         <?= $key['Name']; ?>
                     </a>
-                    <?= $key['Text']; ?>
+                    <?=  html_entity_decode($key['Text']); ?>
                 </div>
             </div>
         <?php endforeach ?> 

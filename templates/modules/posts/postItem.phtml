@@ -10,7 +10,7 @@
             <div class="post-text">
                 <p><?php
                     if (isset($Params['Text']) && $Params['Text'] != '')
-                        echo $Params['Text']; ?>
+                        echo  html_entity_decode($Params['Text']); ?>
                 </p>
             </div>
             <div class="">
