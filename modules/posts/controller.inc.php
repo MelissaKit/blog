@@ -18,6 +18,10 @@ class Posts_Controller extends Controller
             $author = Users_Model::getUserInfoById($item['userId'])[0];
             $posts['Content'][$key]['Author'] = $author['login'];
             $posts['Content'][$key]['AuthorImage'] = $author['avatarPath'];
+
+            $posts['Content'][$key]['LikesCount'] = Likes_Model::getLikesCount($item['Id']);
+            $posts['Content'][$key]['LikesUser'] = !!Likes_Model::checkUserLike($userId, $item['Id']);
+            $posts['Content'][$key]['CommentsCount'] = Comments_Model::getPostCommentsCount($item['Id']);
         }
 
         $posts['PagesCount'] = $pagesCnt;
@@ -161,6 +165,17 @@ class Posts_Controller extends Controller
             return $this->view->generate('Пошук', 'templates/modules/posts/searchRes.phtml', $result);
         } else {
             Core::Error404();
+        }
+    }
+
+    public function AddViewAction() {
+        switch ($_SERVER['REQUEST_METHOD']) {
+            case 'GET':
+                break;
+            case 'POST':
+                var_dump($_GET['Id']);
+                Posts_Model::addView($_GET['Id']);
+                break;
         }
     }
 }

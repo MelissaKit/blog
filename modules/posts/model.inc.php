@@ -46,6 +46,11 @@ class Posts_Model extends Model
         return Core::GetDB()->getRowsWhere('Posts', array('Id' => $postId));
     }
 
+    public static function addView($postId)
+    {
+        Core::GetDB()->incrementFieldWhere('Posts', array('Id' => $postId), 'views');
+    }
+
     public static function FindElem($param)
     {
         $result['posts'] = Core::GetDB()->getRowsLike('Posts', $param,  array('Name', 'Text'));

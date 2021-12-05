@@ -118,4 +118,12 @@ class DB
         return array_unique($result, SORT_REGULAR);;
     }
 
+    public function incrementFieldWhere($table, $condition, $field)
+    {
+        $conditionsStr = $this->getSQLWhere($condition);
+        $sql = "UPDATE {$this->dbName}.{$table} SET {$field} = {$field} + 1 WHERE {$conditionsStr}";
+        $state = $this->pdo->query($sql);
+    }
+
+
 }

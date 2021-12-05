@@ -1,12 +1,12 @@
 <div class="row content-row post-block">
-    <?php foreach ($Params['Content'] as $key):
+    <?php foreach ($Params['Content'] as $key) :
         $path = $key['PosterPath'];
         if (!$key['PosterPath']) {
             $path = '/files/standarts/reviewPoster.jpg';
-        }?>
+        } ?>
 
         <div class='post-item'>
-            <?php if ($key['isUserPost']): ?>
+            <?php if ($key['isUserPost']) : ?>
                 <div class='admin-panel'>
                     <a class='btn btn-raised btn-danger btn-prof-set' href='/Posts/Delete/?Id=<?= $key['Id']; ?>'>
                         <span class='glyphicon glyphicon-remove' aria-hidden='true'></span>
@@ -23,11 +23,24 @@
             </div>
             <div class='text-container'>
                 <div>
-                    <img width="30" height="30" class='user-logo' src='<?= $key['AuthorImage']; ?>'>   
+                    <img width="30" height="30" class='user-logo' src='<?= $key['AuthorImage']; ?>'>
                     <a class='author-link' href='/Posts/User/<?= $key['Author']; ?>'><?= $key['Author']; ?></a>
                 </div>
                 <a class='poster-link' href='/Posts/Show/?Id=<?= $key['Id']; ?>'><?= $key['Name']; ?></a>
                 <div class='poster-content'><?= $key['Text']; ?></div>
+                <div class='likes-container'>
+                    <?php if ($key['LikesUser']) : ?>
+                        <a class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>
+                            <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount']; ?></span>
+                        </a>
+                    <?php else : ?>
+                        <a class="like-link" href='/Likes/Add/?post=<?= $key['Id'] ?>'>
+                            <span class='likes glyphicon glyphicon-heart-empty'><?= $key['LikesCount']; ?></span>
+                        </a>
+                    <?php endif; ?>
+                    <span class='views glyphicon glyphicon-eye-open'><?= $key['Views']; ?></span>
+                    <span class='comments glyphicon glyphicon-comment'><?= $key['CommentsCount']; ?></span>
+                </div>
             </div>
         </div>
     <?php endforeach ?>
@@ -47,3 +60,5 @@
         <li><a href='/Posts/Index/?page=<?= $Params['PagesCount'] ?>'>»</a></li>
     </ul>
 </div>
+
+<script src="/templates/js/posts/like.js"></script>
