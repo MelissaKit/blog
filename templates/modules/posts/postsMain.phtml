@@ -27,7 +27,7 @@
                     <a class='author-link' href='/Posts/User/<?= $key['Author']; ?>'><?= $key['Author']; ?></a>
                 </div>
                 <a class='poster-link' href='/Posts/Show/?Id=<?= $key['Id']; ?>'><?= $key['Name']; ?></a>
-                <div class='poster-content'><?= $key['Text']; ?></div>
+                <div class='poster-content'><?= html_entity_decode($key['Text']); ?></div>
                 <div class='likes-container'>
                     <?php if ($key['LikesUser']) : ?>
                         <a class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>

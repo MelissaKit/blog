@@ -377,6 +377,10 @@ input.hamburger-input {
     text-decoration: none;
 }
 
+.poster-content {
+    font-weight: 400;
+}
+
 .content-row .col-sm-6 {
     border: 1px solid black;
     height: 280px;
@@ -502,6 +506,7 @@ div.centered-form {
 }
 
 .post-container {
+    font-weight: 400;
     color: #222222;
 }
 
