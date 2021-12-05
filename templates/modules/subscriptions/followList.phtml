@@ -12,7 +12,8 @@
                     <span><?= $subsItem['firstName'] ?></span>
                     <span><?= $subsItem['secondName'] ?></span>
                 </div>
-                <a class="unfollow-link" href='/Subscriptions/Delete/?Id=<?= $subsItem['Id'] ?>'>Unfollow</a>
+                <a class="unfollow-link" href='/Subscriptions/Delete/?follow=<?= $subsItem['login'] ?>'>Unfollow</a>
+                <a style="display: none;" class="follow-link" href='/Subscriptions/Add/?follow=<?= $subsItem['login'] ?>'>Follow</a>
             </div>
         </div>
     <?php endforeach ?>

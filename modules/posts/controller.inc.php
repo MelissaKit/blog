@@ -20,7 +20,7 @@ class Posts_Controller extends Controller
             $posts['Content'][$key]['AuthorImage'] = $author['avatarPath'];
 
             $posts['Content'][$key]['LikesCount'] = Likes_Model::getLikesCount($item['Id']);
-            $posts['Content'][$key]['LikesUser'] = !!Likes_Model::checkUserLike($userId, $item['Id']);
+            $posts['Content'][$key]['LikesUser'] = !!Likes_Model::checkUserLike($item['Id'], $userId);
             $posts['Content'][$key]['CommentsCount'] = Comments_Model::getPostCommentsCount($item['Id']);
         }
 
@@ -140,6 +140,13 @@ class Posts_Controller extends Controller
             $page = 0;
 
         $posts['Content'] = Posts_Model::getReviewsPage($limit, $limit * $page, $currentUser['Id'], $getUser['Id']);
+
+        foreach ($posts['Content'] as $key => $item) {
+            $posts['Content'][$key]['LikesCount'] = Likes_Model::getLikesCount($item['Id']);
+            $posts['Content'][$key]['LikesUser'] = !!Likes_Model::checkUserLike($item['Id'], $currentUser['Id']);
+            $posts['Content'][$key]['CommentsCount'] = Comments_Model::getPostCommentsCount($item['Id']);
+        }
+
         $posts['Author'] = $getUser;
 
         if ($getUser['Login'] != $currentUser['Login']) {

@@ -26,8 +26,8 @@ class Subscriptions_Model extends Model
         Core::GetDB()->addRecordFromForm('Follow', $row, $fieldsArray);
     }
 
-    public static function deleteSubscription($subId)
+    public static function deleteSubscription($userId, $followId)
     {
-        Core::GetDB()->delete('Follow', array('Id'=>$subId));
+        Core::GetDB()->delete('Follow', array('userId'=>$userId, 'followId' => $followId));
     }
 }

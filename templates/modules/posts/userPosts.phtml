@@ -7,9 +7,11 @@
             <div><?= $Params['Author']['ShortDescription']; ?></div>
             <div>
                 <?php if (!$isCurrentUserPage && $Params['Subscription']) : ?>
-                    <a class="unfollow-link" href='/Subscriptions/Delete/?Id=<?= $Params['Subscription']['Id'] ?>'>Unfollow</a>
+                    <a class="unfollow-link" href='/Subscriptions/Delete/?follow=<?= $Params['Author']['Login'] ?>'>Unfollow</a>
+                    <a style="display: none;" class="follow-link" href='/Subscriptions/Add/?follow=<?= $Params['Author']['Login'] ?>'>Follow</a>
                 <?php elseif (!$isCurrentUserPage && !$Params['Subscription']) : ?>
                     <a class="follow-link" href='/Subscriptions/Add/?follow=<?= $Params['Author']['Login'] ?>'>Follow</a>
+                    <a style="display: none;" class="unfollow-link" href='/Subscriptions/Delete/?follow=<?= $Params['Author']['Login'] ?>'>Unfollow</a>
                 <?php endif; ?>
             </div>
         </div>
@@ -52,6 +54,26 @@
                     </div>
                     <a class='poster-link' href='/Posts/Show/?Id=<?= $key['Id']; ?>'><?= $key['Name']; ?></a>
                     <div class='poster-content'><?= $key['Text']; ?></div>
+
+                    <div class='likes-container'>
+                    <?php if ($key['LikesUser']) : ?>
+                        <a class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>
+                            <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount']; ?></span>
+                        </a>
+                        <a style="display: none;" class="like-link" href='/Likes/Add/?post=<?= $key['Id'] ?>'>
+                            <span class='likes glyphicon glyphicon-heart-empty'><?= $key['LikesCount'] - 1; ?></span>
+                        </a>
+                    <?php else : ?>
+                        <a class="like-link" href='/Likes/Add/?post=<?= $key['Id'] ?>'>
+                            <span class='likes glyphicon glyphicon-heart-empty'><?= $key['LikesCount']; ?></span>
+                        </a>
+                        <a style="display: none;"  class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>
+                            <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount'] + 1; ?></span>
+                        </a>
+                    <?php endif; ?>
+                    <span class='views glyphicon glyphicon-eye-open'><?= $key['Views']; ?></span>
+                    <span class='comments glyphicon glyphicon-comment'><?= $key['CommentsCount']; ?></span>
+                </div>
                 </div>
             </div>
         <?php endforeach ?>
@@ -72,3 +94,5 @@
         </ul>
     </div>
 </div>
+
+<script src="/templates/js/posts/like.js"></script>

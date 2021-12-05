@@ -33,9 +33,15 @@
                         <a class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>
                             <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount']; ?></span>
                         </a>
+                        <a style="display: none;" class="like-link" href='/Likes/Add/?post=<?= $key['Id'] ?>'>
+                            <span class='likes glyphicon glyphicon-heart-empty'><?= $key['LikesCount'] - 1; ?></span>
+                        </a>
                     <?php else : ?>
                         <a class="like-link" href='/Likes/Add/?post=<?= $key['Id'] ?>'>
                             <span class='likes glyphicon glyphicon-heart-empty'><?= $key['LikesCount']; ?></span>
+                        </a>
+                        <a style="display: none;"  class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>
+                            <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount'] + 1; ?></span>
                         </a>
                     <?php endif; ?>
                     <span class='views glyphicon glyphicon-eye-open'><?= $key['Views']; ?></span>
