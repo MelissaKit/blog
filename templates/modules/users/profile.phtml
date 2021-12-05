@@ -17,6 +17,9 @@
                     <a class="btn btn-raised btn-danger btn-prof-set" href="/Users/EditProf/">
                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                     </a>
+                    <a class="btn btn-raised btn-danger btn-prof-set" href="#">
+                        <span class="glyphicon glyphicon-stats" aria-hidden="true">Статистика</span>
+                    </a>    
                 </div>
             </div>
             <div class="col-md-8 col-xs-12 col-sm-6 col-lg-8">
@@ -43,6 +46,10 @@
                     if(isset($Params['BirthDate']) && $Params['BirthDate']!='0000-00-00')
                     echo"
                     <li><p><span class='glyphicon glyphicon-calendar prof-icon'></span>".$Params['BirthDate']."</p></li>
+                    ";
+                    if(isset($Params['ShortDescription']))
+                    echo"
+                    <li><p><span class='glyphicon glyphicon-book  prof-icon'></span>".$Params['ShortDescription']."</p></li>
                     ";
                     ?>
                 </ul>

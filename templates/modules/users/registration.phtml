@@ -31,13 +31,13 @@
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="firstName" id="firstName"  pattern=".{0,50}" title="2-50 символів"
-                                       class="form-control" placeholder="Ім'я">
+                                <input type="text" name="firstName" id="firstName" required  pattern=".{0,50}" title="2-50 символів"
+                                       class="form-control required" placeholder="Ім'я">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="secondName" id="secondName" class="form-control" pattern=".{0,50}" title="2-50 символів"
+                                <input type="text" name="secondName" id="secondName" required class="form-control required" pattern=".{0,50}" title="2-50 символів"
                                        placeholder="Прізвище">
                             </div>
                         </div>
@@ -52,33 +52,35 @@
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="country" id="country"  pattern=".{0,40}" title="2-40 символів"
-                                       class="form-control" placeholder="Країна">
+                                <input type="text" name="country" id="country" required pattern=".{0,40}" title="2-40 символів"
+                                       class="form-control required" placeholder="Країна">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="city" id="city" class="form-control"   pattern=".{0,40}" title="2-40 символів"
+                                <input type="text" name="city" id="city" required class="form-control required"   pattern=".{0,40}" title="2-40 символів"
                                        placeholder="Місто">
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-
                         <div class="col-xs-6 col-sm-6 col-md-6">
+                            <label class="regLabel">Дата народження</label>
                             <div class="form-group">
-                                <input type="date" name="birthDate" id="birthDate" class="form-control">
+                                <input type="date" name="birthDate" id="birthDate" required class="form-control required">
                             </div>
                         </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group ">
-                                <label class="regLabel">Дата народження</label>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="">
+                            <div class="form-group">
+                                <textarea name="shortDescription" id="shortDescription" required class="form-control required"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="">
                                 <input type="file" name="avatar" id="imageUpload" class="hide"/>

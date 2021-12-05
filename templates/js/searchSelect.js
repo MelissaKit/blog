@@ -1,15 +1,16 @@
-$(window).load(function () {
-    $("#search").change(function () {
-        var toshow = $(this).find('option:selected').prop('value');
-        $('#search-result>div').each(function () {
-            if($(this).attr('id') == toshow)
-            {
-                $(this).removeClass('search-hidden');
-            }
-            else
-            {
-                $(this).addClass('search-hidden');
-            }
-        });
+(function($) {
+    $(function() {
+      $("ul.tabs__caption").on("click", "li:not(.active)", function() {
+        $(this)
+          .addClass("active")
+          .siblings()
+          .removeClass("active")
+          .closest("div.tabs")
+          .find("div.tabs__content")
+          .removeClass("active")
+          .eq($(this).index())
+          .addClass("active");
+      });
     });
-});
+  })(jQuery);
+  

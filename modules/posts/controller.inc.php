@@ -18,6 +18,10 @@ class Posts_Controller extends Controller
             $author = Users_Model::getUserInfoById($item['userId'])[0];
             $posts['Content'][$key]['Author'] = $author['login'];
             $posts['Content'][$key]['AuthorImage'] = $author['avatarPath'];
+
+            $posts['Content'][$key]['LikesCount'] = Likes_Model::getLikesCount($item['Id']);
+            $posts['Content'][$key]['LikesUser'] = !!Likes_Model::checkUserLike($userId, $item['Id']);
+            $posts['Content'][$key]['CommentsCount'] = Comments_Model::getPostCommentsCount($item['Id']);
         }
 
         $posts['PagesCount'] = $pagesCnt;
@@ -31,6 +35,15 @@ class Posts_Controller extends Controller
             $post = Posts_Model::getReviewById($_GET['Id']);
             if ($post != null) {
                 $post = $post[0];
+                $post['Comments'] = Comments_Model::getPostComments(10, 0, $post['Id']);
+                usort($post['Comments'], function ($item1, $item2) {
+                    return strtotime($item2['commentDate']) - strtotime($item1['commentDate']);
+                });
+
+                foreach ($post['Comments'] as $key => $comment) {
+                    $post['Comments'][$key]['Author'] = Users_Model::getUserById($comment['userId'])[0];
+                }
+
                 return $this->view->generate($post['Name'], 'templates/modules/posts/postItem.phtml', $post);
             }
         }
@@ -144,9 +157,25 @@ class Posts_Controller extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['searchParam'] != '') {
             $result = Posts_Model::FindElem($_POST['searchParam']);
+            if ($result['posts']) {
+                foreach ($result['posts'] as $key => $post) {
+                    $result['posts'][$key]['Author'] = Users_Model::getUserById($result['posts'][$key]['userId'])[0];
+                }
+            }
             return $this->view->generate('Пошук', 'templates/modules/posts/searchRes.phtml', $result);
         } else {
             Core::Error404();
+        }
+    }
+
+    public function AddViewAction() {
+        switch ($_SERVER['REQUEST_METHOD']) {
+            case 'GET':
+                break;
+            case 'POST':
+                var_dump($_GET['Id']);
+                Posts_Model::addView($_GET['Id']);
+                break;
         }
     }
 }
