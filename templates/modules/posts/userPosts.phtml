@@ -3,7 +3,7 @@
     <div class="user-row sticky">
         <img width="200" height="200" class='user-avatar' src='<?= $Params['Author']['AvatarPath']; ?>'>
         <div class="user-info">
-            <div><?= $Params['Author']['Country']. ', ' . $Params['Author']['City']; ?></div>
+            <div><?= $Params['Author']['Country'] . ', ' . $Params['Author']['City']; ?></div>
             <div><?= $Params['Author']['ShortDescription']; ?></div>
             <div>
                 <?php if (!$isCurrentUserPage && $Params['Subscription']) : ?>
@@ -17,10 +17,10 @@
         </div>
 
         <?php if ($isCurrentUserPage) : ?>
-        <a class='btn btn-raised btn-danger btn-prof-set btn-add-post' href='/Posts/Add/'>
-            <span class='glyphicon glyphicon-plus' aria-hidden='true'>Додати</span>
-        </a>
-    <?php endif; ?>
+            <a class='btn btn-raised btn-danger btn-prof-set btn-add-post' href='/Posts/Add/'>
+                <span class='glyphicon glyphicon-plus' aria-hidden='true'>Додати</span>
+            </a>
+        <?php endif; ?>
     </div>
 
 
@@ -53,27 +53,27 @@
                         <a class='author-link' href='/Posts/User/<?= $Params['Author']['Login']; ?>'><?= $Params['Author']['Login']; ?></a>
                     </div>
                     <a class='poster-link' href='/Posts/Show/?Id=<?= $key['Id']; ?>'><?= $key['Name']; ?></a>
-                    <div class='poster-content'><?= $key['Text']; ?></div>
+                    <div class='poster-content'><?= html_entity_decode($key['Text']); ?></div>
 
                     <div class='likes-container'>
-                    <?php if ($key['LikesUser']) : ?>
-                        <a class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>
-                            <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount']; ?></span>
-                        </a>
-                        <a style="display: none;" class="like-link" href='/Likes/Add/?post=<?= $key['Id'] ?>'>
-                            <span class='likes glyphicon glyphicon-heart-empty'><?= $key['LikesCount'] - 1; ?></span>
-                        </a>
-                    <?php else : ?>
-                        <a class="like-link" href='/Likes/Add/?post=<?= $key['Id'] ?>'>
-                            <span class='likes glyphicon glyphicon-heart-empty'><?= $key['LikesCount']; ?></span>
-                        </a>
-                        <a style="display: none;"  class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>
-                            <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount'] + 1; ?></span>
-                        </a>
-                    <?php endif; ?>
-                    <span class='views glyphicon glyphicon-eye-open'><?= $key['Views']; ?></span>
-                    <span class='comments glyphicon glyphicon-comment'><?= $key['CommentsCount']; ?></span>
-                </div>
+                        <?php if ($key['LikesUser']) : ?>
+                            <a class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>
+                                <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount']; ?></span>
+                            </a>
+                            <a style="display: none;" class="like-link" href='/Likes/Add/?post=<?= $key['Id'] ?>'>
+                                <span class='likes glyphicon glyphicon-heart-empty'><?= $key['LikesCount'] - 1; ?></span>
+                            </a>
+                        <?php else : ?>
+                            <a class="like-link" href='/Likes/Add/?post=<?= $key['Id'] ?>'>
+                                <span class='likes glyphicon glyphicon-heart-empty'><?= $key['LikesCount']; ?></span>
+                            </a>
+                            <a style="display: none;" class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>
+                                <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount'] + 1; ?></span>
+                            </a>
+                        <?php endif; ?>
+                        <span class='views glyphicon glyphicon-eye-open'><?= $key['Views']; ?></span>
+                        <span class='comments glyphicon glyphicon-comment'><?= $key['CommentsCount']; ?></span>
+                    </div>
                 </div>
             </div>
         <?php endforeach ?>
