@@ -1,4 +1,4 @@
-<div class="tabs">
+<div class="tabs search-tabs">
     <ul class="tabs__caption">
         <li class="active">Пости</li>
         <li>Користувачі</li>
@@ -24,14 +24,13 @@
                 $authorPath = $matches[1];
             }
         ?>
-            <div class="user-search">
+            <div class="user-search post-item">
                 <div class='img-container'>
                     <div>
                         <?php
                         echo (new ImageTag(new Image($path)))->resize(Resize::fit(277, 150));
                         ?>
                     </div>
-                    <span> <?= $key['PublicationDate']; ?></span>
                 </div>
                 <div class='text-container'>
                     <div>
@@ -41,7 +40,31 @@
                     <a class='post-link' href='/Posts/Show/?Id=<?= $key['Id']; ?>'>
                         <?= $key['Name']; ?>
                     </a>
-                    <?= html_entity_decode($key['Text']); ?>
+                    <div class='post-content'><?= html_entity_decode($key['Text']); ?></div>
+                    <div class='likes-container'>
+                    <div class="rating-items">
+                        <?php if ($key['LikesUser']) : ?>
+                            <a class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>
+                                <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount']; ?></span>
+                            </a>
+                            <a style="display: none;" class="like-link" href='/Likes/Add/?post=<?= $key['Id'] ?>'>
+                                <span class='likes glyphicon glyphicon-heart-empty'><?= $key['LikesCount'] - 1; ?></span>
+                            </a>
+                        <?php else : ?>
+                            <a class="like-link" href='/Likes/Add/?post=<?= $key['Id'] ?>'>
+                                <span class='likes glyphicon glyphicon-heart-empty'><?= $key['LikesCount']; ?></span>
+                            </a>
+                            <a style="display: none;" class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>
+                                <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount'] + 1; ?></span>
+                            </a>
+                        <?php endif; ?>
+                        <span class='views glyphicon glyphicon-eye-open'><?= $key['Views']; ?></span>
+                        <span class='comments glyphicon glyphicon-comment'><?= $key['CommentsCount']; ?></span>
+                    </div>
+                    <div class="publication-date">
+                        <span><?= $key['PublicationDate']; ?></span>
+                    </div>
+                </div>
                 </div>
             </div>
         <?php endforeach ?>

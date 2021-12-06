@@ -1121,3 +1121,24 @@ a.unlike-link span:before {
 .profile-view .prof-container {
     margin-bottom: 15px;
 }
+
+.search-tabs {
+    margin: 20px 0;
+}
+
+.tabs__caption li {
+    background: #d0cfcf;
+    border-color: #d0cfcf;
+    color: #222;
+}
+
+.tabs__caption .active,
+.tabs__content {
+    background: #fff;
+    border-color: #d0cfcf;
+}
+
+.tabs__caption li:not(.active):hover {
+    background: #afaeae;
+    border-color: #888888;
+}

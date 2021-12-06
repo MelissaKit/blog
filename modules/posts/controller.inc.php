@@ -182,9 +182,14 @@ class Posts_Controller extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['searchParam'] != '') {
             $result = Posts_Model::FindElem($_POST['searchParam']);
+            $currentUser =  Users_Model::getUserByLogin($_SESSION['login'])[0];
             if ($result['posts']) {
                 foreach ($result['posts'] as $key => $post) {
                     $result['posts'][$key]['Author'] = Users_Model::getUserById($result['posts'][$key]['userId'])[0];
+
+                    $result['posts'][$key]['LikesCount'] = Likes_Model::getLikesCount($post['Id']);
+                    $result['posts'][$key]['LikesUser'] = !!Likes_Model::checkUserLike($post['Id'], $currentUser['Id']);
+                    $result['posts'][$key]['CommentsCount'] = Comments_Model::getPostCommentsCount($post['Id']);
                 }
             }
             return $this->view->generate('Пошук', 'templates/modules/posts/searchRes.phtml', $result);
