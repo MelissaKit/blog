@@ -1,5 +1,18 @@
 <?php
 
+use Cloudinary\Configuration\Configuration;
+
+Configuration::instance([
+    'cloud' => [
+        'cloud_name' => CLOUDINARY_CLOUD_NAME,
+        'api_key' => CLOUDINARY_API_KEY,
+        'api_secret' => CLOUDINARY_API_SERCRET
+    ],
+    'url' => [
+        'secure' => true
+    ]
+]);
+
 class Posts_Controller extends Controller
 {
     public function IndexAction()
@@ -50,16 +63,15 @@ class Posts_Controller extends Controller
         return Core::Error404();
     }
 
-    public function AddAction()
+    public function AddAction() // Tuta
     {
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
                 return $this->view->generate('Огляд', 'templates/modules/posts/addPost.phtml');
                 break;
             case 'POST':
-                if ($_FILES && $_FILES['poster']['error'] == UPLOAD_ERR_OK) {
-                    $_POST['posterPath'] = '/files/posters/' . md5(uniqid(''));
-                    move_uploaded_file($_FILES["poster"]["tmp_name"], substr($_POST['posterPath'], 1));
+                if (empty($_POST['posterPath'])) {
+                    $_POST['posterPath'] = 'utj4t4fmibagpqcn9543'; // Default poster image id
                 }
                 $_POST['publicationDate'] = date("y:m:d");
                 $_POST['userId'] = Users_Model::getUserByLogin($_SESSION['login'])[0]['Id'];
@@ -82,17 +94,13 @@ class Posts_Controller extends Controller
                 return $this->view->generate('Огляд', 'templates/modules/posts/editPost.phtml', $post);
                 break;
             case 'POST':
-                if ($_FILES && $_FILES['poster']['error'] == UPLOAD_ERR_OK) {
-                    $_POST['posterPath'] = '/files/posters/' . md5(uniqid(''));
-                    move_uploaded_file($_FILES["poster"]["tmp_name"], substr($_POST['posterPath'], 1));
-                    if ($post['PosterPath'] != '')
-                        unlink(substr($post['PosterPath'], 1));
+                if (empty($_POST['posterPath'])) {
+                    $_POST['posterPath'] = $post['PosterPath']; // Default poster image id
                 }
 
                 if (isset($_POST['deleteAva'])) {
-                    if ($post['PosterPath'] != '')
-                        unlink(substr($post['PosterPath'], 1));
-                    $_POST['posterPath'] = '';
+                    $post['PosterPath'] = 'utj4t4fmibagpqcn9543';
+                    $_POST['posterPath'] = 'utj4t4fmibagpqcn9543'; // Default poster image id
                 }
 
                 $_POST['publicationDate'] = date("y:m:d");
@@ -175,7 +183,8 @@ class Posts_Controller extends Controller
         }
     }
 
-    public function AddViewAction() {
+    public function AddViewAction()
+    {
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
                 break;

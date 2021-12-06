@@ -6,27 +6,40 @@
 
 
     <div class="row content-row post-block tabs__content active">
-        <?php foreach ($Params['posts'] as $key) :
+        <?php
+
+        use Cloudinary\Tag\ImageTag;
+        use Cloudinary\Asset\Image;
+        use Cloudinary\Transformation\Resize;
+
+        foreach ($Params['Content'] as $key) :
             $path = $key['PosterPath'];
-            if ($path == '')
-                $path = '/files/standarts/reviewPoster.jpg'; ?>
+            preg_match('/\/([^\/]*)\./', $path, $matches);
+            if (!empty($matches[1])) {
+                $path = $matches[1];
+            }
+        ?>
             <div class="user-search">
                 <div class='img-container'>
-                    <img width='150' height='150' class='post-poster' src='<?= $path; ?>'>
+                    <div>
+                        <?php
+                            echo (new ImageTag(new Image($path)))->resize(Resize::fit(277, 150));
+                        ?>
+                    </div>
                     <span> <?= $key['PublicationDate']; ?></span>
                 </div>
                 <div class='text-container'>
                     <div>
-                        <img width="30" height="30" class='user-logo' src='<?= $key['Author']['AuthorImage']; ?>'>   
+                        <img width="30" height="30" class='user-logo' src='<?= $key['Author']['AuthorImage']; ?>'>
                         <a class='author-link' href='/Posts/User/<?= $key['Author']['Login']; ?>'><?= $key['Author']['Login']; ?></a>
                     </div>
                     <a class='poster-link' href='/Posts/Show/?Id=<?= $key['Id']; ?>'>
                         <?= $key['Name']; ?>
                     </a>
-                    <?=  html_entity_decode($key['Text']); ?>
+                    <?= html_entity_decode($key['Text']); ?>
                 </div>
             </div>
-        <?php endforeach ?> 
+        <?php endforeach ?>
     </div>
 
     <div class="row content-row users-block tabs__content">

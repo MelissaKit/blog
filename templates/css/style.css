@@ -360,12 +360,6 @@ input.hamburger-input {
     overflow: hidden;
 }
 
-.post-poster {
-    width: 100%;
-    object-fit: cover;
-    height: 100%;
-}
-
 .poster-link {
     color: #222;
     font-size: 20px;
@@ -459,7 +453,8 @@ div.centered-form {
 
 .prof-img-container {
     width: 100%;
-    margin: 0 auto;
+    display: flex;
+    justify-content: center;
 }
 
 .prof-img-container>img {
@@ -929,4 +924,19 @@ div>p.very-big {
 
 .user-search {
     display: flex;
+}
+
+.cloudinary-fileupload {
+    display: none !important;
+}
+
+.img-container > div {
+    min-height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.img-container > div > img {
+    max-height: 100%;
+    max-width: 100%;
 }

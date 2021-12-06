@@ -1,7 +1,7 @@
 <?php
 //Load Composer's autoloader
-require 'config/database.inc.php';
-require 'vendor/autoload.php';
+require_once 'config/database.inc.php';
+require_once 'vendor/autoload.php';
 
 error_reporting(E_ALL);
 

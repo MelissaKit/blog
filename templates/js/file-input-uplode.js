@@ -1,46 +1,21 @@
-$('#imageUpload').change(function () {
-    readImgUrlAndPreview(this);
-
-    function readImgUrlAndPreview(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#imagePreview').attr('src', e.target.result);
-                $('#imagePreview').addClass('visible-img');
-                $('#canAvatarLabel').addClass('visible-img');
-            }
-        }
-        ;
-        reader.readAsDataURL(input.files[0]);
-    }
-});
-
 $("#canAvatar").click(function () {
     $('#canAvatarLabel').removeClass('visible-img');
     $('#imagePreview').removeClass('visible-img');
-    $('#imageUpload').wrap('<form>').closest('form').get(0).reset();
-    $('#imageUpload').unwrap();
+    $('input[name="posterPath"]').val('')
+    $('input[name="posterPath"]').wrap('<form>').closest('form').get(0).reset();
+    $('input[name="posterPath"]').unwrap();
 });
 
-$('#imagesUpload').change(function () {
-    readImgUrlAndPreview(this);
-
-    function readImgUrlAndPreview(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#imagesPreview').addClass('visible-img');
-                $('#canPhotosLabel').addClass('visible-img');
-            }
-        }
-        ;
-        reader.readAsDataURL(input.files[0]);
-    }
-});
-
-$("#canPhotos").click(function () {
-    $('#canPhotosLabel').removeClass('visible-img');
-    $('#imagesPreview').removeClass('visible-img');
-    $('#imagesUpload').wrap('<form>').closest('form').get(0).reset();
-    $('#imagesUpload').unwrap();
-});
+$('label[for="posterPath"]').click(function() {
+    checkFileAndLoadPreview = function () {
+        const fileInput = $('input[name="posterPath"]')
+        console.log('check interval', fileInput.val())
+        if (!fileInput.val()) return
+        clearInterval(checkFileInterval)
+        $('#imagePreview').attr('src', 'https://res.cloudinary.com/dkm5ywpkt/' + fileInput.val());
+        $('#imagePreview').addClass('visible-img');
+        $('#canAvatarLabel').addClass('visible-img');
+    }  
+    $('input[name="posterPath"]').val('')
+    var checkFileInterval = setInterval(checkFileAndLoadPreview, 100)
+})

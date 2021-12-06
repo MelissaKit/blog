@@ -25,11 +25,19 @@
 
 
     <div class="row content-row posts-block">
-        <?php foreach ($Params['Content'] as $key) :
+        <?php
+
+        use Cloudinary\Tag\ImageTag;
+        use Cloudinary\Asset\Image;
+        use Cloudinary\Transformation\Resize;
+
+        foreach ($Params['Content'] as $key) :
             $path = $key['PosterPath'];
-            if (!$key['PosterPath']) {
-                $path = '/files/standarts/reviewPoster.jpg';
-            } ?>
+            preg_match('/\/([^\/]*)\./', $path, $matches);
+            if (!empty($matches[1])) {
+                $path = $matches[1];
+            }
+        ?>
 
             <div class='post-item'>
                 <?php if ($key['isUserPost']) : ?>
@@ -44,7 +52,11 @@
                 <?php endif; ?>
 
                 <div class='img-container'>
-                    <img class='post-poster' src='<?= $path; ?>'>
+                    <div>
+                        <?php
+                        echo (new ImageTag(new Image($path)))->resize(Resize::fit(277, 150));
+                        ?>
+                    </div>
                     <span><?= $key['PublicationDate']; ?></span>
                 </div>
                 <div class='text-container'>
