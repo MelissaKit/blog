@@ -1,8 +1,22 @@
+<?php 
+    use Cloudinary\Tag\ImageTag;
+    use Cloudinary\Asset\Image;
+    use Cloudinary\Transformation\Resize;
+
+    foreach ($Params['Subscriptions'] as $subsItem) : 
+        $avatarPath = $subsItem['avatarPath'];
+        preg_match('/\/([^\/]*)\./', $avatarPath, $matches);
+        if (!empty($matches[1])) {
+            $subsItem['avatarPath'] = $matches[1];
+        }
+    endforeach
+?>
+
 <div class="content-row followings-block">
     <?php foreach ($Params['Subscriptions'] as $subsItem) : ?>
         <div class="following-item">
             <div class="following-image">
-                <a href='/Posts/User/<?= $subsItem['login'] ?>'><img width="100" height="100" src='<?= $subsItem['avatarPath'] ?>' /></a>
+                <a href='/Posts/User/<?= $subsItem['login'] ?>'><?php echo (new ImageTag(new Image($subsItem['avatarPath'])))->resize(Resize::fit(100, 100)); ?></a>
             </div>
             <div class="following-name">
                 <div class="following-name-short">

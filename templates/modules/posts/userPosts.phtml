@@ -1,7 +1,19 @@
 <?php $isCurrentUserPage = !!($_SESSION['login'] ==  $Params['Author']['Login']); ?>
 <div class="posts-container">
     <div class="user-row sticky">
-        <img width="200" height="200" class='user-avatar' src='<?= $Params['Author']['AvatarPath']; ?>'>
+        <?php
+
+        use Cloudinary\Tag\ImageTag;
+        use Cloudinary\Asset\Image;
+        use Cloudinary\Transformation\Resize;
+
+        $ownerPath = $Params['Author']['AvatarPath'];
+        preg_match('/\/([^\/]*)\./', $ownerPath, $matches);
+        if (!empty($matches[1])) {
+            $ownerPath = $matches[1];
+        }
+        echo (new ImageTag(new Image($ownerPath)))->resize(Resize::fit(200, 200));
+        ?>
         <div class="user-info">
             <div><?= $Params['Author']['Country'] . ', ' . $Params['Author']['City']; ?></div>
             <div><?= $Params['Author']['ShortDescription']; ?></div>
@@ -26,16 +38,16 @@
 
     <div class="row content-row posts-block">
         <?php
-
-        use Cloudinary\Tag\ImageTag;
-        use Cloudinary\Asset\Image;
-        use Cloudinary\Transformation\Resize;
-
         foreach ($Params['Content'] as $key) :
             $path = $key['PosterPath'];
             preg_match('/\/([^\/]*)\./', $path, $matches);
             if (!empty($matches[1])) {
                 $path = $matches[1];
+            }
+            $authorPath = $Params['Author']['AvatarPath'];
+            preg_match('/\/([^\/]*)\./', $authorPath, $matches);
+            if (!empty($matches[1])) {
+                $authorPath = $matches[1];
             }
         ?>
 
@@ -61,7 +73,7 @@
                 </div>
                 <div class='text-container'>
                     <div>
-                        <img width="30" height="30" class='user-logo' src='<?= $Params['Author']['AvatarPath']; ?>'>
+                        <?php echo (new ImageTag(new Image($authorPath)))->resize(Resize::fit(30, 30)); ?>
                         <a class='author-link' href='/Posts/User/<?= $Params['Author']['Login']; ?>'><?= $Params['Author']['Login']; ?></a>
                     </div>
                     <a class='poster-link' href='/Posts/Show/?Id=<?= $key['Id']; ?>'><?= $key['Name']; ?></a>

@@ -11,6 +11,11 @@
         if (!empty($matches[1])) {
             $path = $matches[1];
         }
+        $authorPath = $key['AuthorImage'];
+        preg_match('/\/([^\/]*)\./', $authorPath, $matches);
+        if (!empty($matches[1])) {
+            $authorPath = $matches[1];
+        }
     ?>
 
         <div class='post-item'>
@@ -27,15 +32,13 @@
 
             <div class='img-container'>
                 <div>
-                    <?php
-                    echo (new ImageTag(new Image($path)))->resize(Resize::fit(277, 150));
-                    ?>
+                    <?php echo (new ImageTag(new Image($path)))->resize(Resize::fit(277, 150)); ?>
                 </div>
                 <span><?= $key['PublicationDate']; ?></span>
             </div>
             <div class='text-container'>
                 <div>
-                    <img width="30" height="30" class='user-logo' src='<?= $key['AuthorImage']; ?>'>
+                    <?php echo (new ImageTag(new Image($authorPath)))->resize(Resize::fit(30, 30)); ?>
                     <a class='author-link' href='/Posts/User/<?= $key['Author']; ?>'><?= $key['Author']; ?></a>
                 </div>
                 <a class='poster-link' href='/Posts/Show/?Id=<?= $key['Id']; ?>'><?= $key['Name']; ?></a>

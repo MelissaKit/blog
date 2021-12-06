@@ -12,25 +12,30 @@
         use Cloudinary\Asset\Image;
         use Cloudinary\Transformation\Resize;
 
-        foreach ($Params['Content'] as $key) :
+        foreach ($Params['posts'] as $key) :
             $path = $key['PosterPath'];
             preg_match('/\/([^\/]*)\./', $path, $matches);
             if (!empty($matches[1])) {
                 $path = $matches[1];
+            }
+            $authorPath = $key['Author']['AvatarPath'];
+            preg_match('/\/([^\/]*)\./', $authorPath, $matches);
+            if (!empty($matches[1])) {
+                $authorPath = $matches[1];
             }
         ?>
             <div class="user-search">
                 <div class='img-container'>
                     <div>
                         <?php
-                            echo (new ImageTag(new Image($path)))->resize(Resize::fit(277, 150));
+                        echo (new ImageTag(new Image($path)))->resize(Resize::fit(277, 150));
                         ?>
                     </div>
                     <span> <?= $key['PublicationDate']; ?></span>
                 </div>
                 <div class='text-container'>
                     <div>
-                        <img width="30" height="30" class='user-logo' src='<?= $key['Author']['AuthorImage']; ?>'>
+                        <?php echo (new ImageTag(new Image($authorPath)))->resize(Resize::fit(30, 30)); ?>
                         <a class='author-link' href='/Posts/User/<?= $key['Author']['Login']; ?>'><?= $key['Author']['Login']; ?></a>
                     </div>
                     <a class='poster-link' href='/Posts/Show/?Id=<?= $key['Id']; ?>'>

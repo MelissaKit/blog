@@ -804,6 +804,8 @@ div>p.very-big {
 
 .following-item .following-image {
     padding-right: 25px;
+    width: 100px;
+    height: 100px;
 }
 
 .following-item .following-name-short {
@@ -915,7 +917,7 @@ div>p.very-big {
     background: #FFF;
     border: 2px solid #7DCA86;
     border-radius: 0 5px 5px 5px;
-    padding: 7px 15px;
+    padding: 15px;
 }
 
 .tabs__content.active {
