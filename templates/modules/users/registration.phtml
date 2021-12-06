@@ -23,47 +23,47 @@
             <div class="panel-body">
                 <form class="form" method="post" action="" enctype="multipart/form-data">
                     <div class="form-group">
-                        <input type="text" required name="login" id="login" class="form-control required" pattern=".{2,50}" title="2-50 символів" placeholder="Логін">
+                        <input type="text" required name="login" id="login" class="form-control" pattern=".{2,50}" title="2-50 символів" placeholder="Логін">
                     </div>
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,60}" title="Має містити символи різних регістрів та як мінімум 6 символів" type="password" required name="password" id="password" class="form-control required" placeholder="Пароль">
+                                <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,60}" title="Має містити символи різних регістрів та як мінімум 6 символів" type="password" required name="password" id="password" class="form-control" placeholder="Пароль">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="password" required name="passwordConfirm" id="passwordConfirm" class="form-control required" placeholder="Пароль ще раз">
+                                <input type="password" required name="passwordConfirm" id="passwordConfirm" class="form-control" placeholder="Пароль ще раз">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="firstName" id="firstName" required pattern=".{0,50}" title="2-50 символів" class="form-control required" placeholder="Ім'я">
+                                <input type="text" name="firstName" id="firstName" required pattern=".{0,50}" title="2-50 символів" class="form-control" placeholder="Ім'я">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="secondName" id="secondName" required class="form-control required" pattern=".{0,50}" title="2-50 символів" placeholder="Прізвище">
+                                <input type="text" name="secondName" id="secondName" required class="form-control" pattern=".{0,50}" title="2-50 символів" placeholder="Прізвище">
                             </div>
                         </div>
                     </div>
 
 
                     <div class="form-group">
-                        <input type="email" required name="mail" id="mail" class="form-control required" pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" placeholder="Email">
+                        <input type="email" required name="mail" id="mail" class="form-control" pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" placeholder="Email">
                     </div>
 
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="country" id="country" required pattern=".{0,40}" title="2-40 символів" class="form-control required" placeholder="Країна">
+                                <input type="text" name="country" id="country" required pattern=".{0,40}" title="2-40 символів" class="form-control" placeholder="Країна">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="city" id="city" required class="form-control required" pattern=".{0,40}" title="2-40 символів" placeholder="Місто">
+                                <input type="text" name="city" id="city" required class="form-control" pattern=".{0,40}" title="2-40 символів" placeholder="Місто">
                             </div>
                         </div>
                     </div>
@@ -72,17 +72,13 @@
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <label class="regLabel">Дата народження</label>
                             <div class="form-group">
-                                <input type="date" name="birthDate" id="birthDate" required class="form-control required">
+                                <input type="date" name="birthDate" id="birthDate" required class="form-control">
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="">
-                            <div class="form-group">
-                                <textarea name="shortDescription" id="shortDescription" required class="form-control required"></textarea>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <textarea placeholder="Про себе" name="shortDescription" id="shortDescription" required class="form-control"></textarea>
                     </div>
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
@@ -96,7 +92,7 @@
                                     'avatarPath'
                                 );;
                                 ?>
-                                
+
                                 <input type="file" name="avatar" id="imageUpload" class="hide" />
                                 <label for="avatarPath" class="btn btn-large custom-file-label ">Фото профіля</label>
                                 <img src="" id="imagePreview" class="hid-img" alt="Preview Image" />
@@ -109,7 +105,7 @@
                             </div>
                         </div>
                     </div>
-
+                    <br />
                     <input type="submit" value="Зареєструватися" class="btn btn-block regBut">
                 </form>
             </div>

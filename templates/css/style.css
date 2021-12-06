@@ -67,11 +67,11 @@ main {
 .regBut,
 .logBut {
     padding: 10px 15px;
-    background-color: #cf6931;
-    border: 1px solid #282828;
-    color: black;
+    background-color: #ac2925;
+    border: 1px solid #ac2925;
+    color: #fff;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 500;
 }
 
 .custom-file-label {
@@ -479,7 +479,7 @@ div.centered-form {
 }
 
 .prof-icon {
-    width: 50px;
+    width: 30px;
 }
 
 .prof-block {
@@ -491,8 +491,19 @@ div.centered-form {
     padding-bottom: 50px;
 }
 
+.edit-profile .prof-but {
+    text-align: right;
+    padding: 0;
+}
+
+.edit-profile ul+.prof-but {
+    text-align: right;
+    padding: 15px;
+}
+
 .btn-prof-set {
-    background-color: #e75200;
+    background-color: #ac2925;
+    border-color: #ac2925;
 }
 
 .prof-img-container {
@@ -507,12 +518,6 @@ div.centered-form {
 }
 
 .sendEdit {
-    padding: 10px;
-    background-color: #ffaa3e;
-    font-size: 16px;
-    border: 1px solid #ffaa6e;
-    border-radius: 3px;
-    float: right;
     margin-right: 15px;
 }
 
@@ -760,8 +765,13 @@ input[type='checkbox'].checkphoto {
 }
 
 .pagination>li.active>a {
-    background-color: #e75200;
-    border: 1px solid #e75205;
+    background-color: #ac2925;
+    border: 1px solid #ac2925;
+}
+
+.pagination>li.active>a:hover {
+    background-color: #ac2925;
+    border: 1px solid #ac2925;
 }
 
 
@@ -779,7 +789,7 @@ main {
 
 footer.nb-footer {
     background: #222;
-    border-top: 4px solid #e75200;
+    border-top: 4px solid #ac2925;
     height: 145px;
 }
 
@@ -808,7 +818,7 @@ footer.nb-footer .about .social-media ul li a {
     line-height: 45px;
     border-radius: 50%;
     font-size: 16px;
-    color: #e75200;
+    color: #ac2925;
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
@@ -1106,4 +1116,8 @@ a.like-link {
 a.like-link:hover span:before,
 a.unlike-link span:before {
     color: #c9302c;
+}
+
+.profile-view .prof-container {
+    margin-bottom: 15px;
 }

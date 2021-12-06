@@ -28,7 +28,9 @@
                         <span class="hamburger last-burger"></span>
                         <ul class="nav navbar-nav menu-nav">
                             <li><a href="/Posts/Index">Головна</a></li>
-                            <li><a href="/Posts/User/<?php echo ($_SESSION['login']); ?>">Мої пости</a></li>
+                            <?php if (isset($_SESSION['login'])): ?>
+                                <li><a href="/Posts/User/<?php echo ($_SESSION['login']); ?>">Мої пости</a></li>
+                            <?php endif; ?>
                             <li><a href="/Subscriptions/Index">Підписки</a></li>
                             <li><a href="#">Категорії</a></li>
                         </ul>
