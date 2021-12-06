@@ -21,6 +21,8 @@ spl_autoload_register(function ($className) {
     include($path);
 });
 
+require_once 'config/cloudinary.inc.php';
+
 Core::Init();
 Core::Run();
 Core::Done();

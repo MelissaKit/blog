@@ -27,10 +27,8 @@ class Users_Controller extends Controller
                 if (Users_Model::checkLogin($_POST['login']) && Users_Model::checkMail($_POST['mail'])) {
                     if (!empty(($_POST['login'])) && !empty(($_POST['password'])) && ($_POST['password']) == ($_POST['passwordConfirm']) && !empty(($_POST['mail']))) {
                         if (strlen($_POST['password']) >= 6) {
-                            if ($_FILES && $_FILES['avatar']['error'] == UPLOAD_ERR_OK) {
-                                $file = md5(uniqid(''));
-                                move_uploaded_file($_FILES["avatar"]["tmp_name"], "files/userAva/$file");
-                                $_POST['avatarPath'] = "/files/userAva/$file";
+                            if (empty($_POST['avatarPath'])) {
+                                $_POST['avatarPath'] = 'jveqrwggircn2egahvtt'; //default avatar
                             }
                             Users_Model::registerUser($_POST);
                             $_SESSION['authorized'] = true;
@@ -108,18 +106,13 @@ class Users_Controller extends Controller
                     if (((count(Users_Model::getUserByLogin($_POST['login'])) == 1 && $_POST['login'] == $_SESSION['login']) || (count(Users_Model::getUserByLogin($_POST['login'])) == 0 && $_POST['login'] != $_SESSION['login']))
                         && (count(Users_Model::getUserByMail($_POST['mail'])) == 1 && $_POST['mail'] == $user['Mail']) || (count(Users_Model::getUserByMail($_POST['mail'])) == 0 && $_POST['mail'] != $user['Mail'])) {
                         $userId = $user['Id'];
-                        if ($_FILES && $_FILES['avatar']['error'] == UPLOAD_ERR_OK && !isset($_POST['deleteAva'])) {
-                            if ($user['AvatarPath'] != '')
-                                unlink(substr($user['AvatarPath'], 1));
-                            $file = md5(uniqid(''));
-                            move_uploaded_file($_FILES["avatar"]["tmp_name"], "files/userAva/$file");
-                            $_POST['avatarPath'] = "/files/userAva/$file";
+                        if (empty($_POST['avatarPath'])) {
+                            $_POST['avatarPath'] = $user['AvatarPath'];
                         }
 
                         if (isset($_POST['deleteAva'])) {
-                            if ($user['AvatarPath'] != '')
-                                unlink(substr($user['AvatarPath'], 1));
-                            $_POST['avatarPath'] = '';
+                            $user['AvatarPath'] = 'jveqrwggircn2egahvtt';
+                            $_POST['avatarPath'] = 'jveqrwggircn2egahvtt'; // default image;
                         }
                         Users_Model::editUser($userId, $_POST);
                         $_SESSION['login'] = $_POST['login'];
