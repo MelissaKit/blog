@@ -15,8 +15,9 @@
         echo (new ImageTag(new Image($ownerPath)))->resize(Resize::fit(200, 200));
         ?>
         <div class="user-info">
-            <div><?= $Params['Author']['Country'] . ', ' . $Params['Author']['City']; ?></div>
-            <div><?= $Params['Author']['ShortDescription']; ?></div>
+            <div class="login"><?= $Params['Author']['Login'] ?></div>
+            <div class="location"><?= $Params['Author']['Country'] . ', ' . $Params['Author']['City']; ?></div>
+            <div class="about"><?= $Params['Author']['ShortDescription']; ?></div>
             <div>
                 <?php if (!$isCurrentUserPage && $Params['Subscription']) : ?>
                     <a class="unfollow-link" href='/Subscriptions/Delete/?follow=<?= $Params['Author']['Login'] ?>'>Unfollow</a>
@@ -52,51 +53,54 @@
         ?>
 
             <div class='post-item'>
-                <?php if ($key['isUserPost']) : ?>
-                    <div class='admin-panel'>
-                        <a class='btn btn-raised btn-danger btn-prof-set' href='/Posts/Delete/?Id=<?= $key['Id']; ?>'>
-                            <span class='glyphicon glyphicon-remove' aria-hidden='true'></span>
-                        </a>
-                        <a class='btn btn-raised btn-danger btn-prof-set' href='/Posts/Edit/?Id=<?= $key['Id']; ?>'>
-                            <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>
-                        </a>
-                    </div>
-                <?php endif; ?>
-
                 <div class='img-container'>
-                    <div>
+                    <div class="image">
                         <?php
                         echo (new ImageTag(new Image($path)))->resize(Resize::fit(277, 150));
                         ?>
                     </div>
-                    <span><?= $key['PublicationDate']; ?></span>
+                    <?php if ($key['isUserPost']) : ?>
+                        <div class='admin-panel'>
+                            <a class='btn btn-raised btn-danger btn-prof-set' href='/Posts/Delete/?Id=<?= $key['Id']; ?>'>
+                                <span class='glyphicon glyphicon-remove' aria-hidden='true'></span>
+                            </a>
+                            <a class='btn btn-raised btn-danger btn-prof-set' href='/Posts/Edit/?Id=<?= $key['Id']; ?>'>
+                                <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>
+                            </a>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <div class='text-container'>
                     <div>
-                        <?php echo (new ImageTag(new Image($authorPath)))->resize(Resize::fit(30, 30)); ?>
-                        <a class='author-link' href='/Posts/User/<?= $Params['Author']['Login']; ?>'><?= $Params['Author']['Login']; ?></a>
+                        <a class='author-link' href='/Posts/User/<?= $Params['Author']['Login']; ?>'>
+                            <?php echo (new ImageTag(new Image($authorPath)))->resize(Resize::fit(30, 30)); ?>
+                            <span><?= $Params['Author']['Login']; ?></span>
+                        </a>
                     </div>
-                    <a class='poster-link' href='/Posts/Show/?Id=<?= $key['Id']; ?>'><?= $key['Name']; ?></a>
-                    <div class='poster-content'><?= html_entity_decode($key['Text']); ?></div>
+                    <a class='post-link' href='/Posts/Show/?Id=<?= $key['Id']; ?>'><?= $key['Name']; ?></a>
+                    <div class='post-content'><?= html_entity_decode($key['Text']); ?></div>
 
                     <div class='likes-container'>
-                        <?php if ($key['LikesUser']) : ?>
-                            <a class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>
-                                <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount']; ?></span>
-                            </a>
-                            <a style="display: none;" class="like-link" href='/Likes/Add/?post=<?= $key['Id'] ?>'>
-                                <span class='likes glyphicon glyphicon-heart-empty'><?= $key['LikesCount'] - 1; ?></span>
-                            </a>
-                        <?php else : ?>
-                            <a class="like-link" href='/Likes/Add/?post=<?= $key['Id'] ?>'>
-                                <span class='likes glyphicon glyphicon-heart-empty'><?= $key['LikesCount']; ?></span>
-                            </a>
-                            <a style="display: none;" class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>
-                                <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount'] + 1; ?></span>
-                            </a>
-                        <?php endif; ?>
-                        <span class='views glyphicon glyphicon-eye-open'><?= $key['Views']; ?></span>
-                        <span class='comments glyphicon glyphicon-comment'><?= $key['CommentsCount']; ?></span>
+                        <div class="rating-items">
+                            <?php if ($key['LikesUser']) : ?>
+                                <a class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>
+                                    <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount']; ?></span>
+                                </a>
+                                <a style="display: none;" class="like-link" href='/Likes/Add/?post=<?= $key['Id'] ?>'>
+                                    <span class='likes glyphicon glyphicon-heart-empty'><?= $key['LikesCount'] - 1; ?></span>
+                                </a>
+                            <?php else : ?>
+                                <a class="like-link" href='/Likes/Add/?post=<?= $key['Id'] ?>'>
+                                    <span class='likes glyphicon glyphicon-heart-empty'><?= $key['LikesCount']; ?></span>
+                                </a>
+                                <a style="display: none;" class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>
+                                    <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount'] + 1; ?></span>
+                                </a>
+                            <?php endif; ?>
+                            <span class='views glyphicon glyphicon-eye-open'><?= $key['Views']; ?></span>
+                            <span class='comments glyphicon glyphicon-comment'><?= $key['CommentsCount']; ?></span>
+                        </div>
+                        <div class="publication-date"><?= $key['PublicationDate']; ?></div>
                     </div>
                 </div>
             </div>

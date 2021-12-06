@@ -1,11 +1,14 @@
-<?php $isCurrentUserPost = !!($_SESSION['login'] ==  $Params['Author']['Login']); ?>
-<div class="container prof-block">
+<?php
+
+use Cloudinary\Tag\ImageTag;
+use Cloudinary\Asset\Image;
+use Cloudinary\Transformation\Resize;
+
+$isCurrentUserPost = !!($_SESSION['login'] ==  $Params['Author']['Login']); ?>
+
+<div class="posts-container prof-block">
     <div class="user-row sticky">
         <?php
-
-        use Cloudinary\Tag\ImageTag;
-        use Cloudinary\Asset\Image;
-        use Cloudinary\Transformation\Resize;
 
         $ownerPath = $Params['Author']['AvatarPath'];
         preg_match('/\/([^\/]*)\./', $ownerPath, $matches);
@@ -15,8 +18,9 @@
         echo (new ImageTag(new Image($ownerPath)))->resize(Resize::fit(200, 200));
         ?>
         <div class="user-info">
-            <div><?= $Params['Author']['Country'] . ', ' . $Params['Author']['City']; ?></div>
-            <div><?= $Params['Author']['ShortDescription']; ?></div>
+            <div class="login"><?= $Params['Author']['Login'] ?></div>
+            <div class="location"><?= $Params['Author']['Country'] . ', ' . $Params['Author']['City']; ?></div>
+            <div class="about"><?= $Params['Author']['ShortDescription']; ?></div>
             <div>
                 <?php if (!$isCurrentUserPost && $Params['Subscription']) : ?>
                     <a class="unfollow-link" href='/Subscriptions/Delete/?follow=<?= $Params['Author']['Login'] ?>'>Unfollow</a>
@@ -35,10 +39,10 @@
         <?php endif; ?>
     </div>
 
-    <div class="posts-container">
-        <div class="row">
+    <div class="posts-block">
+        <div>
             <div class="">
-                <div class="container prof-container">
+                <div class="post-title">
                     <h2><?php if (isset($Params['Name'])) echo $Params['Name']; ?></h2>
                 </div>
                 <hr>
@@ -49,8 +53,8 @@
                         echo  html_entity_decode($Params['Text']); ?>
                 </p>
             </div>
-            <div class="">
-                <div class='likes-container'>
+            <div class='likes-container'>
+                <div class="rating-items">
                     <?php if ($Params['LikesUser']) : ?>
                         <a class="unlike-link" href='/Likes/Delete/?post=<?= $Params['Id'] ?>'>
                             <span class='likes glyphicon glyphicon-heart'><?= $Params['LikesCount']; ?></span>
@@ -69,47 +73,54 @@
                     <span class='views glyphicon glyphicon-eye-open'><?= $Params['Views']; ?></span>
                     <span class='comments glyphicon glyphicon-comment'><?= count($Params['Comments']); ?></span>
                 </div>
-                <div>
+                <div class="publication-date">
                     <?php
                     if (isset($Params['PublicationDate']) && $Params['PublicationDate'] != '0000-00-00')
                         echo "
-                        <div><span class='fa fa-calendar-plus-o'></span>" . $Params['PublicationDate'] . "</div>
-                    "; ?>
+                        <span class='fa fa-calendar-plus-o'></span>" . $Params['PublicationDate']; ?>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="comments-row">
-        <form id='addComment' class="form" method="post" action="/Comments/Add/" enctype="multipart/form-data">
-            <input style='display:none' type="hidden" name='postId' id='postId' class='form-control' value="<?= $Params['Id']; ?>" />
-            <div class="form-group">
-                <textarea name="commentText" id="commentText" required class="form-control"></textarea>
+<div class="comments-row">
+    <form id='addComment' class="form" method="post" action="/Comments/Add/" enctype="multipart/form-data">
+        <input style='display:none' type="hidden" name='postId' id='postId' class='form-control' value="<?= $Params['Id']; ?>" />
+        <div class="form-group">
+            <textarea name="commentText" id="commentText" required class="form-control" placeholder="Додати коментар"></textarea>
+        </div>
+        <div class="comment-submit">
+            <input type="submit" value="Надіслати" class="btn btn-block btn-prof-set" />
+        </div>
+    </form>
+    <?php foreach ($Params['Comments'] as $comment) : 
+        
+        $authorPath = $comment['Author']['AvatarPath'];
+        preg_match('/\/([^\/]*)\./', $authorPath, $matches);
+        if (!empty($matches[1])) {
+            $authorPath = $matches[1];
+        }
+        ?>
+
+        <div class="comment-item">
+            <div class="comment-user">
+                <a class="author-link" href='/Posts/User/<?= $comment['Author']['Login'] ?>'>
+                    <?php echo (new ImageTag(new Image($authorPath)))->resize(Resize::fit(25, 25)); ?>
+                    <span><?= $comment['Author']['Login'] ?></span>
+                </a>
+                <span class="publication-date"><?= $comment['commentDate'] ?></span>
             </div>
-            <div>
-                <input type="submit" value="Надіслати" class="btn btn-block but-create" />
+            <div class="comment-content">
+                <span><?= $comment['commentText'] ?></span>
             </div>
-        </form>
-        <?php foreach ($Params['Comments'] as $comment) : ?>
-            <div class="comment-item">
-                <div class="comment-user">
-                    <a href='/Posts/User/<?= $comment['Author']['Login'] ?>'>
-                        <img width="25" height="25" src='<?= $comment['Author']['AvatarPath'] ?>' />
-                        <span><?= $comment['Author']['Login'] ?></span>
-                        <span><?= $comment['commentDate'] ?></span>
-                    </a>
+            <?php if ($comment['Author']['Login'] == $_SESSION['login']) : ?>
+                <div class="delete-comment">
+                    <a href='/Comments/Delete/?Id=<?= $comment['Id'] ?>'>Delete</a>
                 </div>
-                <div class="comment-content">
-                    <span><?= $comment['commentText'] ?></span>
-                </div>
-                <?php if ( $comment['Author']['Login'] == $_SESSION['login']) : ?>
-                    <div class="delete-comment">
-                        <a href='/Comments/Delete/?Id=<?= $comment['Id'] ?>'>Delete</a>
-                    </div>
-                <?php endif; ?>
-            </div>
-        <?php endforeach ?>
-    </div>
+            <?php endif; ?>
+        </div>
+    <?php endforeach ?>
 </div>
 
 <?php if ($Params['Author']['Login'] != $_SESSION['login']) : ?>

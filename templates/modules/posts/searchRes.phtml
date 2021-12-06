@@ -38,7 +38,7 @@
                         <?php echo (new ImageTag(new Image($authorPath)))->resize(Resize::fit(30, 30)); ?>
                         <a class='author-link' href='/Posts/User/<?= $key['Author']['Login']; ?>'><?= $key['Author']['Login']; ?></a>
                     </div>
-                    <a class='poster-link' href='/Posts/Show/?Id=<?= $key['Id']; ?>'>
+                    <a class='post-link' href='/Posts/Show/?Id=<?= $key['Id']; ?>'>
                         <?= $key['Name']; ?>
                     </a>
                     <?= html_entity_decode($key['Text']); ?>

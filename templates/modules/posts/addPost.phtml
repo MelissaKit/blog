@@ -10,22 +10,22 @@
     echo new JsConfigTag();
     ?>
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <div class="jumbotron post-container">
+    <div class="post-container">
         <div class="row">
             <div class="col-md-8 col-xs-12 col-sm-6 col-lg-8 post-adding">
                 <form id='addPost' class="form" method="post" action="/Posts/Add/" enctype="multipart/form-data">
-                    <p>
-                        <span class='fa fa-film  fa-review'>Назва</span>
+                    <p class="title">
+                        <span class='fa fa-header'> Заголовок</span>
                         <input type='text' name='name' id='name' pattern=".{0,50}" title="2-50 символів" class='form-control' />
                     </p>
                     <p>
-                        <span class='fa fa fa-sticky-note-o fa-review'>Текст</span>
+                        <span class='fa fa-quote-left'> Текст</span>
                         <input style='display:none' name='text' id='text' class='form-control textarea-item' />
                         <input style='display:none' name='textOnly' id='textOnly' class='form-control textarea-item' />
-                    <div id='editor'></div>
+                        <div id='editor'></div>
                     </p>
-                    <p>
-                        <span class='fa fa fa-file fa-review'> Постер</span>
+                    <p class="poster">
+                        <span class='fa fa-camera-retro'> Постер</span>
                         <label for='posterPath' class='btn btn-large custom-file-label '>Додати фото</label>
                         <img src='' id='imagePreview' class='hid-img' alt='Preview Image' />
                         <?php
@@ -39,8 +39,8 @@
                         <input type='button' name='canAvatar' id='canAvatar' class='hide' />
                         <label for='canAvatar' class='btn btn-large custom-file-label hid-img btn-auto' id='canAvatarLabel'>Скинути</label>
                     </p>
-                    <div>
-                        <input type="submit" value="Створити" class="btn btn-block but-create" />
+                    <div class="add-submit">
+                        <input type="submit" value="Створити" class="btn btn-raised btn-danger btn-prof-set btn-add-post" />
                     </div>
                 </form>
             </div>
