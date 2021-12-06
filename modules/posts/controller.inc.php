@@ -45,9 +45,19 @@ class Posts_Controller extends Controller
     public function ShowAction()
     {
         if (isset($_GET['Id'])) {
+            $userId = Users_Model::getUserByLogin($_SESSION['login'])[0]['Id'];
             $post = Posts_Model::getReviewById($_GET['Id']);
             if ($post != null) {
                 $post = $post[0];
+                $post['LikesCount'] = Likes_Model::getLikesCount($post['Id']);
+                $post['LikesUser'] = !!Likes_Model::checkUserLike($post['Id'], $userId);
+                $post['Author'] =  Users_Model::getUserById($post['userId'])[0];
+
+                if ($post['userId'] != $userId) {
+                    $postsSubscr = Subscriptions_Model::getSubscriptionByParams($userId, $post['userId']);
+                    $post['Subscription'] =  count($postsSubscr) ? $postsSubscr[0] : null;
+                } else  $post['Subscription'] = false;
+
                 $post['Comments'] = Comments_Model::getPostComments(10, 0, $post['Id']);
                 usort($post['Comments'], function ($item1, $item2) {
                     return strtotime($item2['commentDate']) - strtotime($item1['commentDate']);

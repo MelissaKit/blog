@@ -10,4 +10,17 @@ class Comments_Model extends Model
     {
         return Core::GetDB()->getRowsCount('Comments', array('postId' => $postId));
     }
+
+    public static function addComment($row)
+    {
+        $fieldsArray = array('userId', 'postId', 'commentText');
+        Core::
+        
+        GetDB()->addRecordFromForm('Comments', $row, $fieldsArray);
+    }
+
+    public static function deleteComment($Id)
+    {
+        Core::GetDB()->delete('Comments', array('Id' => $Id));
+    }
 }

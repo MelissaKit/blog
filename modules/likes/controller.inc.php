@@ -10,7 +10,6 @@ class Likes_Controller extends Controller
                     var_dump($_GET['post']);
                     $userId = Users_Model::getUserByLogin($_SESSION['login'])[0]['Id'];
                     Likes_Model::addNewLike($_GET['post'], $userId);
-                    exit;
                 }
                 break;
         }
@@ -24,7 +23,6 @@ class Likes_Controller extends Controller
                 if (isset($_GET['post'])) {
                     $userId = Users_Model::getUserByLogin($_SESSION['login'])[0]['Id'];
                     Likes_Model::deleteLike($_GET['post'], $userId);
-                    exit;
                 }
                 break;
         }

@@ -45,7 +45,7 @@ class Core
             return;
         }*/
 
-        if(isset($_SESSION['login']) && $_SESSION['login']=='admin' || !($methodName=='AddAction' || $methodName=='EditAction' || $methodName=='DeleteAction' ||$methodName=='AddAlbumAction' || $methodName=='EditAlbumAction' || $methodName=='DeleteAlbumAction')) {
+        if(true/*isset($_SESSION['login']) && $_SESSION['login']=='admin' || !($methodName=='AddAction' || $methodName=='EditAction' || $methodName=='DeleteAction' ||$methodName=='AddAlbumAction' || $methodName=='EditAlbumAction' || $methodName=='DeleteAlbumAction')*/) {
             if (class_exists($className)) {
                 $controller = new $className();
                 if (method_exists($controller, $methodName)) {
