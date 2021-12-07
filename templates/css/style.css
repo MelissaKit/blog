@@ -1149,7 +1149,8 @@ a.unlike-link span:before {
     border-color: #888888;
 }
 
-.followings-block {
+.followings-block,
+.analytics-row {
     margin: 30px 0;
 }
 
@@ -1170,4 +1171,30 @@ a.unlike-link span:before {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.analytics-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stat-post-link {
+    width: 100%;
+    text-align: right;
+}
+
+.stat-sex {
+    width: 100%;
+}
+
+.sex-pie {
+    margin: 0 auto;
+}
+
+.stat-sex,
+.stat-country,
+.stat-age {
+    margin: 0 0 20px;
+    text-align: center;
 }

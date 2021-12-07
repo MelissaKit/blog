@@ -30,4 +30,24 @@ class Subscriptions_Model extends Model
     {
         Core::GetDB()->delete('Follow', array('userId'=>$userId, 'followId' => $followId));
     }
+
+    public static function getFemaleSubscribersCount($followId)
+    {
+        return Core::GetDB()->getRowsCountByCondition('User', "INNER JOIN Blog.Follow ON Blog.User.Id = Blog.Follow.userId WHERE Blog.User.Id IN (SELECT Blog.Follow.userId FROM Blog.Follow WHERE Blog.Follow.followId = ". $followId .") and Blog.User.Sex = 'f'");
+    }
+
+    public static function getMaleSubscribersCount($followId)
+    {
+        return Core::GetDB()->getRowsCountByCondition('User', "INNER JOIN Blog.Follow ON Blog.User.Id = Blog.Follow.userId WHERE Blog.User.Id IN (SELECT Blog.Follow.userId FROM Blog.Follow WHERE Blog.Follow.followId = ". $followId .") and Blog.User.Sex = 'm'");
+    }
+
+    public static function getSubscribersCountByCountries($followId)
+    {
+        return Core::GetDB()->getRowCountByCondition('User', 'Country' , "INNER JOIN Blog.Follow ON Blog.User.Id = Blog.Follow.userId  WHERE Blog.User.Id IN (SELECT Blog.Follow.userId FROM Blog.Follow WHERE Blog.Follow.followId = ". $followId .") GROUP by Blog.User.Country");
+    }  
+
+    public static function getSubscribersAge($followId)
+    {
+        return Core::GetDB()->getConditionCountByCondition('User', 'TIMESTAMPDIFF(YEAR, Blog.User.BirthDate, CURDATE()) AS age' , "INNER JOIN Blog.Follow ON Blog.User.Id = Blog.Follow.userId  WHERE Blog.User.Id IN (SELECT Blog.Follow.userId FROM Blog.Follow WHERE Blog.Follow.followId = ". $followId .")  GROUP by age ORDER BY age");
+    }  
 }

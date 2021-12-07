@@ -81,6 +81,29 @@ class DB
         return (int)$state->fetch()['count'];
     }
 
+    public function getRowsCountByCondition($table, $conditions)
+    {
+        $sql = "SELECT COUNT(*) as count FROM {$this->dbName}.{$table} {$conditions}";
+        $state = $this->pdo->query($sql);
+        return (int)$state->fetch()['count'];
+    }
+
+    public function getRowCountByCondition($table, $row, $conditions)
+    {
+        $sql = "SELECT {$this->dbName}.{$table}.{$row}, COUNT(*) as count FROM {$this->dbName}.{$table} {$conditions}";
+        $state = $this->pdo->query($sql);
+        $result = $state->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function getConditionCountByCondition($table, $row, $conditions)
+    {
+        $sql = "SELECT {$row}, COUNT(*) as count FROM {$this->dbName}.{$table} {$conditions}";
+        $state = $this->pdo->query($sql);
+        $result = $state->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     public function getRowWhere($table, $row, $conditions)
     {
         $conditionsStr = $this->getSQLWhere($conditions);

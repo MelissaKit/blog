@@ -1,0 +1,151 @@
+<?php
+$countryLabels = '';
+$countryValues = '';
+foreach ($Params['country'] as $key => $country) {
+  if ($key != 0) {
+    $countryLabels = $countryLabels . ',';
+    $countryValues = $countryValues .  ',';
+  }
+  $countryLabels = $countryLabels . $country['Country'];
+  $countryValues = $countryValues . $country['count'];
+}
+
+$ageLabels = '';
+$ageCounts = '';
+foreach ($Params['age'] as $key => $age) {
+  if ($key != 0) {
+    $ageLabels = $ageLabels . ',';
+    $ageCounts = $ageCounts .  ',';
+  }
+  $ageLabels = $ageLabels . $age['age'];
+  $ageCounts = $ageCounts . $age['count'];
+}
+?>
+
+
+<div class="content-row analytics-row">
+  <div class="stat-post-link"><a href="#">Переглянути статистику за постами</a></div>
+  <div class="stat-sex">
+    <h3>Статистика підписників за статтю</h3>
+    <div class="sex-pie" style="width: 300px; height: 300px;">
+      <canvas id="myChart"></canvas>
+    </div>
+  </div>
+
+  <div class="stat-country">
+    <h3>Статистика підписників за країнами</h3>
+    <div class="country-table" style="height: 300px; width: 500px;">
+      <canvas id="myChartCountry"></canvas>
+    </div>
+  </div>
+
+  <div class="stat-age">
+    <h3>Статистика підписників за віком</h3>
+    <div class="country-table" style="height: 300px; width: 500px;">
+      <canvas id="myChartAge"></canvas>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.onload = function() {
+    var male = '<?= $Params['sex']['m'] ?>',
+      female = '<?= $Params['sex']['f'] ?>';
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const dataSex = {
+      labels: ['Ч', 'Ж', ],
+      datasets: [{
+        label: 'Статистика підписників за статтю',
+        data: [male, female],
+        backgroundColor: [
+          'rgb(54, 162, 235)',
+          'rgb(255, 99, 132)'
+        ],
+        hoverOffset: 4
+      }]
+    };
+    const myChart = new Chart(ctx, {
+      type: 'pie',
+      data: dataSex
+
+    });
+
+    // country 
+    var labels = '<?= $countryLabels ?>',
+      values = '<?= $countryValues ?>';
+
+    labels = labels.split(',');
+    values = values.split(',').map(Number);
+
+    const ctx2 = document.getElementById('myChartCountry');
+    const dataCountry = {
+      labels: labels,
+      datasets: [{
+        label: 'Країни',
+        data: values,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 205, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(201, 203, 207, 0.2)'
+        ],
+        borderColor: [
+          'rgb(255, 99, 132)',
+          'rgb(255, 159, 64)',
+          'rgb(255, 205, 86)',
+          'rgb(75, 192, 192)',
+          'rgb(54, 162, 235)',
+          'rgb(153, 102, 255)',
+          'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+      }]
+    };
+
+    const myChartCountry = new Chart(ctx2, {
+      type: 'bar',
+      data: dataCountry,
+      options: {
+        scales: {
+          yAxes: [{
+            barPercentage: 0.5
+          }]
+        },
+        elements: {
+          rectangle: {
+            borderSkipped: 'left',
+          }
+        }
+      }
+    });
+
+
+    // age 
+    var labelsAge = '<?= $ageLabels ?>';
+    valuesAge = '<?= $ageCounts ?>';
+
+    labelsAge = labelsAge.split(',');
+    valuesAge = valuesAge.split(',').map(Number);
+
+    const ctx3 = document.getElementById('myChartAge');
+    const dataAge = {
+      labels: labelsAge,
+      datasets: [{
+        label: 'Вік',
+        data: valuesAge,
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
+      }]
+    };
+
+    const myChartAge = new Chart(ctx3, {
+      type: 'line',
+      data: dataAge
+    });
+  }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
