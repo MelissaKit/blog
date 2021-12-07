@@ -1,34 +1,36 @@
-<?php 
-    use Cloudinary\Tag\ImageTag;
-    use Cloudinary\Asset\Image;
-    use Cloudinary\Transformation\Resize;
+<?php
 
-    foreach ($Params['Subscriptions'] as $subsItem) : 
-        $avatarPath = $subsItem['avatarPath'];
-        preg_match('/\/([^\/]*)\./', $avatarPath, $matches);
-        if (!empty($matches[1])) {
-            $subsItem['avatarPath'] = $matches[1];
-        }
-    endforeach
+use Cloudinary\Tag\ImageTag;
+use Cloudinary\Asset\Image;
+use Cloudinary\Transformation\Resize;
 ?>
 
 <div class="content-row followings-block">
-    <?php foreach ($Params['Subscriptions'] as $subsItem) : ?>
-        <div class="following-item">
-            <div class="following-image">
-                <a href='/Posts/User/<?= $subsItem['login'] ?>'><?php echo (new ImageTag(new Image($subsItem['avatarPath'])))->resize(Resize::fit(100, 100)); ?></a>
-            </div>
-            <div class="following-name">
-                <div class="following-name-short">
-                    <?= $subsItem['login'] ?>
-                </div>
-                <div class="following-name-full">
-                    <span><?= $subsItem['firstName'] ?></span>
-                    <span><?= $subsItem['secondName'] ?></span>
-                </div>
-                <a class="unfollow-link" href='/Subscriptions/Delete/?follow=<?= $subsItem['login'] ?>'>Unfollow</a>
-                <a style="display: none;" class="follow-link" href='/Subscriptions/Add/?follow=<?= $subsItem['login'] ?>'>Follow</a>
-            </div>
+  <?php foreach ($Params['Subscriptions'] as $subsItem) : ?>
+    <div class="following-item">
+      <div class="following-image">
+        <a href='/Posts/User/<?= $subsItem['login'] ?>'>
+          <?php 
+            $avatarPath = $subsItem['avatarPath'];
+            preg_match('/\/([^\/]*)\./', $avatarPath, $matches);
+            if (!empty($matches[1])) {
+              $subsItem['avatarPath'] = $matches[1];
+            }
+            echo (new ImageTag(new Image($subsItem['avatarPath'])))->resize(Resize::fit(100, 100));
+           ?>
+        </a>
+      </div>
+      <div class="following-name">
+        <div class="following-name-short">
+          <?= $subsItem['login'] ?>
         </div>
-    <?php endforeach ?>
+        <div class="following-name-full">
+          <span><?= $subsItem['firstName'] ?></span>
+          <span><?= $subsItem['secondName'] ?></span>
+        </div>
+        <a class="unfollow-link" href='/Subscriptions/Delete/?follow=<?= $subsItem['login'] ?>'>Unfollow</a>
+        <a style="display: none;" class="follow-link" href='/Subscriptions/Add/?follow=<?= $subsItem['login'] ?>'>Follow</a>
+      </div>
+    </div>
+  <?php endforeach ?>
 </div>
