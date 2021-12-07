@@ -903,7 +903,13 @@ div>p.very-big {
 }
 
 .following-item .following-name-short {
+    color: #222;
     font-size: 22px;
+}
+
+.following-item .following-name-short:hover {
+    color: #555;
+    text-decoration: none;
 }
 
 
@@ -1123,7 +1129,7 @@ a.unlike-link span:before {
 }
 
 .search-tabs {
-    margin: 20px 0;
+    margin: 30px 0;
 }
 
 .tabs__caption li {
@@ -1141,4 +1147,27 @@ a.unlike-link span:before {
 .tabs__caption li:not(.active):hover {
     background: #afaeae;
     border-color: #888888;
+}
+
+.followings-block {
+    margin: 30px 0;
+}
+
+.followings-block .unfollow-link,
+.followings-block .follow-link,
+.following-search .unfollow-link,
+.following-search .follow-link {
+    font-size: 12px;
+}
+
+.followings-block .following-image,
+.following-search .following-image {
+    margin: 0 20px 0 0;
+}
+
+.followings-block .following-name,
+.following-search .following-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

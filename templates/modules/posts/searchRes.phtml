@@ -42,51 +42,65 @@
                     </a>
                     <div class='post-content'><?= html_entity_decode($key['Text']); ?></div>
                     <div class='likes-container'>
-                    <div class="rating-items">
-                        <?php if ($key['LikesUser']) : ?>
-                            <a class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>
-                                <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount']; ?></span>
-                            </a>
-                            <a style="display: none;" class="like-link" href='/Likes/Add/?post=<?= $key['Id'] ?>'>
-                                <span class='likes glyphicon glyphicon-heart-empty'><?= $key['LikesCount'] - 1; ?></span>
-                            </a>
-                        <?php else : ?>
-                            <a class="like-link" href='/Likes/Add/?post=<?= $key['Id'] ?>'>
-                                <span class='likes glyphicon glyphicon-heart-empty'><?= $key['LikesCount']; ?></span>
-                            </a>
-                            <a style="display: none;" class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>
-                                <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount'] + 1; ?></span>
-                            </a>
-                        <?php endif; ?>
-                        <span class='views glyphicon glyphicon-eye-open'><?= $key['Views']; ?></span>
-                        <span class='comments glyphicon glyphicon-comment'><?= $key['CommentsCount']; ?></span>
+                        <div class="rating-items">
+                            <?php if ($key['LikesUser']) : ?>
+                                <a class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>
+                                    <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount']; ?></span>
+                                </a>
+                                <a style="display: none;" class="like-link" href='/Likes/Add/?post=<?= $key['Id'] ?>'>
+                                    <span class='likes glyphicon glyphicon-heart-empty'><?= $key['LikesCount'] - 1; ?></span>
+                                </a>
+                            <?php else : ?>
+                                <a class="like-link" href='/Likes/Add/?post=<?= $key['Id'] ?>'>
+                                    <span class='likes glyphicon glyphicon-heart-empty'><?= $key['LikesCount']; ?></span>
+                                </a>
+                                <a style="display: none;" class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>
+                                    <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount'] + 1; ?></span>
+                                </a>
+                            <?php endif; ?>
+                            <span class='views glyphicon glyphicon-eye-open'><?= $key['Views']; ?></span>
+                            <span class='comments glyphicon glyphicon-comment'><?= $key['CommentsCount']; ?></span>
+                        </div>
+                        <div class="publication-date">
+                            <span><?= $key['PublicationDate']; ?></span>
+                        </div>
                     </div>
-                    <div class="publication-date">
-                        <span><?= $key['PublicationDate']; ?></span>
-                    </div>
-                </div>
                 </div>
             </div>
         <?php endforeach ?>
     </div>
 
-    <div class="row content-row users-block tabs__content">
-        <?php foreach ($Params['users'] as $key) :
-            $path = $key['AvatarPath'];
-            if ($path == '')
-                $path = '/files/standarts/ava.png'; ?>
-            <div class="user-search">
-                <div class='img-container'><img width="100" height="100" class='user-poster' src='<?= $path; ?>'></div>
-                <div class='text-container'>
-                    <a class='user-link' href='/Posts/User/?Id=<?= $key['Login']; ?>'>
-                        <?= $key['Login']; ?>
+    <div class="row content-row following-search tabs__content">
+        <?php foreach ($Params['users'] as $key) : ?>
+            <div class="following-item">
+                <div class="following-image">
+                    <a href='/Posts/User/<?= $key['Login'] ?>'>
+                        <?php
+                        $avatarPath = $key['AvatarPath'];
+                        preg_match('/\/([^\/]*)\./', $avatarPath, $matches);
+                        if (!empty($matches[1])) {
+                            $key['AvatarPath'] = $matches[1];
+                        }
+                        echo (new ImageTag(new Image($key['AvatarPath'])))->resize(Resize::fit(100, 100));
+                        ?>
                     </a>
+                </div>
+                <div class="following-name">
                     <div>
-                        <?= $key['FirstName']; ?>
-                        <?= $key['SecondName']; ?>
+                        <a class="following-name-short" href='/Posts/User/<?= $key['Login'] ?>'>
+                            <div>
+                                <?= $key['Login'] ?>
+                            </div>
+                        </a>
+                        <div class="following-name-full">
+                            <span><?= $key['FirstName'] ?></span>
+                            <span><?= $key['SecondName'] ?></span>
+                        </div>
                     </div>
-
-                    <div class="poster-desc"><?= $key['ShortDescription']; ?></div>
+                    <div>
+                        <a class="unfollow-link" href='/Subscriptions/Delete/?follow=<?= $key['Login'] ?>'>Unfollow</a>
+                        <a style="display: none;" class="follow-link" href='/Subscriptions/Add/?follow=<?= $key['Login'] ?>'>Follow</a>
+                    </div>
                 </div>
             </div>
         <?php endforeach ?>
