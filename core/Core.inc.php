@@ -45,20 +45,19 @@ class Core
             return;
         }*/
 
-        if(true/*isset($_SESSION['login']) && $_SESSION['login']=='admin' || !($methodName=='AddAction' || $methodName=='EditAction' || $methodName=='DeleteAction' ||$methodName=='AddAlbumAction' || $methodName=='EditAlbumAction' || $methodName=='DeleteAlbumAction')*/) {
-            if (class_exists($className)) {
-                $controller = new $className();
-                if (method_exists($controller, $methodName)) {
-                    $paramsArray = $controller->$methodName($pathParts);
-                    self::$IndexTpl->setParams($paramsArray);
-                } else {
-                    self::$IndexTpl->setParams(Core::Error404());
-                }
+
+        if (class_exists($className)) {
+            $controller = new $className();
+            if (method_exists($controller, $methodName)) {
+                $paramsArray = $controller->$methodName($pathParts);
+                self::$IndexTpl->setParams($paramsArray);
             } else {
                 self::$IndexTpl->setParams(Core::Error404());
             }
+        } else {
+            self::$IndexTpl->setParams(Core::Error404());
         }
-        else self::$IndexTpl->setParams(Core::Error404());
+        
     }
 
     public static function Done()
@@ -78,7 +77,7 @@ class Core
         $contentTpl = new Template('templates/other/warning.phtml');
         switch ($var) {
             case 'Authorize':
-                $contentTpl->setParam('Params', array('Message' => 'Будь - ласка авторизуйтесь, або здійчніть реєстрацію якщо ще не маєте власного аккаунту'));
+                $contentTpl->setParam('Params', array('Message' => 'Будь - ласка авторизуйтесь, або здійсніть реєстрацію якщо ще не маєте власного аккаунту'));
                 break;
             case 'Mail':
                 $contentTpl->setParam('Params', array('Message' => 'Будь - ласка підтвердіть пошту вашого аккаунту'));

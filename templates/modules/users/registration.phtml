@@ -58,7 +58,17 @@
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="country" id="country" required pattern=".{0,40}" title="2-40 символів" class="form-control" placeholder="Країна">
+                                <select name="country" id="country" required class="form-control">
+                                    <option value="Україна" selected="selected">Україна</option>
+                                    <option value="Росія">Росія</option>
+                                    <option value="Білорусь" >Білорусь</option>
+                                    <option value="Молдова" >Молдова</option>
+                                    <option value="Польша" >Польша</option>
+                                    <option value="Вірменія" >Вірменія</option>
+                                    <option value="Казахстан" >Казахстан</option>
+                                    <option value="Грузія" >Грузія</option>
+                                    <option value="Інша" >Інша</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
@@ -70,9 +80,19 @@
 
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
-                            <label class="regLabel">Дата народження</label>
+                            <label class="regLabel">Дата народ.</label>
                             <div class="form-group">
                                 <input type="date" name="birthDate" id="birthDate" required class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <label class="regLabel">Стать</label>
+                            <div class="form-group">
+                                <select name="sex" id="sex" required class="form-control">
+                                    <option value="f" selected="selected">Жіноча</option>
+                                    <option value="m">Чоловіча</option>
+                                </select>
                             </div>
                         </div>
                     </div>

@@ -15,6 +15,12 @@ $isCurrentUserPost = !!($_SESSION['login'] ==  $Params['Author']['Login']); ?>
         if (!empty($matches[1])) {
             $ownerPath = $matches[1];
         }
+
+        $path =$Params['PosterPath'];
+        preg_match('/\/([^\/]*)\./', $path, $matches);
+        if (!empty($matches[1])) {
+            $path = $matches[1];
+        }
         echo (new ImageTag(new Image($ownerPath)))->resize(Resize::fit(200, 200));
         ?>
         <div class="user-info">
@@ -46,6 +52,9 @@ $isCurrentUserPost = !!($_SESSION['login'] ==  $Params['Author']['Login']); ?>
                     <h2><?php if (isset($Params['Name'])) echo $Params['Name']; ?></h2>
                 </div>
                 <hr>
+            </div>
+            <div class="post-poster">
+                <?php echo (new ImageTag(new Image($path)))->resize(Resize::fit(692, 375)); ?>
             </div>
             <div class="post-text">
                 <p><?php

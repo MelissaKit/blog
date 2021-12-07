@@ -35,7 +35,7 @@
                     ?>
                 </div>
                 <form method="post" action="/Users/ChangePass/">
-                    <br/>
+                    <br />
                     <p>Змінити пароль</p>
                     <div class="form-group">
                         <input type="password" name="password" id="password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{0,60}" title="Має містити символи різних регістрів та як мінімум 6 символів" placeholder="Старий пароль">
@@ -52,31 +52,50 @@
                 <div class="container prof-container">
                     <h2><?php echo $Params['FirstName'] . ' ' . $Params['SecondName'] ?></h2>
                 </div>
-                <br/>
+                <br />
                 <form enctype="multipart/form-data" method="post" action="/Users/EditProf/">
                     <ul class="container details edit-block">
-                        <input style="display: none;" type='text' name='login' id='login' class='form-control' pattern='.{2,50}' title='2-50 символів' required
-                           value='<?php echo$Params['Login'];?>'/>
-                        <?php
-                        echo "<li><p><span class='glyphicon glyphicon-user one prof-icon'></span>Ім'я</p>
-                        <input type='text' name='firstName' id='firstName' class='form-control' pattern='.{2,50}' title='2-50 символів' required
-                               value='".$Params['FirstName']."'/></li>";
-                        echo "<li><p><span class='glyphicon glyphicon-user one prof-icon'></span>Прізвище</p>
+                        <input style="display: none;" type='text' name='login' id='login' class='form-control' pattern='.{2,50}' title='2-50 символів' required value='<?php echo $Params['Login']; ?>' />
+                        <li>
+                            <p><span class='glyphicon glyphicon-user one prof-icon'></span>Ім'я</p>
+                            <input type='text' name='firstName' id='firstName' class='form-control' pattern='.{2,50}' title='2-50 символів' required value='<?php echo $Params['FirstName']; ?>' />
+                        </li>
+                        <?php echo "<li><p><span class='glyphicon glyphicon-user one prof-icon'></span>Прізвище</p>
                         <input type='text' name='secondName' id='secondName' class='form-control ' pattern='.{2,50}' title='2-50 символів' required
-                                value='".$Params['SecondName']."'/></li>";
+                                value='" . $Params['SecondName'] . "'/></li>";
                         echo "<li><p><span class='glyphicon glyphicon-envelope one prof-icon'></span>Mail</p>
                         <input type='text' name='mail' id='mail' class='form-control' pattern='[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$' required
-                               value='" . $Params['Mail'] . "'/></li>";
-                        echo "<li><p><span class='glyphicon glyphicon-globe prof-icon'></span>Країна</p>
-                        <input type='text' name='country' id='country' class='form-control' title='0-40 символів' pattern='.{0,40}' required
-                               value='" . $Params['Country'] . "'/></li>";
-                        echo "<li><p><span class='glyphicon glyphicon-map-marker one prof-icon'></span>Місто</p>
-                        <input type='text' name='city' id='city' class='form-control' title='0-40 символів' pattern='.{0,40}' required
-                               value='" . $Params['City'] . "'/></li>";
-                        echo "<li><p><span class='glyphicon glyphicon-calendar prof-icon'></span>Дата народження</p>
-                        <input type='date' name='birthDate' id='birthDate' required class='form-control'
-                               value='" . $Params['BirthDate'] . "'/></li>";
-                        echo "<li><p><span class='glyphicon glyphicon-book prof-icon'></span>Про себе</p>
+                               value='" . $Params['Mail'] . "'/></li>"; ?>
+                        <li>
+                            <p><span class='glyphicon glyphicon-globe prof-icon'></span>Країна</p>
+                            <select name='country' id='country' class='form-control' required>
+                                <option value="Україна" <?php if ($Params['Country'] == 'Україна'): ?>selected="selected"<?php endif; ?>>Україна</option>
+                                <option value="Росія" <?php if ($Params['Country'] == 'Росія'): ?>selected="selected"<?php endif; ?>>Росія</option>
+                                <option value="Білорусь" <?php if ($Params['Country'] == 'Білорусь'): ?>selected="selected"<?php endif; ?>>Білорусь</option>
+                                <option value="Молдова" <?php if ($Params['Country'] == 'Молдова'): ?>selected="selected"<?php endif; ?>>Молдова</option>
+                                <option value="Польша" <?php if ($Params['Country'] == 'Польша'): ?>selected="selected"<?php endif; ?>>Польша</option>
+                                <option value="Вірменія" <?php if ($Params['Country'] == 'Вірменія'): ?>selected="selected"<?php endif; ?>>Вірменія</option>
+                                <option value="Казахстан" <?php if ($Params['Country'] == 'Казахстан'): ?>selected="selected"<?php endif; ?>>Казахстан</option>
+                                <option value="Грузія" <?php if ($Params['Country'] == 'Грузія'): ?>selected="selected"<?php endif; ?>>Грузія</option>
+                                <option value="Інша" <?php if ($Params['Country'] == 'Інша'): ?>selected="selected"<?php endif; ?>>Інша</option>
+                            </select>
+                        </li>
+                        <li><p><span class='glyphicon glyphicon-map-marker one prof-icon'></span>Місто</p>
+                            <input type='text' name='city' id='city' class='form-control' title='0-40 символів' pattern='.{0,40}' required
+                               value='<?php echo $Params['City']; ?>'/></li>
+                        <li><p><span class='glyphicon glyphicon-calendar prof-icon'></span>Дата народження</p>
+                            <input type='date' name='birthDate' id='birthDate' required class='form-control'
+                               value='<?php echo $Params['BirthDate']; ?>'/>
+                        </li>
+                        <li>
+                            <p><span class='glyphicon  glyphicon-question-sign prof-icon'></span>Стать</p>
+                            <select name='sex' id='sex' class='form-control' required>
+                                <option value="f" <?php if ($Params['Sex'] == 'f'): ?>selected="selected"<?php endif; ?>>Жіноча</option>
+                                <option value="m" <?php if ($Params['Sex'] == 'm'): ?>selected="selected"<?php endif; ?>>Чоловіча</option>
+                            </select>
+                        </li>
+
+                         <?php echo "<li><p><span class='glyphicon glyphicon-book prof-icon'></span>Про себе</p>
                             <textarea required name='shortDescription' id='shortDescription' class='form-control'>" . $Params['ShortDescription'] . "</textarea></li>";
                         ?>
                         <li>

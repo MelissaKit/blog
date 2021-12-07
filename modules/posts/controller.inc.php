@@ -58,7 +58,7 @@ class Posts_Controller extends Controller
                     $post['Subscription'] =  count($postsSubscr) ? $postsSubscr[0] : null;
                 } else  $post['Subscription'] = false;
 
-                $post['Comments'] = Comments_Model::getPostComments(10, 0, $post['Id']);
+                $post['Comments'] = Comments_Model::getPostComments(0, 0, $post['Id']);
                 usort($post['Comments'], function ($item1, $item2) {
                     return strtotime($item2['commentDate']) - strtotime($item1['commentDate']);
                 });
@@ -85,8 +85,8 @@ class Posts_Controller extends Controller
                 }
                 $_POST['publicationDate'] = date("y:m:d");
                 $_POST['userId'] = Users_Model::getUserByLogin($_SESSION['login'])[0]['Id'];
-                Posts_Model::addNewReview($_POST);
-                header('Location: /Posts/Index/');
+                var_dump(Posts_Model::addNewReview($_POST));
+                header('Location: /Posts/User/' . $_SESSION['login']);
                 break;
         }
     }
@@ -115,7 +115,7 @@ class Posts_Controller extends Controller
 
                 $_POST['publicationDate'] = date("y:m:d");
                 Posts_Model::editReview($post['Id'], $_POST);
-                header('Location: /Posts/Index/');
+                header('Location: /Posts/Show/?Id=' . $post['Id']);
                 break;
         }
     }
@@ -130,7 +130,7 @@ class Posts_Controller extends Controller
             Posts_Model::deleteReview($_GET['Id']);
             if ($post['PosterPath'] != '')
                 unlink(substr($post['PosterPath'], 1));
-            header('Location: /Posts/Index/');
+            header('Location: /Posts/User/');
         } else return Core::Error404();
     }
 
