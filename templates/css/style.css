@@ -1150,7 +1150,8 @@ a.unlike-link span:before {
 }
 
 .followings-block,
-.analytics-row {
+.analytics-row,
+.posts-analytics {
     margin: 30px 0;
 }
 
@@ -1177,6 +1178,7 @@ a.unlike-link span:before {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 .stat-post-link {
@@ -1197,4 +1199,44 @@ a.unlike-link span:before {
 .stat-age {
     margin: 0 0 20px;
     text-align: center;
+}
+
+.posts-analytics .row {
+    width: 100%;
+}
+
+.posts-analytics .img-container {
+    width: 60px;
+}
+
+.posts-analytics .post-link {
+    margin-top: 0;
+    margin-right: 20px;
+    font-size: 16px;
+}
+
+.posts-analytics .likes-container {
+    font-size: 14px;
+}
+
+.posts-analytics .img-container .image {
+    height: 35px;
+}
+
+.posts-analytics .text-container {
+    width: calc(100% - 35px);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.posts-analytics .stats-comment {
+    width: 100%;
+    margin: 10px 0 0;
+    font-size: 14px;
+}
+
+.posts-analytics .no-comments {
+    width: 100%;
+    font-size: 14px;
 }

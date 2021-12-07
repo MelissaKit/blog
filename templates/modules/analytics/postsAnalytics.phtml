@@ -1,0 +1,118 @@
+<div class="content-row posts-analytics">
+
+    <div class="posts-container">
+        <div class="row">
+            <?php
+
+            use Cloudinary\Tag\ImageTag;
+            use Cloudinary\Asset\Image;
+            use Cloudinary\Transformation\Resize;
+
+            foreach ($Params['Content'] as $i => $key) :
+                $path = $key['PosterPath'];
+                preg_match('/\/([^\/]*)\./', $path, $matches);
+                if (!empty($matches[1])) {
+                    $path = $matches[1];
+                }
+                $authorPath = $Params['Author']['AvatarPath'];
+                preg_match('/\/([^\/]*)\./', $authorPath, $matches);
+                if (!empty($matches[1])) {
+                    $authorPath = $matches[1];
+                }
+            ?>
+
+                <div class='post-item'>
+                    <div class='img-container'>
+                        <div class="image">
+                            <?php
+                            echo (new ImageTag(new Image($path)))->resize(Resize::fit(60, 35));
+                            ?>
+                        </div>
+                    </div>
+                    <div class='text-container'>
+                        <a class='post-link' href='/Posts/Show/?Id=<?= $key['Id']; ?>'><?= $key['Name']; ?></a>
+                        <div class='likes-container'>
+                            <div class="rating-items">
+                                <span class="unlike-link">
+                                    <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount']; ?></span>
+                                </span>
+                                <span class='views glyphicon glyphicon-eye-open'><?= $key['Views']; ?></span>
+                                <span class='comments glyphicon glyphicon-comment'><?= $key['CommentsCount']; ?></span>
+                            </div>
+                        </div>
+                        <div class="stats-comment">
+                            <?php if ($key['CommentsCount'] * 1 > 0) : ?>
+                                <div class="comments-table" style="height: 200px; width: 400px;">
+                                    <canvas id="myChartComments-<?= $i; ?>"></canvas>
+                                </div>
+                            <?php else : ?>
+                                <div class="no-comments">Аудиторія ще не прокоментувала пост</div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+
+        <div class='pagination-div'>
+            <ul class='pagination'>
+                <li><a href='/Analytics/Posts/?page=1'>«</a></li>
+                <?php for ($i = 1; $i <= $Params['PagesCount']; $i++) {
+                    if ($Params['CurrentPage'] == ($i - 1)) : ?>
+                        <li class='active'><a href='/Analytics/Posts/?page=<?= $i ?>'><?= $i; ?></a></li>
+                    <?php else : ?>
+                        <li><a href='/Analytics/Posts/?page=<?= $i ?>'><?= $i; ?></a></li>
+                <?php endif;
+                } ?>
+                <li><a href='/Analytics/Posts/?page=<?= $Params['PagesCount'] ?>'>»</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    window.onload = function() {
+        var chartsCount = '<?= count($Params['Content']) ?>' * 1;
+        for (var i = 0; i < chartsCount; i++) {
+            if (!!document.getElementById('myChartComments-' + i)) {
+                var good = 5,
+                    bad = 4,
+                    neutral = 2;
+                const ctx = document.getElementById('myChartComments-' + i).getContext('2d');
+                const dataComments = {
+                    labels: ['Добре', 'Погано', 'Нейтрально'],
+                    datasets: [{
+                        axis: 'y',
+                        label: 'Реакція аудиторії (коментаторів):',
+                        barPercentage: 0.9,
+                        categoryPercentage: 0.9,
+                        barThickness: 20,
+                        maxBarThickness: 20,
+                        minBarLength: 2,
+                        data: [good, bad, neutral],
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(153, 102, 255, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgb(75, 192, 192)',
+                            'rgb(255, 99, 132)',
+                            'rgb(153, 102, 255)'
+                        ],
+                        borderWidth: 1
+                    }]
+                };
+                const myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: dataComments,
+                    options: {
+                        indexAxis: 'y',
+                    }
+                });
+            }
+        }
+    }
+</script>

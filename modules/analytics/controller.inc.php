@@ -18,5 +18,29 @@ class Analytics_Controller extends Controller
 
     public function PostsAction()
     {
+        $currentUser =  Users_Model::getUserByLogin($_SESSION['login'])[0];
+
+        $postsCnt = Posts_Model::getReviewsCount($currentUser['Id']);
+        $limit = 10;
+        $pagesCnt = (int)ceil($postsCnt / $limit);
+        if (isset($_GET['page']) && ((int)$_GET['page']) <= $pagesCnt)
+            $page = $_GET['page'] - 1;
+        else
+            $page = 0;
+
+        $posts['Content'] = Posts_Model::getReviewsPage($limit, $limit * $page, $currentUser['Id']);
+
+        foreach ($posts['Content'] as $key => $item) {
+            $posts['Content'][$key]['LikesCount'] = Likes_Model::getLikesCount($item['Id']);
+            $posts['Content'][$key]['LikesUser'] = !!Likes_Model::checkUserLike($item['Id'], $currentUser['Id']);
+            $posts['Content'][$key]['CommentsCount'] = Comments_Model::getPostCommentsCount($item['Id']);
+        }
+
+        $posts['Author'] = $currentUser;
+
+        $posts['PagesCount'] = $pagesCnt;
+        $posts['CurrentPage'] = $page;
+
+        return $this->view->generate('Аналітика', 'templates/modules/analytics/postsAnalytics.phtml', $posts);
     }
 }
