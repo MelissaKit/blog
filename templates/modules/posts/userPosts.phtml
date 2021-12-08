@@ -105,22 +105,29 @@
                 </div>
             </div>
         <?php endforeach ?>
+
+        <?php if (count($Params['Content']) == 0) : ?>
+            <div class="no-result">
+                Схоже, що цей користувач ще не має публікацій
+            </div>
+        <?php endif; ?>
     </div>
 
-
-    <div class='pagination-div'>
-        <ul class='pagination'>
-            <li><a href='/Posts/User/?page=1'>«</a></li>
-            <?php for ($i = 1; $i <= $Params['PagesCount']; $i++) {
-                if ($Params['CurrentPage'] == ($i - 1)) : ?>
-                    <li class='active'><a href='/Posts/User/<?= $Params['Author']['Login'] . '/?page=' . $i ?>'><?= $i; ?></a></li>
-                <?php else : ?>
-                    <li><a href='/Posts/User/<?= $Params['Author']['Login'] . '/?page=' . $i ?>'><?= $i; ?></a></li>
-            <?php endif;
-            } ?>
-            <li><a href='/Posts/User/?page=<?= $Params['PagesCount'] ?>'>»</a></li>
-        </ul>
-    </div>
+    <?php if (count($Params['Content']) != 0) : ?>
+        <div class='pagination-div'>
+            <ul class='pagination'>
+                <li><a href='/Posts/User/?page=1'>«</a></li>
+                <?php for ($i = 1; $i <= $Params['PagesCount']; $i++) {
+                    if ($Params['CurrentPage'] == ($i - 1)) : ?>
+                        <li class='active'><a href='/Posts/User/<?= $Params['Author']['Login'] . '/?page=' . $i ?>'><?= $i; ?></a></li>
+                    <?php else : ?>
+                        <li><a href='/Posts/User/<?= $Params['Author']['Login'] . '/?page=' . $i ?>'><?= $i; ?></a></li>
+                <?php endif;
+                } ?>
+                <li><a href='/Posts/User/?page=<?= $Params['PagesCount'] ?>'>»</a></li>
+            </ul>
+        </div>
+    <?php endif; ?>
 </div>
 
 <script src="/templates/js/posts/like.js"></script>

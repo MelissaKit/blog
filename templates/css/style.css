@@ -1240,3 +1240,14 @@ a.unlike-link span:before {
     width: 100%;
     font-size: 14px;
 }
+
+.no-result {
+    margin: 30px 0;
+    text-align: center;
+    font-style: italic;
+}
+
+.posts-container .no-result,
+.followings-block .no-result {
+    margin: 60px 0 10px;
+}

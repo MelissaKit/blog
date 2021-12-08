@@ -1,10 +1,14 @@
 <?php
 $url = getenv("CLEARDB_DATABASE_URL");
 if (empty($url)) {
+  /*define('DATABASE_HOST', 'eu-cdbr-west-01.cleardb.com');
+  define('DATABASE_USER', 'b341faec15adab');
+  define('DATABASE_PASS', '71d69c80');
+  define('DATABASE_DBNAME', 'heroku_3415dedb5d929c5');*/
   define('DATABASE_HOST', 'localhost');
   define('DATABASE_USER', 'root');
   define('DATABASE_PASS', '');
-  define('DATABASE_DBNAME', 'blog');
+  define('DATABASE_DBNAME', 'Blog');
 } else {
   $parsed = parse_url($url);
   define('DATABASE_HOST', $parsed["host"]);

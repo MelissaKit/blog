@@ -68,6 +68,12 @@
                 </div>
             </div>
         <?php endforeach ?>
+
+        <?php if (count($Params['posts']) == 0):?> 
+                <div class="no-result">
+                    Схоже, що по вашому запиту не знайдено записів
+                </div>
+            <?php endif;?>
     </div>
 
     <div class="row content-row following-search tabs__content">
@@ -104,5 +110,10 @@
                 </div>
             </div>
         <?php endforeach ?>
+        <?php if (count($Params['users']) == 0):?> 
+                <div class="no-result">
+                    Схоже, що по вашому запиту не знайдено користувачів
+                </div>
+        <?php endif;?>
     </div>
 </div>
