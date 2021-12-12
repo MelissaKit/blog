@@ -8,7 +8,7 @@ class DB
     public function  __construct($host, $user, $pass, $dbname)
     {
         $this->dbName = $dbname;
-        $this->pdo = new PDO("mysql:host={$host};bdName={$dbname}", $user, $pass, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        $this->pdo = new PDO("mysql:host={$host};bdName={$dbname};charset=utf8", $user, $pass, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
     }
 
     public function getSQLWhere($conditions)
