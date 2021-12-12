@@ -11,9 +11,15 @@ class Comments_Model extends Model
         return Core::GetDB()->getRowsCount('Comments', array('postId' => $postId));
     }
 
+    
+    public static function getPostCommentsCountSentiment($postId, $sentimentId)
+    {
+        return Core::GetDB()->getRowsCount('Comments', array('postId' => $postId, 'sentiment' => $sentimentId));
+    }
+
     public static function addComment($row)
     {
-        $fieldsArray = array('userId', 'postId', 'commentText');
+        $fieldsArray = array('userId', 'postId', 'commentText', 'sentiment');
         Core::
         
         GetDB()->addRecordFromForm('Comments', $row, $fieldsArray);

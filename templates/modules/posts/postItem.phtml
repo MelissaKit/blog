@@ -53,15 +53,18 @@ $isCurrentUserPost = !!($_SESSION['login'] ==  $Params['Author']['Login']); ?>
                 </div>
                 <hr>
             </div>
-            <div class="post-poster">
-                <?php echo (new ImageTag(new Image($path)))->resize(Resize::fit(692, 375)); ?>
-            </div>
+            <?php if($path != 'utj4t4fmibagpqcn9543'):?>
+                <div class="post-poster">
+                    <?php echo (new ImageTag(new Image($path)))->resize(Resize::fit(692, 375)); ?>
+                </div>
+            <?php endif; ?>
             <div class="post-text">
                 <p><?php
                     if (isset($Params['Text']) && $Params['Text'] != '')
                         echo  html_entity_decode($Params['Text']); ?>
                 </p>
             </div>
+            <br/>
             <div class='likes-container'>
                 <div class="rating-items">
                     <?php if ($Params['LikesUser']) : ?>
@@ -79,14 +82,13 @@ $isCurrentUserPost = !!($_SESSION['login'] ==  $Params['Author']['Login']); ?>
                             <span class='likes glyphicon glyphicon-heart'><?= $Params['LikesCount'] + 1; ?></span>
                         </a>
                     <?php endif; ?>
-                    <span class='views glyphicon glyphicon-eye-open'><?= $Params['Views']; ?></span>
                     <span class='comments glyphicon glyphicon-comment'><?= count($Params['Comments']); ?></span>
                 </div>
                 <div class="publication-date">
                     <?php
                     if (isset($Params['PublicationDate']) && $Params['PublicationDate'] != '0000-00-00')
                         echo "
-                        <span class='fa fa-calendar-plus-o'></span>" . $Params['PublicationDate']; ?>
+                        <span class='fa fa-calendar-plus-o'></span> " . $Params['PublicationDate']; ?>
                 </div>
             </div>
         </div>

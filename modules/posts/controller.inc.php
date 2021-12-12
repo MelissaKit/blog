@@ -73,7 +73,7 @@ class Posts_Controller extends Controller
         return Core::Error404();
     }
 
-    public function AddAction() // Tuta
+    public function AddAction()
     {
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':

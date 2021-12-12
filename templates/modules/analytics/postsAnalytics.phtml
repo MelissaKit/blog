@@ -1,5 +1,6 @@
 <div class="content-row posts-analytics">
-
+    <div class="stat-post-link"><a href="/Analytics/Index/">Переглянути загальну статистику</a></div>
+    <br/>
     <div class="posts-container">
         <div class="row">
             <?php
@@ -42,7 +43,7 @@
                         </div>
                         <div class="stats-comment">
                             <?php if ($key['CommentsCount'] * 1 > 0) : ?>
-                                <div class="comments-table" style="height: 200px; width: 400px;">
+                                <div class="comments-table" style="height: 200px; width: 400px;" data-id='<?= $i ?>' data-good='<?=  $key['CommentsGood'] ?>' data-bad='<?=  $key['CommentsBad'] ?>' data-neutral='<?=  $key['CommentsNeutral'] ?>'>
                                     <canvas id="myChartComments-<?= $i; ?>"></canvas>
                                 </div>
                             <?php else : ?>
@@ -71,48 +72,4 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-    window.onload = function() {
-        var chartsCount = '<?= count($Params['Content']) ?>' * 1;
-        for (var i = 0; i < chartsCount; i++) {
-            if (!!document.getElementById('myChartComments-' + i)) {
-                var good = 5,
-                    bad = 4,
-                    neutral = 2;
-                const ctx = document.getElementById('myChartComments-' + i).getContext('2d');
-                const dataComments = {
-                    labels: ['Добре', 'Погано', 'Нейтрально'],
-                    datasets: [{
-                        axis: 'y',
-                        label: 'Реакція аудиторії (коментаторів):',
-                        barPercentage: 0.9,
-                        categoryPercentage: 0.9,
-                        barThickness: 20,
-                        maxBarThickness: 20,
-                        minBarLength: 2,
-                        data: [good, bad, neutral],
-                        backgroundColor: [
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(153, 102, 255, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgb(75, 192, 192)',
-                            'rgb(255, 99, 132)',
-                            'rgb(153, 102, 255)'
-                        ],
-                        borderWidth: 1
-                    }]
-                };
-                const myChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: dataComments,
-                    options: {
-                        indexAxis: 'y',
-                    }
-                });
-            }
-        }
-    }
-</script>
+<script src="/templates/js/analytics/sentiment-table.js"></script>

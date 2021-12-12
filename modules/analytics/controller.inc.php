@@ -34,6 +34,9 @@ class Analytics_Controller extends Controller
             $posts['Content'][$key]['LikesCount'] = Likes_Model::getLikesCount($item['Id']);
             $posts['Content'][$key]['LikesUser'] = !!Likes_Model::checkUserLike($item['Id'], $currentUser['Id']);
             $posts['Content'][$key]['CommentsCount'] = Comments_Model::getPostCommentsCount($item['Id']);
+            $posts['Content'][$key]['CommentsGood'] = Comments_Model::getPostCommentsCountSentiment($item['Id'], 1);
+            $posts['Content'][$key]['CommentsBad'] = Comments_Model::getPostCommentsCountSentiment($item['Id'], 2);
+            $posts['Content'][$key]['CommentsNeutral'] = Comments_Model::getPostCommentsCountSentiment($item['Id'], 3);
         }
 
         $posts['Author'] = $currentUser;
