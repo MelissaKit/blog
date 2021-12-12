@@ -1257,7 +1257,7 @@ a.unlike-link span:before {
 }
 
 #printable {
-    background-color: white;
+    background: white;
 }
 
 #buttonSave {
