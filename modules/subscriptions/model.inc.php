@@ -1,4 +1,5 @@
 <?php
+
 class Subscriptions_Model extends Model
 {
     public static function getSubscriptionsPage($limit, $offset, $currentUserId)
@@ -12,11 +13,13 @@ class Subscriptions_Model extends Model
         return Core::GetDB()->getRowsCount('Follow', array('userId' => $userId));
     }
 
-    public static function getSubscriptionById($subId){
+    public static function getSubscriptionById($subId)
+    {
         return Core::GetDB()->getRowsWhere('Follow', array('Id' => $subId));
     }
 
-    public static function getSubscriptionByParams($userId, $followId){
+    public static function getSubscriptionByParams($userId, $followId)
+    {
         return Core::GetDB()->getRowsWhere('Follow', array('userId' => $userId, 'followId' => $followId));
     }
 
@@ -28,26 +31,30 @@ class Subscriptions_Model extends Model
 
     public static function deleteSubscription($userId, $followId)
     {
-        Core::GetDB()->delete('Follow', array('userId'=>$userId, 'followId' => $followId));
+        Core::GetDB()->delete('Follow', array('userId' => $userId, 'followId' => $followId));
     }
 
     public static function getFemaleSubscribersCount($followId)
     {
-        return Core::GetDB()->getRowsCountByCondition('User', "INNER JOIN Blog.Follow ON Blog.User.Id = Blog.Follow.userId WHERE Blog.User.Id IN (SELECT Blog.Follow.userId FROM Blog.Follow WHERE Blog.Follow.followId = ". $followId .") and Blog.User.Sex = 'f'");
+        $DATABASE_DBNAME = DATABASE_DBNAME;
+        return Core::GetDB()->getRowsCountByCondition('User', "INNER JOIN " . $DATABASE_DBNAME . ".Follow ON " . $DATABASE_DBNAME . ".User.Id = " . $DATABASE_DBNAME . ".Follow.userId WHERE " . $DATABASE_DBNAME . ".User.Id IN (SELECT " . $DATABASE_DBNAME . ".Follow.userId FROM " . $DATABASE_DBNAME . ".Follow WHERE " . $DATABASE_DBNAME . ".Follow.followId = " . $followId . ") and " . $DATABASE_DBNAME . ".User.Sex = 'f'");
     }
 
     public static function getMaleSubscribersCount($followId)
     {
-        return Core::GetDB()->getRowsCountByCondition('User', "INNER JOIN Blog.Follow ON Blog.User.Id = Blog.Follow.userId WHERE Blog.User.Id IN (SELECT Blog.Follow.userId FROM Blog.Follow WHERE Blog.Follow.followId = ". $followId .") and Blog.User.Sex = 'm'");
+        $DATABASE_DBNAME = DATABASE_DBNAME;
+        return Core::GetDB()->getRowsCountByCondition('User', "INNER JOIN " . $DATABASE_DBNAME . ".Follow ON " . $DATABASE_DBNAME . ".User.Id = " . $DATABASE_DBNAME . ".Follow.userId WHERE " . $DATABASE_DBNAME . ".User.Id IN (SELECT " . $DATABASE_DBNAME . ".Follow.userId FROM " . $DATABASE_DBNAME . ".Follow WHERE " . $DATABASE_DBNAME . ".Follow.followId = " . $followId . ") and " . $DATABASE_DBNAME . ".User.Sex = 'm'");
     }
 
     public static function getSubscribersCountByCountries($followId)
     {
-        return Core::GetDB()->getRowCountByCondition('User', 'Country' , "INNER JOIN Blog.Follow ON Blog.User.Id = Blog.Follow.userId  WHERE Blog.User.Id IN (SELECT Blog.Follow.userId FROM Blog.Follow WHERE Blog.Follow.followId = ". $followId .") GROUP by Blog.User.Country");
-    }  
+        $DATABASE_DBNAME = DATABASE_DBNAME;
+        return Core::GetDB()->getRowCountByCondition('User', 'Country', "INNER JOIN " . $DATABASE_DBNAME . ".Follow ON " . $DATABASE_DBNAME . ".User.Id = " . $DATABASE_DBNAME . ".Follow.userId  WHERE " . $DATABASE_DBNAME . ".User.Id IN (SELECT " . $DATABASE_DBNAME . ".Follow.userId FROM " . $DATABASE_DBNAME . ".Follow WHERE " . $DATABASE_DBNAME . ".Follow.followId = " . $followId . ") GROUP by " . $DATABASE_DBNAME . ".User.Country");
+    }
 
     public static function getSubscribersAge($followId)
     {
-        return Core::GetDB()->getConditionCountByCondition('User', 'TIMESTAMPDIFF(YEAR, Blog.User.BirthDate, CURDATE()) AS age' , "INNER JOIN Blog.Follow ON Blog.User.Id = Blog.Follow.userId  WHERE Blog.User.Id IN (SELECT Blog.Follow.userId FROM Blog.Follow WHERE Blog.Follow.followId = ". $followId .")  GROUP by age ORDER BY age");
-    }  
+        $DATABASE_DBNAME = DATABASE_DBNAME;
+        return Core::GetDB()->getConditionCountByCondition('User', 'TIMESTAMPDIFF(YEAR, '. $DATABASE_DBNAME . '.User.BirthDate, CURDATE()) AS age', "INNER JOIN " . $DATABASE_DBNAME . ".Follow ON " . $DATABASE_DBNAME . ".User.Id = " . $DATABASE_DBNAME . ".Follow.userId  WHERE " . $DATABASE_DBNAME . ".User.Id IN (SELECT " . $DATABASE_DBNAME . ".Follow.userId FROM " . $DATABASE_DBNAME . ".Follow WHERE " . $DATABASE_DBNAME . ".Follow.followId = " . $followId . ")  GROUP by age ORDER BY age");
+    }
 }
