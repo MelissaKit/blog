@@ -1,0 +1,108 @@
+<?php
+use Cloudinary\Tag\ImageTag;
+use Cloudinary\Asset\Image;
+use Cloudinary\Transformation\Resize;
+?>
+
+<div class="posts-container category">
+    <div class="user-row sticky">
+        <img src="/files/category/<?= $Params['CurrentCategory']['Id']; ?>.jpg"/>
+        <div class="user-info">
+            <div class="login"><?= $Params['CurrentCategory']['Name'] ?></div>
+        </div>
+    </div>
+
+
+    <div class="row content-row posts-block">
+        <?php
+        foreach ($Params['Content'] as $key) :
+            $path = $key['PosterPath'];
+            preg_match('/\/([^\/]*)\./', $path, $matches);
+            if (!empty($matches[1])) {
+                $path = $matches[1];
+            }
+            $authorPath = $key['AuthorImage'];
+            preg_match('/\/([^\/]*)\./', $authorPath, $matches);
+            if (!empty($matches[1])) {
+                $authorPath = $matches[1];
+            }
+        ?>
+
+            <div class='post-item'>
+                <div class='img-container'>
+                    <div class="image">
+                        <?php
+                        echo (new ImageTag(new Image($path)))->resize(Resize::fit(277, 150));
+                        ?>
+                    </div>
+                    <?php if ($key['isUserPost']) : ?>
+                        <div class='admin-panel'>
+                            <a class='btn btn-raised btn-danger btn-prof-set' href='/Posts/Delete/?Id=<?= $key['Id']; ?>'>
+                                <span class='glyphicon glyphicon-remove' aria-hidden='true'></span>
+                            </a>
+                            <a class='btn btn-raised btn-danger btn-prof-set' href='/Posts/Edit/?Id=<?= $key['Id']; ?>'>
+                                <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <div class='text-container'>
+                    <div>
+                        <a class='author-link' href='/Posts/User/<?= $key['Author']; ?>'>
+                            <?php echo (new ImageTag(new Image($authorPath)))->resize(Resize::fit(30, 30)); ?>
+                            <span><?= $key['Author']; ?></span>
+                        </a>
+                    </div>
+                    <a class='post-link' href='/Posts/Show/?Id=<?= $key['Id']; ?>'><?= $key['Name']; ?></a>
+                    <div class='post-content'><?= html_entity_decode($key['Text']); ?></div>
+
+                    <div class='likes-container'>
+                        <div class="rating-items">
+                            <?php if ($key['LikesUser']) : ?>
+                                <a class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>
+                                    <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount']; ?></span>
+                                </a>
+                                <a style="display: none;" class="like-link" href='/Likes/Add/?post=<?= $key['Id'] ?>'>
+                                    <span class='likes glyphicon glyphicon-heart-empty'><?= $key['LikesCount'] - 1; ?></span>
+                                </a>
+                            <?php else : ?>
+                                <a class="like-link" href='/Likes/Add/?post=<?= $key['Id'] ?>'>
+                                    <span class='likes glyphicon glyphicon-heart-empty'><?= $key['LikesCount']; ?></span>
+                                </a>
+                                <a style="display: none;" class="unlike-link" href='/Likes/Delete/?post=<?= $key['Id'] ?>'>
+                                    <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount'] + 1; ?></span>
+                                </a>
+                            <?php endif; ?>
+                            <span class='comments glyphicon glyphicon-comment'><?= $key['CommentsCount']; ?></span>
+                        </div>
+                        <div class="publication-date"><?= $key['PublicationDate']; ?></div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach ?>
+
+        <?php if (count($Params['Content']) == 0) : ?>
+            <div class="no-result">
+                Схоже, в цій категорії ще немає публікацій
+            </div>
+        <?php endif; ?>
+    </div>
+
+    <?php if (count($Params['Content']) != 0) : ?>
+        <div class='pagination-div'>
+            <ul class='pagination'>
+                <li><a href='/Categories/Show/?Id=&page=1'>«</a></li>
+                <?php for ($i = 1; $i <= $Params['PagesCount']; $i++) {
+                    if ($Params['CurrentPage'] == ($i - 1)) : ?>
+                        <li class='active'><a href='/Categories/Show/?Id=<?= $Params['CurrentCategory']['Id'] . '&page=' . $i ?>'><?= $i; ?></a></li>
+                    <?php else : ?>
+                        <li><a href='/Categories/Show/?Id=<?= $Params['CurrentCategory']['Id'] . '&page=' . $i ?>'><?= $i; ?></a></li>
+                <?php endif;
+                } ?>
+                <li><a href='/Categories/Show/?Id&page=<?= $Params['PagesCount'] ?>'>»</a></li>
+            </ul>
+        </div>
+    <?php endif; ?>
+</div>
+
+<script src="/templates/js/posts/like.js"></script>

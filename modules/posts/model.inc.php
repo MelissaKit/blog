@@ -11,6 +11,7 @@ class Posts_Model extends Model
         $conditions = $getUser ? array('userId' => $getUser) : '';
         return Core::GetDB()->getRowsCount('Posts', $conditions);
     }
+
     public static function getReviewsPage($limit, $offset, $currentUserId, $getUser = null)
     {
         if ($getUser) {
@@ -23,6 +24,22 @@ class Posts_Model extends Model
             $result[$key]['isUserPost'] = !!($post['userId'] == $currentUserId);
         }
         return $result;
+    }
+
+    public static function getPostsPageInCategory($limit, $offset, $currentUserId, $category)
+    {
+        $result = Core::GetDB()->getRowsWhere('Posts', array('categoryId' => $category), $limit, $offset);
+
+        foreach ($result as $key => $post) {
+            $result[$key]['isUserPost'] = !!($post['userId'] == $currentUserId);
+        }
+
+        return $result;
+    }
+
+    public static function getPostsCountInCategory($categoryId)
+    {
+        return Core::GetDB()->getRowsCount('Posts', array('categoryId' => $categoryId));
     }
 
     public static function addNewReview($row)

@@ -1,0 +1,14 @@
+<div class="row category-row">
+    <?php foreach ($Params['Content'] as $category) : ?>
+        <div class="category-item item-<?= $category['Id'] ?>">
+            <a href="/Categories/Show/?Id=<?= $category['Id'] ?>">
+                <div>
+                    <img src="/files/category/<?= $category['Id'] ?>.jpg"/>
+                </div>
+                <div class="category-name">
+                    <?= $category['Name'] ?>
+                </div>
+            </a>
+        </div>
+    <?php endforeach; ?>
+</div>
