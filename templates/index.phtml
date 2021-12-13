@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ThisIsBlog is blog platform." />
     <title><?php echo ($Title); ?></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href='/templates/css/style.css'>
-    <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +22,7 @@
             <div class="header-wrapper">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <a class="navbar-brand logo-container" href="/Posts/Index/"><img class='logo' src="/files/standarts/main-logo.png"></a>
+                        <a class="navbar-brand logo-container" href="/Posts/Index/"><img class='logo' src="/files/standarts/main-logo.png" alt="logo"></a>
                     </div>
                     <div class="burger-block">
                         <input type="checkbox" class="hamburger-input" />
@@ -41,7 +42,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control search-input" placeholder="Пошук" name="searchParam">
                             <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit">
+                                <button class="btn btn-default" type="submit" aria-label="search" name="searchSubmit">
                                     <i class="glyphicon glyphicon-search"></i>
                                 </button>
                             </div>
@@ -79,11 +80,11 @@
                     <div class="about">
                         <div class="social-media">
                             <ul class="list-inline">
-                                <li><a target="_blank" href="https://www.facebook.com/profile.php?id=100017371837816" title=""><i class="fa fa-facebook"></i></a></li>
-                                <li><a target="_blank" href="https://www.instagram.com/melissa_k1t/" title=""><i class="fa fa-instagram"></i></a></li>
-                                <li><a target="_blank" href="https://plus.google.com/u/0/113311967906782135581" title=""><i class="fa fa-google"></i></a>
+                                <li><a target="_blank" rel="noreferrer" aria-label="Facebook" href="https://www.facebook.com/profile.php?id=100017371837816" title=""><i class="fa fa-facebook"></i></a></li>
+                                <li><a target="_blank" rel="noreferrer"  aria-label="Instagram" href="https://www.instagram.com/melissa_k1t/" title=""><i class="fa fa-instagram"></i></a></li>
+                                <li><a target="_blank" rel="noreferrer"  aria-label="Google" href="https://plus.google.com/u/0/113311967906782135581" title=""><i class="fa fa-google"></i></a>
                                 </li>
-                                <li><a target="_blank" href="https://t.me/melissa_kit" title=""><i class="fa fa-paper-plane-o"></i></a></li>
+                                <li><a target="_blank" rel="noreferrer"  aria-label="Telegram" href="https://t.me/melissa_kit" title=""><i class="fa fa-paper-plane-o"></i></a></li>
                             </ul>
                         </div>
                     </div>
