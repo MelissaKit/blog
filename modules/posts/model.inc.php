@@ -44,7 +44,7 @@ class Posts_Model extends Model
 
     public static function addNewReview($row)
     {
-        $fieldsArray = array('userId', 'name', 'text', 'publicationDate', 'posterPath');
+        $fieldsArray = array('userId', 'name', 'text', 'publicationDate', 'posterPath', 'categoryId');
         Core::GetDB()->addRecordFromForm('Posts', $row, $fieldsArray);
     }
 
@@ -55,7 +55,7 @@ class Posts_Model extends Model
 
     public static function editReview($postId, $row)
     {
-        Core::GetDB()->update('Posts', array('Id' => $postId),  $row, array('name',  'text', 'posterPath'));
+        Core::GetDB()->update('Posts', array('Id' => $postId),  $row, array('name',  'text', 'posterPath', 'categoryId'));
     }
 
     public static  function getReviewById($postId)

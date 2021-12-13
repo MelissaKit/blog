@@ -37,7 +37,7 @@
                     <?php
                     if (isset($Params['PublicationDate']) && $Params['PublicationDate'] != '0000-00-00')
                         echo "
-                    <p class='publication-date'><span class='fa fa-calendar-plus-o'></span> " . $Params['PublicationDate'] . "</p>
+                    <br/><p class='publication-date'><span class='fa fa-calendar-plus-o'></span> " . date('d-m-Y', strtotime($Params['PublicationDate'])) . "</p>
                     "; ?>
                 </div>
             </div>
@@ -50,6 +50,16 @@
                         <input style='display:none' name='text' id='text' class='form-control textarea-item' />
                         <input style='display:none' name='textOnly' id='textOnly' class='form-control textarea-item' />
                     <div id='editor'></div>
+                    </p>
+                    <p class="category">
+                        <span class='fa fa-th-larg'> Категорія</span>
+                        <select name='categoryId' id='categoryId' required class='form-control'>
+                            <?php foreach ($Params['Categories'] as $category) : ?>
+                                <option id='category-<?= $category['Id'] ?>' value='<?= $category['Id'] ?>' <?php if ($category['Id'] == $Params['categoryId']): ?>selected<?php endif;?>>
+                                    <?= $category['Name'] ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </p>
                     <p><span class='fa fa-camera-retro'> Постер</span>
                         <label for='posterPath' class='btn btn-large custom-file-label '>Змінити</label>

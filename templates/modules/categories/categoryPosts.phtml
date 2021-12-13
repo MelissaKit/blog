@@ -75,7 +75,7 @@ use Cloudinary\Transformation\Resize;
                             <?php endif; ?>
                             <span class='comments glyphicon glyphicon-comment'><?= $key['CommentsCount']; ?></span>
                         </div>
-                        <div class="publication-date"><?= $key['PublicationDate']; ?></div>
+                        <div class="publication-date"><?= date('d-m-Y', strtotime($key['PublicationDate'])); ?></div>
                     </div>
                 </div>
             </div>

@@ -97,9 +97,9 @@
                                     <span class='likes glyphicon glyphicon-heart'><?= $key['LikesCount'] + 1; ?></span>
                                 </a>
                             <?php endif; ?>
-                            <span class='comments glyphicon glyphicon-comment'><?= $key['CommentsCount']; ?></span>
+                            <span class='comments glyphicon glyphicon-comment'><?= $key['CommentsCount'] ?></span>
                         </div>
-                        <div class="publication-date"><?= $key['PublicationDate']; ?></div>
+                        <div class="publication-date"><?= date('d-m-Y', strtotime($key['PublicationDate'])); ?></div>
                     </div>
                 </div>
             </div>

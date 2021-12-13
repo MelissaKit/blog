@@ -77,7 +77,8 @@ class Posts_Controller extends Controller
     {
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
-                return $this->view->generate('Огляд', 'templates/modules/posts/addPost.phtml');
+                $form['Categories'] = array_reverse(Categories_Model::getAllCategories());
+                return $this->view->generate('Огляд', 'templates/modules/posts/addPost.phtml', $form);
                 break;
             case 'POST':
                 if (empty($_POST['posterPath'])) {
@@ -101,6 +102,7 @@ class Posts_Controller extends Controller
         $post = $post[0];
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
+                $post['Categories'] = array_reverse(Categories_Model::getAllCategories());
                 return $this->view->generate('Огляд', 'templates/modules/posts/editPost.phtml', $post);
                 break;
             case 'POST':

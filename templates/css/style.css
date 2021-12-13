@@ -1295,6 +1295,10 @@ a:hover .category-name,
     text-decoration: none;
 }
 
+.category-note {
+    font-size: 11px;
+}
+
 @media (min-width: 768px) {
     .category-row .category-item {
         width: 30%;

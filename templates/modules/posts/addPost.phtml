@@ -24,6 +24,16 @@
                         <input style='display:none' name='textOnly' id='textOnly' class='form-control textarea-item' />
                         <div id='editor'></div>
                     </p>
+                    <p class="category">
+                        <span class='fa fa-th-larg'> Категорія</span>
+                        <span class='category-note'>(категорія визначається автоматично, але її можна змінити)</span>
+                        <select name='categoryId' id='categoryId' required class='form-control'>
+                            <option value="" selected disabled hidden>Ще не визначено</option>
+                            <?php foreach($Params['Categories'] as $category):?>
+                                <option id='category-<?= $category['Id']?>' value='<?= $category['Id']?>'><?= $category['Name']?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </p>
                     <p class="poster">
                         <span class='fa fa-camera-retro'> Постер</span>
                         <label for='posterPath' class='btn btn-large custom-file-label '>Додати фото</label>
@@ -53,15 +63,7 @@
                 $("input.cloudinary-fileupload[type=file]").cloudinary_fileupload();
             }
         });
-
-        var quill = new Quill('#editor', {
-            theme: 'snow',
-            placeholder: 'Enter text...',
-        });
-
-        $("#addPost").on("submit", function(e) {
-            $("input#text").val(quill.root.innerHTML)
-            $("input#textOnly").val(quill.getText())
-        })
     </script>
 </div>
+
+<script src="/templates/js/posts/newPost.js"></script>

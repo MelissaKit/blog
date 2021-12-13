@@ -88,7 +88,7 @@ $isCurrentUserPost = !!($_SESSION['login'] ==  $Params['Author']['Login']); ?>
                     <?php
                     if (isset($Params['PublicationDate']) && $Params['PublicationDate'] != '0000-00-00')
                         echo "
-                        <span class='fa fa-calendar-plus-o'></span> " . $Params['PublicationDate']; ?>
+                        <span class='fa fa-calendar-plus-o'></span> " . date('d-m-Y', strtotime($Params['PublicationDate'])); ?>
                 </div>
             </div>
         </div>
