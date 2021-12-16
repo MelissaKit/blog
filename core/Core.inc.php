@@ -32,7 +32,7 @@ class Core
             $methodName = $methodShortName . 'Action';
         }
 
-        if ((isset($_SESSION['authorized'])==false || $_SESSION['authorized']==false) && !($methodName=='LoginAction' || $methodName=='RegisterAction')) {
+        if ((isset($_SESSION['authorized'])==false || $_SESSION['authorized']==false) && !($methodName=='LoginAction' || $methodName=='RegisterAction' ||  $methodName=='RecoverPassAction' ||  $methodName=='ActivateNewPassAction' )) {
             self::$IndexTpl->setParams(Core::Warning('Authorize'));
             return;
         }
@@ -43,10 +43,10 @@ class Core
             $pathParts = array();
         }
 
-       /* if ((isset($_SESSION['mailConfirmation'])==false || $_SESSION['mailConfirmation'] != true) && !($methodName=='ActivateAction' || $methodName=='LoginAction' || $methodName=='RegisterAction' || $methodName=='ProfileAction'|| $methodName=='LogoutAction')) {
+        if ((isset($_SESSION['mailConfirmation'])==false || $_SESSION['mailConfirmation'] != true) && !($methodName=='ActivateAction' || $methodName=='LoginAction' || $methodName=='RegisterAction' || $methodName=='ProfileAction'|| $methodName=='LogoutAction' ||  $methodName=='RecoverPassAction' ||  $methodName=='ActivateNewPassAction')) {
             self::$IndexTpl->setParams(Core::Warning('Mail'));
             return;
-        }*/
+        }
 
 
         if (class_exists($className)) {
