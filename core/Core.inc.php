@@ -30,14 +30,17 @@ class Core
             if (empty($methodShortName))
                 $methodShortName = 'Index';
             $methodName = $methodShortName . 'Action';
-        } else {
-            $className = 'Users_Controller';
-            $methodName = 'LoginAction';
-            $pathParts = array();
         }
+
         if ((isset($_SESSION['authorized'])==false || $_SESSION['authorized']==false) && !($methodName=='LoginAction' || $methodName=='RegisterAction')) {
             self::$IndexTpl->setParams(Core::Warning('Authorize'));
             return;
+        }
+
+        if (!$path) {
+            $className = 'Posts_Controller';
+            $methodName = 'IndexAction';
+            $pathParts = array();
         }
 
        /* if ((isset($_SESSION['mailConfirmation'])==false || $_SESSION['mailConfirmation'] != true) && !($methodName=='ActivateAction' || $methodName=='LoginAction' || $methodName=='RegisterAction' || $methodName=='ProfileAction'|| $methodName=='LogoutAction')) {

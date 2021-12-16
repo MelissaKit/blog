@@ -1150,8 +1150,7 @@ a.unlike-link span:before {
     margin: 0 20px 0 0;
 }
 
-.followings-block .following-name,
-.following-search .following-name {
+.followings-block .following-name {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -1173,8 +1172,23 @@ a.unlike-link span:before {
     width: 100%;
 }
 
+.stat-sex .sex-pie {
+    width: 300px;
+    height: 300px;
+}
+
 .sex-pie {
     margin: 0 auto;
+}
+
+.stat-age .age-table {
+    height: 300px;
+    width: 500px;
+}
+
+.stat-country .country-table {
+    height: 300px;
+    width: 500px;
 }
 
 .stat-sex,
@@ -1310,7 +1324,16 @@ a:hover .category-name,
 }
 
 @media (max-width: 768px) {
-    .category-row .category-item:nth-child(2n) {
-        margin-right: 0;
+    .analytics-row .stat-sex .sex-pie {
+        width: 200px;
+        height: 200px;
+    }
+    .analytics-row .stat-age .age-table {
+        height: 200px;
+        width: 333px;
+    }
+    .analytics-row .stat-country .country-table {
+        height: 200px;
+        width: 333px;
     }
 }

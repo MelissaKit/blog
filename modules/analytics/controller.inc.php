@@ -20,7 +20,7 @@ class Analytics_Controller extends Controller
     {
         $currentUser =  Users_Model::getUserByLogin($_SESSION['login'])[0];
 
-        $postsCnt = Posts_Model::getReviewsCount($currentUser['Id']);
+        $postsCnt = Posts_Model::getPostsCount($currentUser['Id']);
         $limit = 10;
         $pagesCnt = (int)ceil($postsCnt / $limit);
         if (isset($_GET['page']) && ((int)$_GET['page']) <= $pagesCnt)
@@ -28,7 +28,7 @@ class Analytics_Controller extends Controller
         else
             $page = 0;
 
-        $posts['Content'] = Posts_Model::getReviewsPage($limit, $limit * $page, $currentUser['Id']);
+        $posts['Content'] = Posts_Model::getPostersPage($limit, $limit * $page, $currentUser['Id']);
 
         foreach ($posts['Content'] as $key => $item) {
             $posts['Content'][$key]['LikesCount'] = Likes_Model::getLikesCount($item['Id']);

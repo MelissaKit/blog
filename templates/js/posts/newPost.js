@@ -24,7 +24,8 @@ $(window).load(function() {
 
 
     $('.ql-container').on('keypress paste', (_.debounce(function() {
-        var text = quill.getText();
+        var regex = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
+        var text = quill.getText().toLowerCase().replace(regex, '');
         console.log(text);
         $.ajax({
             url: 'https://nlpservice.herokuapp.com/category/?q=' + text,
@@ -38,5 +39,5 @@ $(window).load(function() {
                 console.log("Something went wrong");
             }
         });
-    }, 1500)));
+    }, 2000)));
 });

@@ -7,7 +7,7 @@ class Comments_Controller extends Controller
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'POST':
                 $_POST['userId'] = Users_Model::getUserByLogin($_SESSION['login'])[0]['Id'];
-                $json = file_get_contents('https://nlpservice.herokuapp.com/sentiment/?q=' . urlencode($_POST['commentText']));
+                $json = file_get_contents('https://nlpservice.herokuapp.com/sentiment/?q=' . urlencode(strtolower($_POST['commentText'])));
                 $result = get_object_vars(json_decode($json));
                 $keys = array_keys($result);
                 var_dump($result);
@@ -20,7 +20,7 @@ class Comments_Controller extends Controller
                 var_dump($commentSentiment);
                 $_POST['sentiment'] = $commentSentiment;
                 Comments_Model::addComment($_POST);
-                header('Location: /Posts/Show/?Id='. $_POST['postId']);
+                header('Location: /Posts/Show/?Id='. $_POST['postId']. '#addComment');
                 break;
         }
     }

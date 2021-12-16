@@ -7,9 +7,9 @@ $(window).load(function() {
             type: 'POST',
             success: function() {},
             error: function() {
-                alert("Something went wrong");
+                console.log("Something went wrong");
             }
         });
 
-    }, 10000);
+    }, 5000);
 });

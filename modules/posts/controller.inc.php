@@ -17,15 +17,15 @@ class Posts_Controller extends Controller
 {
     public function IndexAction()
     {
-        $postsCnt = Posts_Model::getReviewsCount();
-        $limit = 4;
+        $postsCnt = Posts_Model::getPostsCount();
+        $limit = 8;
         $pagesCnt = (int)ceil($postsCnt / $limit);
         if (isset($_GET['page']) && ((int)$_GET['page']) <= $pagesCnt)
             $page = $_GET['page'] - 1;
         else
             $page = 0;
         $userId = Users_Model::getUserByLogin($_SESSION['login'])[0]['Id'];
-        $postsContent = Posts_Model::getReviewsPage($limit, $limit * $page, $userId);
+        $postsContent = Posts_Model::getPostersPage($limit, $limit * $page, $userId);
         foreach ($postsContent as $key => $item) {
             $posts['Content'][$key] =  $item;
             $author = Users_Model::getUserInfoById($item['userId'])[0];
@@ -46,7 +46,7 @@ class Posts_Controller extends Controller
     {
         if (isset($_GET['Id'])) {
             $userId = Users_Model::getUserByLogin($_SESSION['login'])[0]['Id'];
-            $post = Posts_Model::getReviewById($_GET['Id']);
+            $post = Posts_Model::getPostById($_GET['Id']);
             if ($post != null) {
                 $post = $post[0];
                 $post['LikesCount'] = Likes_Model::getLikesCount($post['Id']);
@@ -78,7 +78,7 @@ class Posts_Controller extends Controller
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
                 $form['Categories'] = array_reverse(Categories_Model::getAllCategories());
-                return $this->view->generate('Огляд', 'templates/modules/posts/addPost.phtml', $form);
+                return $this->view->generate('Створити', 'templates/modules/posts/addPost.phtml', $form);
                 break;
             case 'POST':
                 if (empty($_POST['posterPath'])) {
@@ -86,7 +86,7 @@ class Posts_Controller extends Controller
                 }
                 $_POST['publicationDate'] = date("y:m:d");
                 $_POST['userId'] = Users_Model::getUserByLogin($_SESSION['login'])[0]['Id'];
-                var_dump(Posts_Model::addNewReview($_POST));
+                Posts_Model::addNewPost($_POST);
                 header('Location: /Posts/User/' . $_SESSION['login']);
                 break;
         }
@@ -96,7 +96,7 @@ class Posts_Controller extends Controller
     {
         if (!isset($_GET['Id']))
             return Core::Error404();
-        $post = Posts_Model::getReviewById($_GET['Id']);
+        $post = Posts_Model::getPostById($_GET['Id']);
         if ($post == null)
             return Core::Error404();
         $post = $post[0];
@@ -116,7 +116,7 @@ class Posts_Controller extends Controller
                 }
 
                 $_POST['publicationDate'] = date("y:m:d");
-                Posts_Model::editReview($post['Id'], $_POST);
+                Posts_Model::editPost($post['Id'], $_POST);
                 header('Location: /Posts/Show/?Id=' . $post['Id']);
                 break;
         }
@@ -125,11 +125,11 @@ class Posts_Controller extends Controller
     public function DeleteAction()
     {
         if (isset($_GET['Id'])) {
-            $post = Posts_Model::getReviewById($_GET['Id']);
+            $post = Posts_Model::getPostById($_GET['Id']);
             if ($post == null)
                 return Core::Error404();
             $post = $post[0];
-            Posts_Model::deleteReview($_GET['Id']);
+            Posts_Model::deletePost($_GET['Id']);
             if ($post['PosterPath'] != '')
                 unlink(substr($post['PosterPath'], 1));
             header('Location: /Posts/User/');
@@ -151,7 +151,7 @@ class Posts_Controller extends Controller
             }
         }
 
-        $postsCnt = Posts_Model::getReviewsCount($getUser['Id']);
+        $postsCnt = Posts_Model::getPostsCount($getUser['Id']);
         $limit = 4;
         $pagesCnt = (int)ceil($postsCnt / $limit);
         if (isset($_GET['page']) && ((int)$_GET['page']) <= $pagesCnt)
@@ -159,7 +159,7 @@ class Posts_Controller extends Controller
         else
             $page = 0;
 
-        $posts['Content'] = Posts_Model::getReviewsPage($limit, $limit * $page, $currentUser['Id'], $getUser['Id']);
+        $posts['Content'] = Posts_Model::getPostersPage($limit, $limit * $page, $currentUser['Id'], $getUser['Id']);
 
         foreach ($posts['Content'] as $key => $item) {
             $posts['Content'][$key]['LikesCount'] = Likes_Model::getLikesCount($item['Id']);

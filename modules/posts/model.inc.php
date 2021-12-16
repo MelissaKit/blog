@@ -1,18 +1,18 @@
 <?php
 class Posts_Model extends Model
 {
-    public static function getAllReviews()
+    public static function getAllPosts()
     {
         return Core::GetDB()->getRowsWhere('Posts');
     }
 
-    public static function getReviewsCount($getUser = null)
+    public static function getPostsCount($getUser = null)
     {
         $conditions = $getUser ? array('userId' => $getUser) : '';
         return Core::GetDB()->getRowsCount('Posts', $conditions);
     }
 
-    public static function getReviewsPage($limit, $offset, $currentUserId, $getUser = null)
+    public static function getPostersPage($limit, $offset, $currentUserId, $getUser = null)
     {
         if ($getUser) {
             $result = Core::GetDB()->getRowsWhere('Posts', array('userId' => $getUser), $limit, $offset);
@@ -42,23 +42,23 @@ class Posts_Model extends Model
         return Core::GetDB()->getRowsCount('Posts', array('categoryId' => $categoryId));
     }
 
-    public static function addNewReview($row)
+    public static function addNewPost($row)
     {
         $fieldsArray = array('userId', 'name', 'text', 'publicationDate', 'posterPath', 'categoryId');
         Core::GetDB()->addRecordFromForm('Posts', $row, $fieldsArray);
     }
 
-    public static function deleteReview($postId)
+    public static function deletePost($postId)
     {
         Core::GetDB()->delete('Posts', array('Id' => $postId));
     }
 
-    public static function editReview($postId, $row)
+    public static function editPost($postId, $row)
     {
         Core::GetDB()->update('Posts', array('Id' => $postId),  $row, array('name',  'text', 'posterPath', 'categoryId'));
     }
 
-    public static  function getReviewById($postId)
+    public static  function getPostById($postId)
     {
         return Core::GetDB()->getRowsWhere('Posts', array('Id' => $postId));
     }

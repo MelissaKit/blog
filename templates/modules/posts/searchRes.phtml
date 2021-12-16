@@ -90,7 +90,7 @@
                         ?>
                     </a>
                 </div>
-                <div class="following-name">
+                <div class="following-name user-info">
                     <div>
                         <a class="following-name-short" href='/Posts/User/<?= $key['Login'] ?>'>
                             <div>
@@ -103,8 +103,7 @@
                         </div>
                     </div>
                     <div>
-                        <a class="unfollow-link" href='/Subscriptions/Delete/?follow=<?= $key['Login'] ?>'>Unfollow</a>
-                        <a style="display: none;" class="follow-link" href='/Subscriptions/Add/?follow=<?= $key['Login'] ?>'>Follow</a>
+                        <span><?= $key['Country']. ', '.  $key['City']?></span>
                     </div>
                 </div>
             </div>
