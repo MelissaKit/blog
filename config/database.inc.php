@@ -8,7 +8,7 @@ if (empty($url)) {
   define('DATABASE_HOST', 'localhost');
   define('DATABASE_USER', 'root');
   define('DATABASE_PASS', '');
-  define('DATABASE_DBNAME', 'Blog');
+  define('DATABASE_DBNAME', 'blog');
 } else {
   $parsed = parse_url($url);
   define('DATABASE_HOST', $parsed["host"]);

@@ -1313,6 +1313,10 @@ a:hover .category-name,
     font-size: 11px;
 }
 
+.analytic-overview #buttonSave {
+    margin-bottom: 30px;
+}
+
 @media (min-width: 768px) {
     .category-row .category-item {
         width: 30%;

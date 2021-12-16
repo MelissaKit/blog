@@ -28,7 +28,7 @@ class Analytics_Controller extends Controller
         else
             $page = 0;
 
-        $posts['Content'] = Posts_Model::getPostersPage($limit, $limit * $page, $currentUser['Id']);
+        $posts['Content'] = Posts_Model::getPostersPage($limit, $limit * $page, $currentUser['Id'], $currentUser['Id']);
 
         foreach ($posts['Content'] as $key => $item) {
             $posts['Content'][$key]['LikesCount'] = Likes_Model::getLikesCount($item['Id']);
